@@ -1,0 +1,73 @@
+@import "../../constants/color";
+
+.productContainer {
+    // background-color: #F8F8F8;
+
+    .MuiInputBase-root {
+        border-radius: 12px !important;
+        height: 45px;
+    }
+
+    .productheaderbtn1 {
+        color: $font_color;
+        border-color: $font_color;
+        border-radius: 8px;
+        text-transform: capitalize;
+        font-weight: 600;
+        font-size: 14px;
+        width: 105px;
+        height: 43px;
+    }
+
+    .productheaderbtn2 {
+        background-color: $delete;
+        color: $white;
+        border-radius: 8px;
+        text-transform: capitalize;
+        font-weight: 600;
+        font-size: 14px;
+        width: 105px;
+        height: 43px;
+    }
+
+    .addbtn {
+        background-color: $primary !important;
+        width: 144px !important;
+
+    }
+
+    .prices {
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+
+        .MuiInputBase-root {
+            border-radius: 3px !important;
+            height: 45px;
+            border: 0.5px;
+        }
+
+
+        .price {
+            width: 150px;
+            border-radius: 12px !important;
+            padding: 5px;
+        }
+    }
+
+
+
+
+
+
+
+}
