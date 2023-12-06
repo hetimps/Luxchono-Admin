@@ -3,7 +3,7 @@ import Buttons from '../Buttons';
 import "./style.scss"
 import Loader from '../Loader';
 
-export default function Dialogs({ open, onClose, tital, text, Action, loading, icon, yesClass, closeClass, textClose, textYes }: any) {
+export default function Dialogs({ open, onClose, tital, text, Action, loading, icon, yesClass, closeClass, textClose, textYes, desc }: any) {
     return (
         <Dialog className="dialog" open={open} >
             <Box className="dialog_wraper flex flex-col items-center !mt-[-18px]" >
@@ -17,10 +17,19 @@ export default function Dialogs({ open, onClose, tital, text, Action, loading, i
                 </DialogTitle>
                 <DialogContent>
                     <Box className="dialog_tital_txt text-center font-bold text-[20px] mb-[3px]">
-                        {tital}
+                        <div>
+                            {tital}
+                        </div>
+                        <div>
+                            {desc}
+                        </div>
+
                     </Box>
                     <DialogContentText className="dialog_info !font-bold ">
-                        {text}
+
+                    </DialogContentText>
+                    <DialogContentText className="dialog_info !font-bold ">
+
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions >

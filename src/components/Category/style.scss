@@ -1,2 +1,17 @@
 @import "../../constants/color";
 
+.category_add_button {
+    text-transform: capitalize !important;
+    margin-top: 1rem !important;
+    margin-right: 1rem !important;
+
+}
+
+.categoryField {
+    width: 70rem;
+
+    .MuiInputBase-root {
+        border-radius: 12px !important;
+        height: 45px;
+    }
+}

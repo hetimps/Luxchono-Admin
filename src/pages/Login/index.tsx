@@ -116,8 +116,11 @@ export default function Login() {
                         placeholder={STRING.LOGIN_PASSWORD_PLACEHOLDER}
                         autoComplete={'off'}
                         type={showPassword ? 'text' : 'password'}
-                        onEndAdornmentClick={togglePasswordVisibility}
-                        endAdornment={showPassword ? <VisibilityIcon className='!text-[1.4rem]' /> : <VisibilityOffIcon className='!text-[1.4rem]' />} />
+                        action={togglePasswordVisibility}
+                        endAdornment={true}
+                        icons={showPassword ? <VisibilityIcon className='!text-[1.4rem]' /> : <VisibilityOffIcon className='!text-[1.4rem]' />}
+                      />
+
                     </div>
                   </div>
                 </div>

@@ -23,7 +23,7 @@ import useEnhancedEffect from '@mui/material/utils/useEnhancedEffect';
 
 import { useEffect } from 'react'
 import Product from '../../pages/Product';
-import { ProductRow } from './TableRow';
+import { CategoryRow, ProductRow } from './TableRow';
 
 
 
@@ -104,7 +104,9 @@ function EnhancedTableHead(props: any) {
                         onChange={onSelectAllClick}
                         inputProps={{
                             'aria-label': 'select all desserts',
-                        }} />
+                        }}
+
+                    />
                 </TableCell>
                 {headCells.map((headCell: any) => (
                     <TableCell
@@ -134,22 +136,19 @@ function EnhancedTableHead(props: any) {
 }
 
 
-export default function Tables({ headCells, rows, isFetching, search, getSelectedDeleteRows }: any) {
+export default function Tables({ headCells, rows, isFetching, search, getSelectedDeleteRows, Product, Category, selected, setSelected, handleDeleteOpen}: any) {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof any>('productname');
-    const [selected, setSelected] = React.useState<readonly number[]>([]);
+    // const [selected, setSelected] = React.useState<readonly number[]>([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-    console.log(selected, "selected")
 
 
     //set select row for delete
     useEffect(() => {
         getSelectedDeleteRows(selected)
     }, [selected]);
-
 
     const handleRequestSort = (
         event: React.MouseEvent<unknown>,
@@ -165,6 +164,7 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
             if (Array.isArray(rows)) {
                 const newSelected = rows.map((n) => n.id as any);
                 setSelected(newSelected);
+
             }
             return;
         }
@@ -201,7 +201,7 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
     };
 
 
-    const isSelected = (id: number) => selected.indexOf(id) !== -1;
+    const isSelected = (id: number) => selected?.indexOf(id) !== -1;
 
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -217,7 +217,7 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
 
 
 
-    console.log(rows, "rows")
+    console.log(visibleRows, "visibleRows")
     return (
         <Box>
 
@@ -228,7 +228,7 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
                         aria-labelledby="tableTitle"
                         size={dense ? 'small' : 'medium'}>
                         <EnhancedTableHead
-                            numSelected={selected.length}
+                            numSelected={selected?.length}
                             order={order}
                             orderBy={orderBy}
                             onSelectAllClick={handleSelectAllClick}
@@ -270,31 +270,10 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
                                                         'aria-labelledby': labelId,
                                                     }} />
                                             </TableCell>
-                                            {/* <TableCell
-                                                align="left"
-                                                component="th"
-                                                id={labelId}
-                                                scope="row"
-                                                padding="none">
-                                                <div className='flex gap-[10px] items-center '>
-                                                    <Avatar className='!h-[35px] !w-[35px] !rounded-[10px]' alt="p" src={String(row?.thumbnail)} />
-                                                    {row?.productname}
-                                                </div>
-                                            </TableCell>
-                                            <TableCell align="left" padding="none">{row.category}</TableCell>
-                                            <TableCell align="left" padding="none">{row?.price}</TableCell>
-                                            <TableCell align="left" padding="none">{row?.stock}</TableCell>
-                                            <TableCell align="left" padding="none">
-                                                <Rating className='!text-main' name="read-only" precision={0.5} value={Number(row?.review) || 0} readOnly />
-                                            </TableCell>
-                                            <TableCell align="left" padding="none">
-                                                <div className='flex gap-[5px]'>
-                                                    <EditIcon className='text-light' />
-                                                    <RemoveRedEyeIcon className='text-light' />
-                                                </div>
-                                            </TableCell> */}
 
-                                            <ProductRow row={row} index={index} />
+                                            {Product && <ProductRow row={row} index={index} />}
+
+                                            {Category && <CategoryRow  row={row} index={index} handleDeleteOpen={handleDeleteOpen} />}
                                         </TableRow>
                                     );
                                 })}
@@ -317,7 +296,7 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
                 {rows && (
                     <>
                         <TablePagination
-                            rowsPerPageOptions={[5, 10, 25]}
+                            rowsPerPageOptions={[10, 25, { label: "All", value: rows?.length }]}
                             component="div"
                             count={rows?.length}
                             rowsPerPage={rowsPerPage}

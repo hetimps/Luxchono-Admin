@@ -25,7 +25,7 @@ import { toast } from 'react-toastify';
 export default function ProductPage() {
 
     const [search, setsearch] = useState("");
-
+    const [selected, setSelected] = React.useState<readonly number[]>([]);
     const { data: CategoryData, isFetching: CategoryFetching } = useGetAllCategoryQuery({});
     const { data: BrandData, isFetching: BrandFetching } = useGetAllBrandApiQuery({});
     const [DeleteProduct, { isLoading: deleteProductLoading }] = useDeleteProductMutation();
@@ -54,8 +54,7 @@ export default function ProductPage() {
 
 
     const { data, isFetching, refetch } = useGetAllProductQuery({
-        search: search, category: searchCategoryValues, brands: searchBrandValues, startPrice: startPrice, endPrice: endPrice, startStockRange: startStock, endStockRange: endStock
-
+        search: search.trim(), category: searchCategoryValues, brands: searchBrandValues, startPrice: startPrice, endPrice: endPrice, startStockRange: startStock, endStockRange: endStock
 
     }, { refetchOnMountOrArgChange: true, });
 
@@ -146,7 +145,7 @@ export default function ProductPage() {
         refetch()
     }, [search, refetch, searchCategoryValues, searchBrandValues, startPrice, endPrice, startStock, endStock]);
 
-    const handleDelte = async () => {
+    const handleDelete = async () => {
         const response: any = await DeleteProduct({ ids: selectedDeleteRows })
 
         const { message, statusCode } = response?.data;
@@ -215,10 +214,10 @@ export default function ProductPage() {
 
                 <div className='flex gap-[10px]'>
                     <Buttons onClick={handleDeleteOpenConfirmation} startIcon={<DeleteOutlineIcon />} variant={"contained"} text={
-                        selectedDeleteRows.length === 0
+                        selectedDeleteRows?.length === 0
                             ? "Delete"
-                            : `Delete ${selectedDeleteRows.length}`
-                    } className={`productheaderbtn2 ${selectedDeleteRows.length > 0 ? '!w-[144px]' : ''
+                            : `Delete ${selectedDeleteRows?.length}`
+                    } className={`productheaderbtn2 ${selectedDeleteRows?.length > 0 ? '!w-[144px]' : ''
                         }`} />
                     <Buttons startIcon={<ControlPointIcon />} variant={"contained"} text={"Add Product"} className="productheaderbtn2 addbtn" />
                 </div>
@@ -233,26 +232,24 @@ export default function ProductPage() {
                 <Selects width={"250px"} height={"45px"} placeholder={"Category"} options={filteredCategory} selectedValues={selectedCategoryValues} setSelectedValues={setSelectedCategoryValues} isMulti={true} />
                 <Selects width={"250px"} height={"45px"} placeholder={"Brand"} options={filteredBrand} selectedValues={selectedBrandValues} setSelectedValues={setSelectedBrandValues} isMulti={true} />
 
-
                 <Box className="prices">
-                    <TextFields action={() => setStartPrice('')} icons={<ClearIcon className='!text-[1.2rem] ' />} endAdornment={true} type={"number"} onChange={(e: any) => setStartPrice(e.target.value)} value={startPrice} className="price" placeholder={"Start Price"} autoComplete={'off'} />
+                    <TextFields action={() => setStartPrice('')} icons={startPrice ? <ClearIcon className='!text-[1.2rem]' /> : null} endAdornment={true} type={"number"} onChange={(e: any) => setStartPrice(e.target.value)} value={startPrice} className="price" placeholder={"Start Price"} autoComplete={'off'} />
                     <SyncAltIcon className='text-black' />
-                    <TextFields action={() => setEndPrice('')} icons={<ClearIcon className='!text-[1.2rem] ' />} endAdornment={true} type={"number"} onChange={(e: any) => setEndPrice(e.target.value)} value={endPrice} className="price" placeholder={"End Price"} autoComplete={'off'} />
+                    <TextFields action={() => setEndPrice('')} icons={endPrice ? <ClearIcon className='!text-[1.2rem]' /> : null} endAdornment={true} type={"number"} onChange={(e: any) => setEndPrice(e.target.value)} value={endPrice} className="price" placeholder={"End Price"} autoComplete={'off'} />
                 </Box>
 
-
                 <Box className="prices" >
-                    <TextFields action={() => setStartStock('')} icons={<ClearIcon className='!text-[1.2rem] ' />} endAdornment={true} type={"number"} onChange={(e: any) => setStartStock(e.target.value)} value={startStock} className="price" placeholder={"Start Stock"} autoComplete={'off'} />
+                    <TextFields action={() => setStartStock('')} icons={startStock ? <ClearIcon className='!text-[1.2rem]' /> : null} endAdornment={true} type={"number"} onChange={(e: any) => setStartStock(e.target.value)} value={startStock} className="price" placeholder={"Start Stock"} autoComplete={'off'} />
                     <SyncAltIcon className='text-black' />
-                    <TextFields action={() => setEndStock('')} icons={<ClearIcon className='!text-[1.2rem] ' />} endAdornment={true} type={"number"} onChange={(e: any) => setEndStock(e.target.value)} value={endStock} className="price" placeholder={"End Stock"} autoComplete={'off'} />
+                    <TextFields action={() => setEndStock('')} icons={endStock ? <ClearIcon className='!text-[1.2rem]' /> : null} endAdornment={true} type={"number"} onChange={(e: any) => setEndStock(e.target.value)} value={endStock} className="price" placeholder={"End Stock"} autoComplete={'off'} />
                 </Box>
             </Paper>
 
             <div className='mt-[1rem]'>
-                <Tables getSelectedDeleteRows={getSelectedDeleteRows} search={search} headCells={headCells} rows={rows} isFetching={isFetching} />
+                <Tables selected={selected} setSelected={setSelected} Product={"Product"} getSelectedDeleteRows={getSelectedDeleteRows} search={search} headCells={headCells} rows={rows} isFetching={isFetching} />
             </div>
 
-            <Dialogs loading={deleteProductLoading} textClose={STRING.PRODUCT_CLOSE_BUTTON} textYes={STRING.PRODUCT_YES_BUTTON} yesClass={"product_delete_yes"} closeClass={"product_delete_cancel"} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmation} onClose={handleDeleteCloseConfirmation} tital={STRING.PRODUCT_DELETE_DESC} Action={handleDelte} />
+            <Dialogs loading={deleteProductLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={"product_delete_yes"} closeClass={"product_delete_cancel"} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmation} onClose={handleDeleteCloseConfirmation} tital={STRING.DELETE_SURE} desc={STRING.PRODUCT_DELETE_DESC} Action={handleDelete} />
         </div>
     )
 }

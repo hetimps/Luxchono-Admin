@@ -13,6 +13,8 @@ export const Main = styled('main', {
 })(({ theme, open }: CustomAppBarProps) => ({
     flexGrow: 1,
     backgroundColor: "#F8F8F8",
+    height: "100vh",
+
     padding: theme?.spacing(3),
     transition: (theme as any)?.transitions?.create('margin', {
         easing: (theme as any)?.transitions?.easing.sharp,
