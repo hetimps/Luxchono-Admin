@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react'
 import "./style.scss"
 import Buttons from '../Buttons'
 import IosShareIcon from '@mui/icons-material/IosShare';
-import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
-import { IconButton, InputAdornment, Paper, useEventCallback } from '@mui/material';
+import { Paper } from '@mui/material';
 import Search from '../Search.js';
 import Selects from '../Selects';
 import Tables from '../Table';
@@ -18,9 +17,10 @@ import { Box } from '@mui/system';
 import ClearIcon from '@mui/icons-material/Clear';
 import SyncAltIcon from '@mui/icons-material/SyncAlt';
 import Dialogs from '../Dialogs';
-
 import DeleteIcon from '@mui/icons-material/Delete';
 import { toast } from 'react-toastify';
+import { exportToCsv } from '../../api/Utils';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProductPage() {
 
@@ -34,45 +34,36 @@ export default function ProductPage() {
     const [filteredCategory, setFilteredCategory] = useState<any[]>([]);
     const [selectedCategoryValues, setSelectedCategoryValues] = useState<any[]>([]);
     const [searchCategoryValues, setSearchCategoryValues] = useState<any[]>([]);
-
-
     const [filteredBrand, setFilteredBrand] = useState<any[]>([]);
     const [selectedBrandValues, setSelectedBrandValues] = useState<any[]>([]);
     const [searchBrandValues, setSearchBrandValues] = useState<any[]>([]);
-
-    console.log(searchBrandValues, "searchBrandValues")
-    const [rows, setRows] = React.useState(null);
+    const [rows, setRows] = React.useState<any[]>([]);
     const [input, setinput] = useState("");
-
+    const navigate = useNavigate();
     const [startPrice, setStartPrice] = useState("");
-
     const [endPrice, setEndPrice] = useState("");
-
     const [startStock, setStartStock] = useState("");
-
     const [endStock, setEndStock] = useState("");
-
-
     const { data, isFetching, refetch } = useGetAllProductQuery({
         search: search.trim(), category: searchCategoryValues, brands: searchBrandValues, startPrice: startPrice, endPrice: endPrice, startStockRange: startStock, endStockRange: endStock
 
     }, { refetchOnMountOrArgChange: true, });
-
     const [openDeleteConfirmation, setDeleteOpenConfirmation] = useState(false);
-
     const [selectedDeleteRows, setSelectedDelteRows] = useState([]);
+    const [selectedIdSingle, setSelectedIdSingle] = useState<number[]>([])
+    const [openDeleteConfirmationSingle, setDeleteOpenConfirmationSingle] = useState(false);
 
-    console.log(selectedDeleteRows, "selectedDeleteRows")
+
 
     const getSelectedDeleteRows = (rows: any) => {
         setSelectedDelteRows(rows)
     }
-
     const handleDeleteOpenConfirmation = () => {
         setDeleteOpenConfirmation(true);
     };
     const handleDeleteCloseConfirmation = () => {
         setDeleteOpenConfirmation(false);
+        setSelected([])
     };
 
     function createData(
@@ -83,6 +74,15 @@ export default function ProductPage() {
         stock: any,
         review: any,
         thumbnail: any,
+        productModel: any,
+        warranty: any,
+        dummyPrice: any,
+        brand: any,
+        images: any,
+        description: any,
+        categorys: any,
+        brands: any,
+        defaultcategory: any
     ): any {
         return {
             id: id,
@@ -91,16 +91,32 @@ export default function ProductPage() {
             price: price,
             stock: stock,
             review: review,
-            thumbnail: thumbnail
+            thumbnail: thumbnail,
+            productModel: productModel,
+            warranty: warranty,
+            dummyPrice: dummyPrice,
+            brand: brand,
+            images: images,
+            description: description,
+            categorys: categorys,
+            brands: brands,
+            defaultcategory: defaultcategory
         };
     }
+
 
 
     useEffect(() => {
         const producData = data?.result?.data;
         setProductData(producData)
         const rowise = producData?.map((item: any) => {
-            const category = item.category.map((cat: any) => cat.categoryName).join(', ');
+            const category = item.category.map((cat: any) => cat.categoryName).join(' - ');
+            const brands = { label: item?.brand?.brandName, value: item?.brand?._id };
+            const defaultcategory = item.category.map((cat: any) => ({
+                label: cat.categoryName,
+                value: cat._id,
+            }));
+
             return createData(
                 item._id,
                 item.productName,
@@ -108,7 +124,16 @@ export default function ProductPage() {
                 item.price,
                 item.stock,
                 item.rating,
-                item.thumbnail
+                item.thumbnail,
+                item.productModel,
+                item.warranty,
+                item.dummyPrice,
+                item.brand.brandName,
+                item.images,
+                item.description,
+                item.category,
+                brands,
+                defaultcategory
             );
         });
         setRows(rowise)
@@ -128,7 +153,6 @@ export default function ProductPage() {
 
     }, [CategoryData, selectedCategoryValues])
 
-
     useEffect(() => {
         const filterBrands = BrandData?.result?.data && (BrandData?.result?.data as any[]).map((brand: any) => ({
             label: brand.brandName,
@@ -139,27 +163,19 @@ export default function ProductPage() {
         setSearchBrandValues(values)
     }, [BrandData, selectedBrandValues])
 
-
-
     useEffect(() => {
         refetch()
     }, [search, refetch, searchCategoryValues, searchBrandValues, startPrice, endPrice, startStock, endStock]);
 
     const handleDelete = async () => {
         const response: any = await DeleteProduct({ ids: selectedDeleteRows })
-
         const { message, statusCode } = response?.data;
         if (statusCode === 200) {
             toast.success(message)
-        } else {
-            toast.error(message)
-        }
-
+            setSelected([])
+        } else { toast.error(message) }
         response && handleDeleteCloseConfirmation()
-
-        console.log(response, "response")
     }
-
 
     const headCells: any[] = [
         {
@@ -175,6 +191,12 @@ export default function ProductPage() {
             label: 'Category',
         },
         {
+            id: 'brand',
+            numeric: true,
+            disablePadding: false,
+            label: 'Brand',
+        },
+        {
             id: 'price',
             numeric: true,
             disablePadding: false,
@@ -186,40 +208,98 @@ export default function ProductPage() {
             disablePadding: false,
             label: 'Stock',
         },
+        // {
+        //     id: 'review',
+        //     numeric: true,
+        //     disablePadding: false,
+        //     label: 'Review',
+        // },
         {
-            id: 'review',
-            numeric: true,
+            id: 'productModel',
+            numeric: false,
             disablePadding: false,
-            label: 'Review',
+            label: 'Model',
+        },
+        {
+            id: 'warranty',
+            numeric: false,
+            disablePadding: false,
+            label: 'Warranty',
+        },
+        {
+            id: 'dummyPrice',
+            numeric: false,
+            disablePadding: false,
+            label: 'Dummy Price',
         },
         {
             id: 'action',
             numeric: true,
             disablePadding: false,
-            label: 'Action',
+            // label: 'Action',
         },
     ];
 
+    const handleCvsExport = () => {
+        const exportColumns = [
+            { id: 'productname', label: 'Product Name' },
+            { id: 'category', label: 'Category' },
+            { id: 'brand', label: 'Brand' },
+            { id: 'price', label: 'Price' },
+            { id: 'stock', label: 'Stock' },
+            { id: 'productModel', label: 'Product Model' },
+            { id: 'warranty', label: 'Warranty' },
+            { id: 'dummyPrice', label: 'Dummy Price' },
+
+        ];
+        exportToCsv(rows, exportColumns, 'Product_data');
+    }
+
+
+    //delete single Product
+    const handleDeleteSingleOpenConfirmation = (row: any) => {
+        setDeleteOpenConfirmationSingle(true);
+        setSelectedIdSingle([row?.id]);
+    };
+
+    const handleDeleteSingleCloseConfirmations = () => {
+        setDeleteOpenConfirmationSingle(false);
+        setSelectedIdSingle([])
+        setSelected([])
+    };
+
+    const handleDeleteSingle = async () => {
+        const response: any = await DeleteProduct({ ids: selectedIdSingle })
+        const { message, statusCode } = response?.data;
+        if (statusCode === 200) {
+            toast.success(message)
+            setSelected([])
+        } else { toast.error(message) }
+        response && handleDeleteSingleCloseConfirmations()
+    }
+
+    const AddProduct = () => {
+        navigate("/addproduct")
+    }
 
     return (
         <div className='productContainer'>
             <Paper className='!shadow-none h-[83px] flex justify-between items-center p-[1rem] mt-[0.5rem]'>
                 <div className='productbtns flex justify-between'>
                     <div className='flex gap-[10px]'>
-                        <Buttons startIcon={<IosShareIcon />} text={"Export"} variant={"outlined"} className={"productheaderbtn1"} />
-                        <Buttons startIcon={<SystemUpdateAltIcon />} variant={"outlined"} text={"Import"} className={"productheaderbtn1"} />
+                        <Buttons onClick={handleCvsExport} startIcon={<IosShareIcon />} text={"Export"} variant={"outlined"} className={"productheaderbtn1"} />
+                        {/* <Buttons startIcon={<SystemUpdateAltIcon />} variant={"outlined"} text={"Import"} className={"productheaderbtn1"} /> */}
                     </div>
-
                 </div>
 
                 <div className='flex gap-[10px]'>
-                    <Buttons onClick={handleDeleteOpenConfirmation} startIcon={<DeleteOutlineIcon />} variant={"contained"} text={
+                    {(selected.length > 0 && rows?.length > 0) && <Buttons onClick={handleDeleteOpenConfirmation} startIcon={<DeleteOutlineIcon />} variant={"contained"} text={
                         selectedDeleteRows?.length === 0
-                            ? "Delete"
-                            : `Delete ${selectedDeleteRows?.length}`
+                            ? `${STRING.DELETE_BUTTON}`
+                            : `${STRING.DELETE_BUTTON} ( ${selectedDeleteRows.length} )`
                     } className={`productheaderbtn2 ${selectedDeleteRows?.length > 0 ? '!w-[144px]' : ''
-                        }`} />
-                    <Buttons startIcon={<ControlPointIcon />} variant={"contained"} text={"Add Product"} className="productheaderbtn2 addbtn" />
+                        }`} />}
+                    <Buttons onClick={AddProduct} startIcon={<ControlPointIcon />} variant={"contained"} text={"Add Product"} className="productheaderbtn2 addbtn" />
                 </div>
             </Paper>
 
@@ -246,10 +326,13 @@ export default function ProductPage() {
             </Paper>
 
             <div className='mt-[1rem]'>
-                <Tables selected={selected} setSelected={setSelected} Product={"Product"} getSelectedDeleteRows={getSelectedDeleteRows} search={search} headCells={headCells} rows={rows} isFetching={isFetching} />
+                <Tables handleDeleteOpen={handleDeleteSingleOpenConfirmation} selected={selected} setSelected={setSelected} Product={"Product"} getSelectedDeleteRows={getSelectedDeleteRows} search={search} headCells={headCells} rows={rows} isFetching={isFetching} />
             </div>
 
             <Dialogs loading={deleteProductLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={"product_delete_yes"} closeClass={"product_delete_cancel"} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmation} onClose={handleDeleteCloseConfirmation} tital={STRING.DELETE_SURE} desc={STRING.PRODUCT_DELETE_DESC} Action={handleDelete} />
+
+            {/* single delete */}
+            <Dialogs loading={deleteProductLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={"product_delete_yes"} closeClass={"product_delete_cancel"} tital={STRING.DELETE_SURE} desc={STRING.CATEGORY_DELETE_DESC} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmationSingle} onClose={handleDeleteSingleCloseConfirmations} Action={handleDeleteSingle} />
         </div>
     )
 }

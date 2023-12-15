@@ -45,9 +45,10 @@ export default function Login() {
           toast.success(message)
           await localStorage.setItem("token", result?.Token)
           const token = localStorage.getItem("token");
-          if (token) {
+        
+            console.log("hellooooo")
             navigate("/product")
-          }
+          
         } else {
           toast.error(message)
         }

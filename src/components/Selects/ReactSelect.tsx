@@ -5,8 +5,6 @@ export const ReactSelectStyle = (width: any, height: any) => {
             fontSize: "0.9rem",
             fontWeight: "normal"
         }),
-
-
         control: (styles: any) => ({
             ...styles,
             // borderRadius: "5px",

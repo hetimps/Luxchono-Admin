@@ -1,10 +1,9 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import "./style.scss"
-import { IconButton, InputAdornment, Paper, useEventCallback } from '@mui/material';
+import { Paper } from '@mui/material';
 import Buttons from '../Buttons';
 import IosShareIcon from '@mui/icons-material/IosShare';
-import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import Search from '../Search.js';
@@ -15,6 +14,7 @@ import Dialogs from '../Dialogs';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { exportToCsv } from '../../api/Utils';
 
 
 export default function CategoryPage() {
@@ -25,38 +25,32 @@ export default function CategoryPage() {
 
     const [DeleteCategory, { isLoading: deleteCategoryLoading }] = useDeleteCategoryMutation()
 
-    console.log(search, "search")
     const { data: CategoryData, isFetching: CategoryFetching, refetch } = useGetAllCategoryQuery({
         search: search,
     });
 
-    const [rows, setRows] = React.useState(null);
+    const [rows, setRows] = useState<any[]>([]);
     const navigate = useNavigate();
-
     const [categoryData, setCategoryData] = useState([]);
-
     const [selectedDeleteRows, setSelectedDelteRows] = useState([]);
-
-
     const [input, setinput] = useState("");
-
+    const [openDeleteConfirmation, setDeleteOpenConfirmation] = useState(false);
 
     const getSelectedDeleteRows = (rows: any) => {
         setSelectedDelteRows(rows)
     }
 
-    const [openDeleteConfirmation, setDeleteOpenConfirmation] = useState(false);
-
     const handleDeleteOpenConfirmation = () => {
         setDeleteOpenConfirmation(true);
     };
+
     const handleDeleteCloseConfirmation = () => {
         setDeleteOpenConfirmation(false);
         setSelected([])
     };
 
-    const headCells: any[] = [
 
+    const headCells: any[] = [
         {
             id: 'categoryName',
             numeric: false,
@@ -67,25 +61,23 @@ export default function CategoryPage() {
             id: 'action',
             numeric: true,
             disablePadding: false,
-            label: 'Action',
+            // label: 'Action',
         },
-
     ];
 
     function createData(
         id: string | number,
         categoryName: any,
         image: any,
-
-
+        icon: any
     ): any {
         return {
             id: id,
             categoryName: categoryName,
-            image: image
+            image: image,
+            icon: icon
         };
     }
-
 
     useEffect(() => {
         const categoryData = CategoryData?.result?.data;
@@ -94,7 +86,8 @@ export default function CategoryPage() {
             return createData(
                 item._id,
                 item.categoryName,
-                item.image
+                item.image,
+                item.icon
             );
         });
         setRows(rowise)
@@ -103,8 +96,6 @@ export default function CategoryPage() {
     useEffect(() => {
         refetch()
     }, [search, refetch])
-
-    console.log(rows, "rows")
 
     const handleDelete = async () => {
         const response: any = await DeleteCategory({ ids: selectedDeleteRows })
@@ -125,24 +116,23 @@ export default function CategoryPage() {
 
     //delete single category
 
-    const [selectedCategoryIdSingle, setSelectedCategoryIdSingle] = useState<number[]>([])
+    const [selectedIdSingle, setSelectedIdSingle] = useState<number[]>([])
 
     const [openDeleteConfirmationSingle, setDeleteOpenConfirmationSingle] = useState(false);
 
-
     const handleDeleteSingleOpenConfirmation = (row: any) => {
         setDeleteOpenConfirmationSingle(true);
-        setSelectedCategoryIdSingle([row?.id]);
+        setSelectedIdSingle([row?.id]);
 
     };
 
     const handleDeleteSingleCloseConfirmations = () => {
         setDeleteOpenConfirmationSingle(false);
-        setSelectedCategoryIdSingle([])
+        setSelectedIdSingle([])
     };
 
     const handleDeleteSingle = async () => {
-        const response: any = await DeleteCategory({ ids: selectedCategoryIdSingle })
+        const response: any = await DeleteCategory({ ids: selectedIdSingle })
         const { message, statusCode } = response?.data;
         if (statusCode === 200) {
             toast.success(message)
@@ -153,25 +143,27 @@ export default function CategoryPage() {
         response && handleDeleteSingleCloseConfirmations()
     }
 
+    const handleCvsExport = () => {
+        const exportColumns = [
+            { id: 'categoryName', label: 'Category Name' },
+        ];
+        exportToCsv(rows, exportColumns, 'category_data');
+    }
+
     return (
-
-
         <div className='productContainer'>
             <Paper className='!shadow-none h-[83px] flex justify-between items-center p-[1rem] mt-[0.5rem]'>
                 <div className='productbtns flex justify-between'>
                     <div className='flex gap-[10px]'>
-                        <Buttons startIcon={<IosShareIcon />} text={"Export"} variant={"outlined"} className={"productheaderbtn1"} />
+                        <Buttons onClick={handleCvsExport} startIcon={<IosShareIcon />} text={STRING.EXPORT_BUTTON} variant={"outlined"} className={"productheaderbtn1"} />
                         {/* <Buttons startIcon={<SystemUpdateAltIcon />} variant={"outlined"} text={"Import"} className={"productheaderbtn1"} /> */}
                     </div>
-
                 </div>
-
                 <div className='flex gap-[10px]'>
-                    {/* <Buttons startIcon={<DeleteOutlineIcon />} variant={"contained"} text={"Delete"} className={`productheaderbtn2`} /> */}
-                    {selected.length > 0 && <Buttons onClick={handleDeleteOpenConfirmation} startIcon={<DeleteOutlineIcon />} variant={"contained"} text={
+                    {(selected.length > 0 && rows?.length > 0) && <Buttons onClick={handleDeleteOpenConfirmation} startIcon={<DeleteOutlineIcon />} variant={"contained"} text={
                         selectedDeleteRows.length === 0
-                            ? "Delete"
-                            : `Delete ${selectedDeleteRows.length}`
+                            ? `${STRING.DELETE_BUTTON}`
+                            : `${STRING.DELETE_BUTTON} ( ${selectedDeleteRows.length} )`
                     } className={`productheaderbtn2 ${selectedDeleteRows.length > 0 ? '!w-[135px]' : ''
                         }`} />}
                     <Buttons onClick={AddCategory} startIcon={<ControlPointIcon />} variant={"contained"} text={STRING.CATEGORYADD} className="productheaderbtn2 addbtn" />

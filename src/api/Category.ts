@@ -31,12 +31,9 @@ export const CategoryApi = createApi({
             }),
             invalidatesTags: ["Category"],
         }),
-
         AddCategory: builder.mutation({
             query: (body) => {
-
                 const formData = categoryFromDataApi.createCategory(body);
-
                 return {
                     url: "/category/create-category",
                     method: "POST",
@@ -45,8 +42,19 @@ export const CategoryApi = createApi({
             },
             invalidatesTags: ["Category"],
         }),
+        EditCategory: builder.mutation({
+            query: (body) => {
+                const formData = categoryFromDataApi.createCategory(body);
+                return {
+                    url: `/category/update-category?id=${body.id}`,
+                    method: 'PUT',
+                    body: formData,
 
+                };
+            },
+            invalidatesTags: ["Category"],
+        }),
     }),
 });
 
-export const { useGetAllCategoryQuery, useDeleteCategoryMutation, useAddCategoryMutation } = CategoryApi;
+export const { useGetAllCategoryQuery, useDeleteCategoryMutation, useAddCategoryMutation, useEditCategoryMutation } = CategoryApi;

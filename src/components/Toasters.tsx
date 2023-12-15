@@ -11,6 +11,6 @@ export default function Toasters() {
             newestOnTop={false}
             closeOnClick
             rtl={false}
-            draggable  />
+            draggable />
     )
 }

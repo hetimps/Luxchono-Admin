@@ -18,6 +18,7 @@ import { STRING } from '../../../constants/String';
 export default function AddCategoryPage() {
 
   const [imagePreview, setImagePreview] = useState<any>(null);
+  const [iconPreview, setIconPrerview] = useState<any>(null);
 
   const [AddCategoryData, { isLoading }] = useAddCategoryMutation();
   const navigate = useNavigate();
@@ -29,37 +30,71 @@ export default function AddCategoryPage() {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result);
-
       };
       reader.readAsDataURL(file);
     } else {
       setImagePreview(imagePreview);
     }
-
   };
 
   const AddCategoryImg = () => {
     document.getElementById("fileInput")?.click()
   };
 
+  //icon uplaod
+
+  const handleIconFileChange = (e: any) => {
+    const file = e.target.files[0];
+    if (file) {
+      AddCategory.setFieldValue("icon", file)
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setIconPrerview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setIconPrerview(iconPreview);
+    }
+  };
+
+  const AddIconImg = () => {
+    document.getElementById("fileIconInput")?.click()
+  };
 
   const AddCategory = useFormik({
     initialValues: {
       categoryName: '',
       image: '',
+      icon: "",
     },
 
     validationSchema: Yup.object().shape({
       categoryName: Yup.string().required(STRING.CATEGORY_NAME_REQUIRED).min(3, STRING.CATEGORY_NAME_FORMAT),
-      image: Yup.mixed().required(STRING.CATEGORY_NAME_IMAGE),
+      image: Yup.mixed().required(STRING.CATEGORY_NAME_IMAGE)
+        .test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
+          if (value) {
+            const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"].includes(value.type);
+            return acceptedFormats;
+          }
+          return true;
+        }),
+
+
+      icon: Yup.mixed().required(STRING.CATEGORY_ICON_REQUIRED).test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
+        if (value) {
+          const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"].includes(value.type);
+          return acceptedFormats;
+        }
+        return true;
+      }),
+
+
+
 
     }),
 
     onSubmit: async (values: any) => {
-      console.log(values, "value");
-
       const response: any = await AddCategoryData(values);
-
       const { message, statusCode } = response?.data;
       if (statusCode === 200) {
         toast.success(message);
@@ -68,7 +103,6 @@ export default function AddCategoryPage() {
         toast.error(message);
       }
     },
-
   });
 
   const Category = () => {
@@ -110,7 +144,6 @@ export default function AddCategoryPage() {
                 accept={'image/*'} // This will allow only image files
                 style={{ display: 'none' }} />
 
-
               <div className='flex-col'>
                 <Avatar
                   className='!w-[120px] !h-[120px] !cursor-pointer !rounded-[10px] !bg-white  border-[1px] !border-header'
@@ -127,18 +160,52 @@ export default function AddCategoryPage() {
                   )}
                 </label>
               </div>
-
             </div>
 
-            <div className='!flex !item-center  !gap-[15px]'>
+            <div className='flex item-center !gap-[15px] mt-[1rem]  ' >
 
+              <div className='w-[12rem] !flex !justify-end mt-[0.5rem]'>
+                <Typography component='span' className='!font-bold'>
+                  {STRING.ICON}
+                </Typography>
+              </div>
+
+              {/* <TextFields name={"image"} values={AddCategory.values.image} onChange={handleFileChange} id={'fileInput'} type={'file'} style={{ display: 'none' }} /> */}
+              <TextFields
+                name={"icon"}
+                values={AddCategory.values.icon}
+                onChange={handleIconFileChange}
+                id={'fileIconInput'}
+                type={'file'}
+                accept={'image/*'} // This will allow only image files
+                style={{ display: 'none' }} />
+
+              <div className='flex-col'>
+                <Avatar
+                  className='!w-[120px] !h-[120px] !cursor-pointer !rounded-[10px] !bg-white  border-[1px] !border-header'
+                  src={iconPreview}
+                  onClick={AddIconImg}
+                  alt='Image Preview'>
+                  <CloudUploadIcon className='!text-[3rem] !text-header' />
+                </Avatar>
+                <label className='ml-[1rem]'>
+                  {AddCategory.touched.icon && AddCategory.errors.icon && (
+                    <Typography variant='caption' className='!font-bold ' color='error'>
+                      {AddCategory.errors.icon.toString()}
+                    </Typography>
+                  )}
+                </label>
+              </div>
+            </div>
+
+            <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
               <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                 <Typography component='span' className='!font-bold'>
                   {STRING.CATEGORY_NAME}
                 </Typography>
               </div>
 
-              <TextFields autoComplete={'off'} placeholder={"Category Name"} values={AddCategory.values.categoryName}
+              <TextFields autoComplete={'off'} placeholder={STRING.CATEGORY_NAME_PLACHOLDER} values={AddCategory.values.categoryName}
                 // onChange={AddCategory.handleChange}
                 onChange={(e: any) => AddCategory.handleChange(e)}
                 onBlur={(e: any) => {
@@ -151,10 +218,7 @@ export default function AddCategoryPage() {
             </div>
           </div>
         </Paper>
-
       </form>
-
-
     </>
   );
 }

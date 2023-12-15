@@ -4,7 +4,6 @@ import { DrawerHeader, Main } from "../../../components/PageComonComponent.js";
 import Drawers from "../../../components/Drawer";
 import EditCategoryPage from "../../../components/Category/EditCategoryPage";
 
-
 export default function EditCategory() {
     return (
         <Box sx={{ display: 'flex' }}>

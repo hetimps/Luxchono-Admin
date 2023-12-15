@@ -23,24 +23,20 @@ export default function Dialogs({ open, onClose, tital, text, Action, loading, i
                         <div>
                             {desc}
                         </div>
-
                     </Box>
                     <DialogContentText className="dialog_info !font-bold ">
-
+                        {text}
                     </DialogContentText>
                     <DialogContentText className="dialog_info !font-bold ">
-
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions >
-
                     {loading ? <Loader /> : (
                         <Box className="dialog_button">
                             <Buttons variant={"outlined"} className={closeClass} onClick={onClose} text={textClose} />
                             <Buttons variant={"contained"} className={yesClass} onClick={Action} text={textYes} />
                         </Box>
                     )}
-
                 </DialogActions>
             </Box>
         </Dialog>

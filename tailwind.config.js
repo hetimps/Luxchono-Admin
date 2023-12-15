@@ -6,14 +6,14 @@ module.exports = {
       fontFamily: {
         'sans': ['Open Sans', "sans-serif"],
       },
-      colors: {        
+      colors: {
         light: "#B8B7B7",
         white: "#FFFFFF",
         black: "#110E0C",
         main: "#964315",
-        header:"#DCDBDB",
+        header: "#DCDBDB",
         red: "#FA3E3E",
-        back : "#F8F8F8"
+        back: "#F8F8F8"
       }
     },
   },

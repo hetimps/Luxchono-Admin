@@ -10,12 +10,11 @@ export default function Switchs() {
         setChecked((prev) => !prev);
     };
 
-
     const customSmallSize = 20;
 
     const IOSSwitch = styled((props: SwitchProps) => (
         <Switch focusVisibleClassName=".Mui-focusVisible"
-        size="small" 
+            size="small"
             disableRipple
             {...props}
             // Add the onChange handler
@@ -24,7 +23,7 @@ export default function Switchs() {
         />
     ))(({ theme }) => ({
         width: customSmallSize + 18, // Adjust width based on your preference
-        height: customSmallSize + 4, 
+        height: customSmallSize + 4,
         padding: 0,
         '& .MuiSwitch-switchBase': {
             padding: 0,
@@ -60,8 +59,8 @@ export default function Switchs() {
             boxSizing: 'border-box',
             width: 15,
             height: 15,
-            margin : "2px",
-            
+            margin: "2px",
+
         },
         '& .MuiSwitch-track': {
             borderRadius: (customSmallSize + 4) / 2,

@@ -12,20 +12,10 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import { visuallyHidden } from '@mui/utils';
 import './style.scss'
-import { Avatar, Rating } from '@mui/material';
-import Switchs from '../Switchs';
-import EditIcon from '@mui/icons-material/Edit';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import { number } from 'yup';
 import Loader from '../Loader';
 import { STRING } from '../../constants/String';
-import useEnhancedEffect from '@mui/material/utils/useEnhancedEffect';
-
 import { useEffect } from 'react'
-import Product from '../../pages/Product';
-import { CategoryRow, ProductRow } from './TableRow';
-
-
+import { BrandRow, CategoryRow, ProductRow } from './TableRow';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
@@ -65,7 +55,6 @@ function getComparator<Key extends keyof any>(
 
 
 function stableSort<T>(array: readonly T[] | null | undefined, comparator: (a: T, b: T) => number) {
-    // Check if array is null or undefined, and return an empty array if so
     if (!array) {
         return [];
     }
@@ -80,8 +69,6 @@ function stableSort<T>(array: readonly T[] | null | undefined, comparator: (a: T
     });
     return stabilizedThis.map((el) => el[0]);
 }
-
-
 
 function EnhancedTableHead(props: any) {
     const { headCells } = props
@@ -135,15 +122,13 @@ function EnhancedTableHead(props: any) {
     );
 }
 
-
-export default function Tables({ headCells, rows, isFetching, search, getSelectedDeleteRows, Product, Category, selected, setSelected, handleDeleteOpen}: any) {
+export default function Tables({ headCells, rows, isFetching, search, getSelectedDeleteRows, Product, Category, selected, setSelected, handleDeleteOpen, Brand }: any) {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof any>('productname');
     // const [selected, setSelected] = React.useState<readonly number[]>([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
 
     //set select row for delete
     useEffect(() => {
@@ -171,11 +156,9 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
         setSelected([]);
     };
 
-
     const handleClick = (event: React.MouseEvent<unknown>, id: string | number) => {
         const selectedIndex = selected.indexOf(id as number);
         let newSelected: readonly number[] = [];
-
         if (selectedIndex === -1) {
             newSelected = newSelected.concat(selected, id as number);
         } else if (selectedIndex === 0) {
@@ -215,12 +198,8 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
         [order, orderBy, page, rowsPerPage, rows],
     );
 
-
-
-    console.log(visibleRows, "visibleRows")
     return (
         <Box>
-
             <Paper className="table-pepar">
                 <TableContainer className="table-container">
                     <Table
@@ -271,9 +250,10 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
                                                     }} />
                                             </TableCell>
 
-                                            {Product && <ProductRow row={row} index={index} />}
+                                            {Product && <ProductRow row={row} index={index} handleDeleteOpen={handleDeleteOpen} />}
+                                            {Category && <CategoryRow row={row} index={index} handleDeleteOpen={handleDeleteOpen} />}
+                                            {Brand && <BrandRow row={row} index={index} handleDeleteOpen={handleDeleteOpen} />}
 
-                                            {Category && <CategoryRow  row={row} index={index} handleDeleteOpen={handleDeleteOpen} />}
                                         </TableRow>
                                     );
                                 })}
@@ -286,12 +266,9 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
                                     </TableRow>
                                 )}
                             </TableBody>
-
                         )}
-
                     </Table>
                 </TableContainer>
-
 
                 {rows && (
                     <>
@@ -305,9 +282,6 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
                             onRowsPerPageChange={handleChangeRowsPerPage} />
                     </>
                 )}
-
-
-
             </Paper>
         </Box>
     );

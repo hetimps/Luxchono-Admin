@@ -5,14 +5,12 @@ import "./style.scss"
 import React, { ChangeEvent } from 'react';
 
 
-export default function Search({ setpage, setsearch, setinput, input, isFetching, disabled ,placeholder }: any) {
+export default function Search({ setpage, setsearch, setinput, input, isFetching, disabled, placeholder }: any) {
     const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
             setsearch(input);
-
         }
     };
-
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.value === "") {
             setinput("");
@@ -23,10 +21,11 @@ export default function Search({ setpage, setsearch, setinput, input, isFetching
     const handleClearSearch = () => {
         setinput("")
         setsearch("")
+
     }
     const HandleSearch = () => {
         setsearch(input);
-  
+
     }
     return (
         <InputBase
@@ -46,11 +45,9 @@ export default function Search({ setpage, setsearch, setinput, input, isFetching
                 </div>
             }
             value={input}
-            onChange={isFetching ? (() => {}) : handleChange}
+            onChange={isFetching ? (() => { }) : handleChange}
             onKeyDown={onKeyDown}
-            disabled={disabled}
-        />
-
+            disabled={disabled} />
     )
 }
 

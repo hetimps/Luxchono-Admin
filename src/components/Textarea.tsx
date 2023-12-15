@@ -12,14 +12,13 @@ const Textareas = ({
     minRows,
     width,
     ...otherProps
-
 }: any) => {
     return (
         <TextField
             sx={{
                 "& .MuiInputBase-root": {
                     borderRadius: "10px !important",
-                    width: width || "100%", // Set width based on the prop or default to 100%
+                    width: width || "100%",
                 },
                 "@media (max-width: 768px)": {
                     "& .MuiInputBase-input::placeholder": {

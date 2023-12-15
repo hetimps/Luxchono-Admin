@@ -1,17 +1,19 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AuthHandler = () => {
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
+    const location = useLocation();
+
     useEffect(() => {
         if (token) {
-            navigate("/category")
+            ['/login'].includes(location.pathname) && navigate("/category")
         } else {
             navigate("/login")
         }
-    }, [])
-   
+    }, [navigate, token, location])
+
 };
 
 export default AuthHandler;
