@@ -3,8 +3,10 @@
 .draewr_dashboard_item {
     border-radius: 10px !important;
     height: 55px !important;
+
     &:hover {
         background-color: $secondary;
+
         &::before {
             display: flex !important;
             justify-content: center !important;
@@ -24,10 +26,12 @@
     .draewr_dashboard_icon {
         color: $font_color;
     }
+
     .draewr_dashboard_text {
         font-weight: 600 !important;
         margin-left: -0.5rem !important;
     }
+
     .MuiTypography-root {
         font-weight: 600 !important;
         font-family: $font-family !important;
@@ -42,12 +46,14 @@
 .draewr_dashboard_item:active .MuiTypography-root {
     color: $primary;
 }
+
 .draewr_dashboard_item:hover .MuiButtonBase-root {
     background-color: transparent !important;
 }
 
 .draewr_dashboard_item.active {
     background-color: $secondary;
+
     /* Add other styles for the active effect */
     &::before {
         content: '';
@@ -61,9 +67,11 @@
         margin-right: 0.5rem !important;
         margin-top: 14px !important;
     }
+
     .draewr_dashboard_icon {
         color: $primary;
     }
+
     .MuiTypography-root {
         color: $primary;
     }

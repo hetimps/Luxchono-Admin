@@ -23,7 +23,6 @@ export const productFromDatApi = {
     console.log(body.image, "body.image");
     const formData = new FormData();
 
-
     if (Array.isArray(body.category)) {
       body.category.forEach((categoryItem: any, index: any) => {
         formData.append(`category[${index}]`, categoryItem);
@@ -49,7 +48,6 @@ export const productFromDatApi = {
     formData.append("productModel", body.productModel);
     formData.append("warranty", body.warranty);
     formData.append("thumbnail", body.thumbnail)
-
     return formData;
   }
 };

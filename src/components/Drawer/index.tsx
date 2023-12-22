@@ -14,9 +14,7 @@ import MarkChatReadIcon from '@mui/icons-material/MarkChatRead';
 export default function Drawers() {
     const navigate = useNavigate();
     const location = useLocation();
-
     const theme = createTheme();
-
     const Navigate = (path: string) => {
         navigate(path)
     }
@@ -57,7 +55,7 @@ export default function Drawers() {
                             <ListItemText className='draewr_dashboard_text' primary="Product" />
                         </ListItemButton>
                     </ListItem>
-                    <ListItem disablePadding onClick={() => Navigate("/order")} className={`draewr_dashboard_item ${location.pathname === "/order" ? "active" : ""}`}>
+                    <ListItem disablePadding onClick={() => Navigate("/order")} className={`draewr_dashboard_item ${location.pathname === "/order" || location.pathname === "/vieworder" ? "active" : ""}`}>
                         <ListItemButton component="a" disableRipple >
                             <ListItemIcon className='draewr_dashboard_icon'>
                                 <QueueIcon />

@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../../api/Utils';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import dayjs from 'dayjs';
+import { handleStatusesBadge } from '../customBadge';
 
 export const ProductRow = ({ row, index, handleDeleteOpen }: any) => {
     const navigate = useNavigate();
@@ -42,6 +45,7 @@ export const ProductRow = ({ row, index, handleDeleteOpen }: any) => {
 }
 
 export const CategoryRow = ({ row, index, handleDeleteOpen }: any) => {
+
     const navigate = useNavigate();
     const labelId = `enhanced-table-checkbox-${index}`;
     return (
@@ -94,5 +98,130 @@ export const BrandRow = ({ row, index, handleDeleteOpen }: any) => {
             </TableCell>
         </>
     )
+}
 
+
+export const OrdersRow = ({ row, index, handleDeleteOpen, handleUpdateOpenConfirmation }: any) => {
+    const navigate = useNavigate();
+    const handleStatusesText = (status: any) => {
+        switch (status) {
+            case "Pending":
+                return "Pending";
+            case "Cancelled":
+                return "Cancelled";
+            case "Completed":
+                return "Completed";
+            case "Shipped":
+                return "Shipped";
+            case "Out of Delivery":
+                return "Out of Delivery";
+            case "Delivered":
+                return "Delivered";
+            default:
+                return "-";
+        }
+    };
+
+    const formattedDate = dayjs(row?.createdAt).format('MMM DD, YYYY [at] hh:mm A')
+    const labelId = `enhanced-table-checkbox-${index}`;
+    return (
+        <>
+            <TableCell
+                align="left"
+                component="th"
+                id={labelId}
+                scope="row"
+                padding="none">
+                <div className='flex'>
+                    {row?.id}
+                </div>
+            </TableCell>
+            <TableCell align="left" padding="none">{row.userName}</TableCell>
+            <TableCell align="left" padding="none">{formattedDate}</TableCell>
+            <TableCell align="left" padding="none">{row?.method}</TableCell>
+            <TableCell align="left" padding="none">{`${row?.totalAmt?.toLocaleString('en-IN')} ₹`}</TableCell>
+            <TableCell align="left" padding="none">
+                {/* <span style={handleStatusesBadge(row?.status)} onClick={() => handleUpdateOpenConfirmation(row)}>
+                    {handleStatusesText(row?.status)}
+                </span> */}
+                <span
+                    style={handleStatusesBadge(row?.status)}
+                    onClick={() => {
+                        if (row?.status !== "Cancelled" && row?.status !== "Delivered") {
+                            handleUpdateOpenConfirmation(row);
+                        }
+                    }}>
+                    {handleStatusesText(row?.status)}
+                </span>
+
+            </TableCell>
+            <TableCell align="left" padding="none">
+                <div className='flex gap-[5px]'>
+                    <RemoveRedEyeOutlinedIcon className='text-black !text-[22px]' onClick={() => navigate("/vieworder", { state: row })} />
+                    {/* <DeleteOutlineOutlinedIcon className='text-black' onClick={() => handleDeleteOpen(row)} /> */}
+                </div>
+            </TableCell>
+        </>
+    )
+}
+
+
+
+
+export const CustomerRow = ({ row, index }: any) => {
+    const navigate = useNavigate();
+    const labelId = `enhanced-table-checkbox-${index}`;
+    return (
+        <>
+            <TableCell
+                align="left"
+                component="th"
+                id={labelId}
+                scope="row"
+                padding="none">
+                <div className='flex gap-[10px] items-center'>
+                    <Avatar className='!h-[35px] !w-[35px] !rounded-[10px] !border-header  border-[1px]' alt="c" src={`${BASE_URL}/${row?.image}`} />
+                    {row?.userName || "-"}
+                </div>
+            </TableCell>
+            <TableCell align="left" padding="none">{row.email || "-"}</TableCell>
+            <TableCell align="left" padding="none">{row.phone || "-"}</TableCell>
+
+            {/* <TableCell className='w-[5rem]' align="left" padding="none">
+                <div className='flex gap-[5px]'>
+                    <EditOutlinedIcon className='text-black' onClick={() => navigate("/editbrand", { state: row })} />
+                    <DeleteOutlineOutlinedIcon className='text-black' />
+                </div>
+            </TableCell> */}
+        </>
+    )
+}
+
+
+export const OfferRow = ({ row, index }: any) => {
+    const navigate = useNavigate();
+    const labelId = `enhanced-table-checkbox-${index}`;
+    return (
+        <>
+            <TableCell
+                align="left"
+                component="th"
+                id={labelId}
+                scope="row"
+                padding="none">
+                <div className='flex gap-[10px] items-center'>
+                    {row?.offerName || "-"}
+                </div>
+            </TableCell>
+            <TableCell align="left" padding="none">
+            {row.discountType === "percentage" ? `${row.discount} %` : row.discountType === "cash" ? `${row.discount} ₹` : "-"}
+            </TableCell>
+            <TableCell className='w-[5rem]' align="left" padding="none">
+                <div className='flex gap-[5px]'>
+                    <EditOutlinedIcon className='text-black' onClick={() => navigate("/editbrand", { state: row })} />
+                    <DeleteOutlineOutlinedIcon className='text-black' />
+                </div>
+            </TableCell>
+        </>
+    )
 }

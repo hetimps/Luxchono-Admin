@@ -25,6 +25,10 @@ export const ReactSelectStyle = (width: any, height: any) => {
             fontSize: "1rem",
             zIndex: "10000"
         }),
+        // menuList:(styles: any) => ({
+        //     ...styles,
+        //     maxHeight:"300px"
+        // }),
         option: (provided: any, state: any) => ({
             ...provided,
             backgroundColor: state.isSelected ? "#964315" : "#fff",

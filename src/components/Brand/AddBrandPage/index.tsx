@@ -40,7 +40,6 @@ export default function AddBrandPage() {
 
 
     //icon uplaod
-
     const handleIconFileChange = (e: any) => {
         const file = e.target.files[0];
         if (file) {
@@ -133,7 +132,6 @@ export default function AddBrandPage() {
                                 type={'file'}
                                 accept={'image/*'}
                                 style={{ display: 'none' }} />
-
 
                             <div className='flex-col'>
                                 <Avatar

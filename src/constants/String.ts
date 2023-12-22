@@ -57,7 +57,7 @@ export const STRING = {
     BRAND_NAME_PLACHOLDER: "Brand Name",
     IMAGE_TYPE: "Upload only Image",
     DELETE_BUTTON: "Delete",
-    IMAGE_FORMATES : "Image Upload only .png .svg , .jpg and jpeg formate only",
+    IMAGE_FORMATES: "Image Upload only .png .svg , .jpg and jpeg formate only",
 
     //product add page
     PRODUCT_ADD: "Add Product",
@@ -94,6 +94,21 @@ export const STRING = {
     PRODUCT_DUMMYPRICE_PLACHOLDER: "Product Dummy Price",
     PRODUCT_NAME_FORMAT: "Product name must be at least 3 characters",
     PRODUCT_THUMNAIL_FORMAT: "You can only upload photo in PNG format",
-    PRODUCT_MAXIMU_IMAGE : "Upload maximu 4 images",
+    PRODUCT_MAXIMU_IMAGE: "Upload maximu 4 images",
 
+    //order
+    ORDER__SEARCH_PLACHOLDER: "Search Order",
+    ORDER_DELETE_DESC: "You want to Delete Selected Order?",
+    ORDER_VIEW: "View Order",
+    ORDER_ID: "Order ID :-",
+    ORDER_CUSTOMER_NAME: "Customer name :-",
+    ORDER_CREATE_ON: "Create on :-",
+    ORDER_METHOD: "Method :-",
+    ORDER_AMOUNT: "Amount :-",
+    ORDER_STATUS: "Status :-",
+    ORDER_QTY: "Product Qty :-",
+    ORDER_PRODUCT_NAME: "Product name :-",
+    ORDER_ADDRESS: "Shipping Address :-",
+    ORDER_NUMBER: "Mobile number :-",
+    ORDER_IMAGE : "Image :-"
 }

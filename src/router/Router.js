@@ -15,6 +15,8 @@ import AddBrand from '../pages/Brand/AddBrand';
 import EditBrand from '../pages/Brand/EditBrand';
 import AddProduct from '../pages/Product/AddProduct';
 import EditProduct from '../pages/Product/EditProduct';
+import ViewOrder from '../pages/Order/ViewOrder';
+import AddOffer from '../pages/Offer/AddOfferPage';
 
 
 export default function Router() {
@@ -29,10 +31,12 @@ export default function Router() {
           <Route path="/addproduct" element={<AddProduct />}></Route>
           <Route path="/editproduct" element={<EditProduct />}></Route>
           <Route path="/order" element={<Order />}></Route>
+          <Route path="/vieworder" element={<ViewOrder />}></Route>
           <Route path="/category" element={<Category />}></Route>
           <Route path="/addcategory" element={<AddCategory />}></Route>
           <Route path="/editcategory" element={<EditCategory />}></Route>
           <Route path="/offer" element={<Offer />}></Route>
+          <Route path='/addoffer' element={<AddOffer />} />
           <Route path="/customer" element={<Customer />}></Route>
           <Route path="/brand" element={<Brand />}></Route>
           <Route path="/addbrand" element={<AddBrand />}></Route>

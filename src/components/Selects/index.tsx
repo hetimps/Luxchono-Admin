@@ -18,7 +18,7 @@ export default function Selects({ width, height, placeholder, options, selectedV
                 isClearable={true}
                 styles={ReactSelectStyle(width, height)}
                 options={options}
-                menuPlacement="auto"/>
+                menuPlacement="bottom" />
         </>
     )
 }

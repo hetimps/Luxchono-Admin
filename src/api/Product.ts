@@ -32,11 +32,8 @@ export const ProductApi = createApi({
             }),
             invalidatesTags: ["Product"],
         }),
-
         AddProduct: builder.mutation({
             query: (body) => {
-
-                console.log(body, "body--")
                 const formData = productFromDatApi.createProduct(body);
                 return {
                     url: "/product/create-product",
