@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { IconButton, Typography, Paper, Avatar, TextField } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Buttons from '../../Buttons';
+import Buttons from '../../common/Buttons';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import '../style.scss';
-import TextFields from '../../TextFields';
+import TextFields from '../../common/TextFields';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { toast } from 'react-toastify';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Loader from '../../Loader';
+import Loader from '../../common/Loader';
 import { STRING } from '../../../constants/String';
 import { BASE_URL } from '../../../api/Utils';
 import { useEditBrandMutation } from '../../../api/Brand';
@@ -89,7 +89,7 @@ export default function EditBrandPage() {
         },
 
         validationSchema: Yup.object().shape({
-            brandName: Yup.string().required(STRING.BRAND_NAME_REQUIRED).min(3, STRING.BRAND_NAME_FORMAT),
+            brandName: Yup.string().trim().required(STRING.BRAND_NAME_REQUIRED).min(3, STRING.BRAND_NAME_FORMAT),
             image: Yup.mixed().required(STRING.BRAND_NAME_IMAGE).test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
                 if (value) {
                     const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"].includes(value.type);
@@ -196,7 +196,6 @@ export default function EditBrandPage() {
                                 type={'file'}
                                 accept={'image/*'} // This will allow only image files
                                 style={{ display: 'none' }} />
-
                             <div className='flex-col'>
                                 <Avatar
                                     className='!w-[120px] !h-[120px] !cursor-pointer !rounded-[10px] !bg-white  border-[1px] !border-header'
@@ -222,15 +221,8 @@ export default function EditBrandPage() {
                                 </Typography>
                             </div>
 
-
-
                             <TextFields
-                                onChange={(e: any) => EditBrands.handleChange(e)}
-                                onBlur={(e: any) => {
-                                    const trimmedValue = e.target.value.trim();
-                                    EditBrands.handleBlur(e);
-                                    EditBrands.setFieldValue("brandName", trimmedValue);
-                                }}
+                                onChange={EditBrands.handleChange}
                                 autoComplete={'off'} placeholder={STRING.BRAND_NAME_PLACHOLDER} value={EditBrands.values.brandName}
                                 error={EditBrands.touched.brandName && Boolean(EditBrands.errors.brandName)}
                                 helperText={EditBrands.touched.brandName && EditBrands.errors.brandName} name={"brandName"} className={'BrandField'} />

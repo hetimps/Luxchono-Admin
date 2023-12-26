@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { IconButton, Typography, Paper, Avatar } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Buttons from '../../Buttons';
+import Buttons from '../../common/Buttons';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import '../style.scss';
-import TextFields from '../../TextFields';
+import TextFields from '../../common/TextFields';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useEditCategoryMutation } from '../../../api/Category';
 import { toast } from 'react-toastify';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Loader from '../../Loader';
+import Loader from '../../common/Loader';
 import { STRING } from '../../../constants/String';
 import { BASE_URL } from '../../../api/Utils';
 
@@ -21,14 +21,10 @@ export default function EditCategoryPage() {
     const [imagePreview, setImagePreview] = useState<any>(null);
     const [categoryId, setCategoryId] = useState();
     const [CategoryImg, setCategoryImag] = useState()
-
     const [iconPreview, setIconPreview] = useState<any>(null);
     const [iconImg, setIconImag] = useState()
-
     const location = useLocation();
     const { state } = location;
-
-    console.log(state?.icon, "state?.icon")
 
     useEffect(() => {
         AddCategory.setFieldValue("categoryName", state?.categoryName)
@@ -54,9 +50,7 @@ export default function EditCategoryPage() {
         } else {
             setImagePreview(imagePreview);
         }
-
     };
-
     const AddCategoryImg = () => {
         document.getElementById("fileInput")?.click()
     };
@@ -87,9 +81,8 @@ export default function EditCategoryPage() {
             image: '',
             icon: "",
         },
-
         validationSchema: Yup.object().shape({
-            categoryName: Yup.string().required(STRING.CATEGORY_NAME_REQUIRED).min(3, STRING.CATEGORY_NAME_FORMAT),
+            categoryName: Yup.string().trim().required(STRING.CATEGORY_NAME_REQUIRED).min(3, STRING.CATEGORY_NAME_FORMAT),
             image: Yup.mixed().required(STRING.CATEGORY_NAME_IMAGE).test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
                 if (value) {
                     const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"].includes(value.type);
@@ -106,16 +99,12 @@ export default function EditCategoryPage() {
                         typeof value === 'string' && value.endsWith(".jpg") || typeof value === 'string' && value.endsWith(".svg");
 
                     return acceptedFormats || accepteDefaltFormats;
-
                 }
                 return true;
             }),
-
         }),
-
         onSubmit: async (values: any) => {
             values.id = categoryId;
-            console.log(values, "value");
             const response: any = await EditCategory(values);
             const { message, statusCode } = response?.data;
             if (statusCode === 200) {
@@ -228,7 +217,6 @@ export default function EditCategoryPage() {
                             </div>
                         </div>
 
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -246,12 +234,7 @@ export default function EditCategoryPage() {
                                 error={AddCategory.touched.categoryName && Boolean(AddCategory.errors.categoryName)}
                                 helperText={AddCategory.touched.categoryName && AddCategory.errors.categoryName} name={"categoryName"} className={'categoryField'} /> */}
                             <TextFields
-                                onChange={(e: any) => AddCategory.handleChange(e)}
-                                onBlur={(e: any) => {
-                                    const trimmedValue = e.target.value.trim();
-                                    AddCategory.handleBlur(e);
-                                    AddCategory.setFieldValue("categoryName", trimmedValue);
-                                }}
+                                onChange={AddCategory.handleChange}
                                 autoComplete={'off'} placeholder={STRING.CATEGORY_NAME_PLACHOLDER} value={AddCategory.values.categoryName}
                                 error={AddCategory.touched.categoryName && Boolean(AddCategory.errors.categoryName)}
                                 helperText={AddCategory.touched.categoryName && AddCategory.errors.categoryName} name={"categoryName"} className={'categoryField'} />

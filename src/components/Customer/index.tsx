@@ -1,15 +1,15 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { Paper } from '@mui/material';
-import Buttons from '../Buttons';
+import Buttons from '../common/Buttons';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import Search from '../Search.js';
+import Search from '../common/Search/index';
 import { STRING } from '../../constants/String';
-import Tables from '../Table';
+import Tables from '../common/Table';
 import { useNavigate } from 'react-router-dom';
-import { exportToCsv } from '../../api/Utils';
 import { useGetAllCustomerQuery } from '../../api/Customer';
+import { exportToCsv } from '../../constants/Helper/Csv';
 
 export default function CustomerPage() {
     const [selected, setSelected] = React.useState<readonly number[]>([]);

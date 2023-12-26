@@ -16,7 +16,6 @@ export const ProductApi = createApi({
     endpoints: (builder) => ({
         GetAllProduct: builder.query({
             query: (params) => {
-                console.log(params, "param")
                 return {
                     url: '/product/get-all-product',
                     params

@@ -1,7 +1,7 @@
 import { IconButton, Typography, Paper, Avatar, Select } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import '../style.scss';
-import TextFields from '../../TextFields';
+import TextFields from '../../common/TextFields';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { STRING } from '../../../constants/String';
 import { useEffect, useState } from 'react';

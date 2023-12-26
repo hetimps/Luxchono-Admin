@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { IconButton, Typography, Paper, Avatar } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Buttons from '../../Buttons';
+import Buttons from '../../common/Buttons';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import '../style.scss';
-import TextFields from '../../TextFields';
+import TextFields from '../../common/TextFields';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import Loader from '../../Loader';
+import Loader from '../../common/Loader';
 import { STRING } from '../../../constants/String';
 import { useAddBrandMutation } from '../../../api/Brand';
 
@@ -65,7 +65,7 @@ export default function AddBrandPage() {
             icon: "",
         },
         validationSchema: Yup.object().shape({
-            brandName: Yup.string().required(STRING.BRAND_NAME_REQUIRED).min(3, STRING.BRAND_NAME_FORMAT),
+            brandName: Yup.string().trim().required(STRING.BRAND_NAME_REQUIRED).min(3, STRING.BRAND_NAME_FORMAT),
             image: Yup.mixed().required(STRING.BRAND_NAME_IMAGE)
                 .test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
                     if (value) {
@@ -196,12 +196,7 @@ export default function AddBrandPage() {
                             </div>
 
                             <TextFields autoComplete={'off'} placeholder={STRING.BRAND_NAME_PLACHOLDER} values={AddBrand.values.brandName}
-                                onChange={(e: any) => AddBrand.handleChange(e)}
-                                onBlur={(e: any) => {
-                                    const trimmedValue = e.target.value.trim();
-                                    AddBrand.handleBlur(e);
-                                    AddBrand.setFieldValue("brandName", trimmedValue);
-                                }}
+                                onChange={AddBrand.handleChange}
                                 error={AddBrand.touched.brandName && Boolean(AddBrand.errors.brandName)}
                                 helperText={AddBrand.touched.brandName && AddBrand.errors.brandName} name={"brandName"} className={'BrandField'} />
                         </div>

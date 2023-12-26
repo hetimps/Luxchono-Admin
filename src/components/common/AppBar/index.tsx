@@ -5,7 +5,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import { useNavigate } from 'react-router-dom';
 import Dialogs from '../Dialogs';
-import { STRING } from '../../constants/String';
+import { STRING } from '../../../constants/String';
 
 
 export default function AppBars(props: any) {
@@ -20,7 +20,7 @@ export default function AppBars(props: any) {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem("token")
+        localStorage.removeItem("lw-token")
         navigate('/login');
     };
 

@@ -1,4 +1,4 @@
-import { Colors } from "../constants/Colors"
+import { Colors } from "../../constants/Colors"
 
 const { dark, light } = Colors;
 
@@ -6,7 +6,7 @@ const commonStyle: any = {
     borderRadius: "5px",
     padding: "3px 3px",
     textAlign: "center",
-    width: "110px", // Set your desired fixed width
+    width: "110px",
     whiteSpace: "nowrap",
     textTransform: "capitalize",
     fontWeight: "500",

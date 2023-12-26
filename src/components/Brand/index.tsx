@@ -2,19 +2,20 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import "./style.scss"
 import { Icon, Paper } from '@mui/material';
-import Buttons from '../Buttons';
+import Buttons from '../common/Buttons';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
-import Search from '../Search.js';
+import Search from '../common/Search/index';
 import { STRING } from '../../constants/String';
-import Tables from '../Table';
-import Dialogs from '../Dialogs';
+import Tables from '../common/Table';
+import Dialogs from '../common/Dialogs';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useDeleteBrandMutation, useGetAllBrandApiQuery } from '../../api/Brand';
-import { exportToCsv } from '../../api/Utils';
+import { exportToCsv } from '../../constants/Helper/Csv';
+
 
 export default function BrandPage() {
     const [selected, setSelected] = React.useState<readonly number[]>([]);
@@ -94,7 +95,6 @@ export default function BrandPage() {
         refetch()
     }, [search, refetch])
 
-    console.log(rows, "rows")
 
     const handleDelete = async () => {
         const response: any = await DeleteBrand({ ids: selectedDeleteRows })

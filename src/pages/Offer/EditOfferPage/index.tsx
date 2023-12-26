@@ -2,10 +2,9 @@ import { Box, CssBaseline } from "@mui/material";
 import AppBars from "../../../components/common/AppBar/index";
 import { DrawerHeader, Main } from "../../../components/common/PageComonComponent/index";
 import Drawers from "../../../components/common/Drawer";
+import EditOfferPage from "../../../components/Offer/EditOfferPage";
 
-import AddOfferPage from "../../../components/Offer/AddOfferPage";
-
-export default function AddOffer() {
+export default function EditOffer() {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -13,7 +12,7 @@ export default function AddOffer() {
             <Drawers />
             <Main open={true}  >
                 <DrawerHeader />
-                <AddOfferPage />
+                <EditOfferPage />
             </Main>
         </Box>
     )

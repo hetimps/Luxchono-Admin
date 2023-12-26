@@ -1,7 +1,7 @@
 import { Box, CssBaseline } from "@mui/material";
-import AppBars from "../../../components/AppBar/index";
-import { DrawerHeader, Main } from "../../../components/PageComonComponent.js";
-import Drawers from "../../../components/Drawer";
+import AppBars from "../../../components/common/AppBar/index";
+import { DrawerHeader, Main } from "../../../components/common/PageComonComponent/index";
+import Drawers from "../../../components/common/Drawer";
 import AddCategoryPage from "../../../components/Category/AddCategoryPage";
 
 export default function AddCategory() {

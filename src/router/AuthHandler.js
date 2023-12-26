@@ -3,12 +3,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const AuthHandler = () => {
     const navigate = useNavigate();
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("lw-token");
     const location = useLocation();
 
     useEffect(() => {
         if (token) {
-            ['/login'].includes(location.pathname) && navigate("/category")
+            ['/login']?.includes(location.pathname) && navigate("/category")
         } else {
             navigate("/login")
         }

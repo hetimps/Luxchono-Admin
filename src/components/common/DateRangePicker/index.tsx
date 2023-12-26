@@ -7,11 +7,26 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { addDays } from "date-fns";
 import moment from "moment";
 import "./style.scss";
-import { Colors } from "../../constants/Colors";
+import { Colors } from "../../../constants/Colors";
 import { DateRangePicker } from "react-date-range";
-import { useOutsideAlerter } from "../../api/Utils";
+
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
+
+
+export const useOutsideAlerter = (ref: any, setShowDateRangePicker: any) => {
+    React.useEffect(() => {
+      function handleClickOutside(event: any) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setShowDateRangePicker(false);
+        }
+      }
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref, setShowDateRangePicker]);
+  };
 
 function ReactDateRangePicker(props: any) {
     const {
@@ -87,7 +102,9 @@ function ReactDateRangePicker(props: any) {
                             months={1}
                             ranges={state}
                             direction="horizontal"
-                            rangeColors={["#964315"]} />
+                            rangeColors={["#964315"]}
+                            
+                         />
 
                         <div className="button-container">
                             <button

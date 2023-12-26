@@ -1,7 +1,7 @@
 import TableCell from '@mui/material/TableCell';
 import { Avatar, Rating, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { BASE_URL } from '../../api/Utils';
+import { BASE_URL } from '../../../api/Utils';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
@@ -26,14 +26,14 @@ export const ProductRow = ({ row, index, handleDeleteOpen }: any) => {
             </TableCell>
             <TableCell align="left" padding="none">{`${row.category}`}</TableCell>
             <TableCell align="left" padding="none">{row?.brand}</TableCell>
-            <TableCell align="left" padding="none">{row?.price}</TableCell>
+            <TableCell align="left" padding="none">{`${row?.price?.toLocaleString('en-IN')} ₹`}</TableCell>
             <TableCell align="left" padding="none">{row?.stock}</TableCell>
             {/* <TableCell align="left" padding="none">
                 <Rating className='!text-main' name="read-only" precision={0.5} value={Number(row?.review) || 0} readOnly />
             </TableCell> */}
             <TableCell align="left" padding="none">{row?.productModel}</TableCell>
             <TableCell align="left" padding="none">{row?.warranty}</TableCell>
-            <TableCell align="left" padding="none">{row?.dummyPrice || "-"}</TableCell>
+            <TableCell align="left" padding="none">{`${row?.dummyPrice?.toLocaleString('en-IN')} ₹` || "-"}</TableCell>
             <TableCell align="left" padding="none">
                 <div className='flex gap-[5px]'>
                     <EditOutlinedIcon className='text-black' onClick={() => navigate("/editproduct", { state: row })} />
@@ -45,7 +45,6 @@ export const ProductRow = ({ row, index, handleDeleteOpen }: any) => {
 }
 
 export const CategoryRow = ({ row, index, handleDeleteOpen }: any) => {
-
     const navigate = useNavigate();
     const labelId = `enhanced-table-checkbox-${index}`;
     return (
@@ -100,7 +99,6 @@ export const BrandRow = ({ row, index, handleDeleteOpen }: any) => {
     )
 }
 
-
 export const OrdersRow = ({ row, index, handleDeleteOpen, handleUpdateOpenConfirmation }: any) => {
     const navigate = useNavigate();
     const handleStatusesText = (status: any) => {
@@ -121,7 +119,6 @@ export const OrdersRow = ({ row, index, handleDeleteOpen, handleUpdateOpenConfir
                 return "-";
         }
     };
-
     const formattedDate = dayjs(row?.createdAt).format('MMM DD, YYYY [at] hh:mm A')
     const labelId = `enhanced-table-checkbox-${index}`;
     return (
@@ -166,8 +163,6 @@ export const OrdersRow = ({ row, index, handleDeleteOpen, handleUpdateOpenConfir
 }
 
 
-
-
 export const CustomerRow = ({ row, index }: any) => {
     const navigate = useNavigate();
     const labelId = `enhanced-table-checkbox-${index}`;
@@ -197,8 +192,7 @@ export const CustomerRow = ({ row, index }: any) => {
     )
 }
 
-
-export const OfferRow = ({ row, index }: any) => {
+export const OfferRow = ({ row, index, handleDeleteOpen }: any) => {
     const navigate = useNavigate();
     const labelId = `enhanced-table-checkbox-${index}`;
     return (
@@ -210,16 +204,18 @@ export const OfferRow = ({ row, index }: any) => {
                 scope="row"
                 padding="none">
                 <div className='flex gap-[10px] items-center'>
+                    <Avatar className='!h-[35px] !w-[35px] !rounded-[10px] !border-header  border-[1px]' alt="p" src={`${BASE_URL}/${row?.image}`} />
                     {row?.offerName || "-"}
                 </div>
             </TableCell>
             <TableCell align="left" padding="none">
-            {row.discountType === "percentage" ? `${row.discount} %` : row.discountType === "cash" ? `${row.discount} ₹` : "-"}
+                {row.discountType === "percentage" ? `${row.discount} %` : row.discountType === "cash" ? `${row.discount} ₹` : "-"}
             </TableCell>
             <TableCell className='w-[5rem]' align="left" padding="none">
                 <div className='flex gap-[5px]'>
-                    <EditOutlinedIcon className='text-black' onClick={() => navigate("/editbrand", { state: row })} />
-                    <DeleteOutlineOutlinedIcon className='text-black' />
+                    <EditOutlinedIcon className='text-black' onClick={() => navigate("/editoffer", { state: row })} />
+                    <RemoveRedEyeOutlinedIcon className='text-black !text-[22px]' onClick={() => navigate("/viewoffer", { state: row })} />
+                    <DeleteOutlineOutlinedIcon className='text-black' onClick={() => handleDeleteOpen(row)} />
                 </div>
             </TableCell>
         </>

@@ -1,4 +1,4 @@
-import Toasters from "./components/Toasters";
+import Toasters from "./components/common/Toasters";
 import Router from "./router/Router";
 
 function App() {

@@ -1,15 +1,15 @@
 import { Paper, Grid, Typography, InputAdornment, IconButton } from '@mui/material'
 import LoginImg from "../../assets/imag/LoginImg.svg";
 import Logo from "../../assets/imag/logo.svg"
-import TextFields from '../../components/TextFields';
+import TextFields from '../../components/common/TextFields';
 import "./style.scss"
-import Buttons from '../../components/Buttons';
+import Buttons from '../../components/common/Buttons';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import { STRING } from '../../constants/String';
 import { REGEX } from "../../constants/Regex";
 import { toast } from "react-toastify";
-import Loader from '../../components/Loader';
+import Loader from '../../components/common/Loader';
 import { useLoginMutation } from '../../api/Login';
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
@@ -43,12 +43,11 @@ export default function Login() {
         const { statusCode, message, result } = response?.data;
         if (statusCode === 200) {
           toast.success(message)
-          await localStorage.setItem("token", result?.Token)
-          const token = localStorage.getItem("token");
-        
-            console.log("hellooooo")
-            navigate("/product")
-          
+          await localStorage.setItem("lw-token", result?.Token)
+          const token = localStorage.getItem("lw-token");
+
+          navigate("/product")
+
         } else {
           toast.error(message)
         }
@@ -121,7 +120,6 @@ export default function Login() {
                         endAdornment={true}
                         icons={showPassword ? <VisibilityIcon className='!text-[1.4rem]' /> : <VisibilityOffIcon className='!text-[1.4rem]' />}
                       />
-
                     </div>
                   </div>
                 </div>

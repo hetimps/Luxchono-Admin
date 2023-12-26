@@ -9,30 +9,55 @@ import Textareas from '../../common/Textarea';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useGetAllBrandApiQuery } from '../../../api/Brand';
 import { useGetAllProductQuery } from '../../../api/Product';
-import { useAddOfferMutation } from '../../../api/Offer';
+import { useAddOfferMutation, useEditOfferMutation } from '../../../api/Offer';
 import { toast } from 'react-toastify';
 import Loader from '../../common/Loader';
+import { BASE_URL } from '../../../api/Utils';
 import { Discount } from '../../../constants/Array';
 
-export default function AddOfferPage() {
+export default function EditOfferPage() {
+    const location = useLocation();
+    const { state } = location;
+
     const { data: BrandData, isFetching: BrandFetching } = useGetAllBrandApiQuery({});
     const { data: ProductData, isFetching: ProductFetching, refetch } = useGetAllProductQuery({});
-    const [AddOffers, { isLoading }] = useAddOfferMutation();
+    const [EditProduct, { isLoading }] = useEditOfferMutation();
     const navigate = useNavigate();
     const [filteredBrand, setFilteredBrand] = useState<any[]>([]);
     const [selectedBrandValues, setSelectedBrandValues] = useState<any[]>([]);
     const [filteredProduct, setFilteredProduct] = useState<any[]>([]);
     const [selectedProductValues, setSelectedProductValues] = useState<any[]>([]);
     const [selectedDiscountTypeValues, setSelectedDiscountTypeValues] = useState<any>();
+    const [OfferId, setOfferId] = useState()
+    const [fromDate, setFromDate] = useState("");
+    const [toDate, setToDate] = useState("");
+
     const [imagePreview, setImagePreview] = useState<any>(null);
+    const [OfferImage, setOfferImage] = useState();
+
     const offer = () => {
         navigate("/offer")
     }
+
+    useEffect(() => {
+        AddOffer.setFieldValue("offerName", state?.offerName)
+        AddOffer.setFieldValue("offerCode", state?.offerCode)
+        AddOffer.setFieldValue("description", state?.description)
+        AddOffer.setFieldValue("discount", state?.discount)
+        setFromDate(state?.dateFrom)
+        setToDate(state?.dateTo)
+        setOfferImage(state?.image)
+        setOfferId(state?.id)
+        AddOffer.setFieldValue("image", state?.image)
+        setSelectedDiscountTypeValues({ label: state?.discountType, value: state?.discountType })
+        setSelectedBrandValues(state?.defaultBrands)
+        setSelectedProductValues(state?.defaultProducts)
+    }, [state])
 
     //product api
     useEffect(() => {
@@ -77,18 +102,20 @@ export default function AddOfferPage() {
             discount: Yup.string().trim().required(STRING.OFFER_DISOUNT_REQUIRED),
             brands: Yup.array().min(1, STRING.OFFER_BRANDS_REQUIRED),
             products: Yup.array().min(1, STRING.OFFER_PRODUCTS_REQUIRED),
-            image: Yup.mixed().required(STRING.OFFER_IMAGE_REQUIRED)
-                .test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
-                    if (value) {
-                        const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"].includes(value.type);
-                        return acceptedFormats;
-                    }
-                    return true;
-                }),
+            image: Yup.mixed().required(STRING.OFFER_IMAGE_REQUIRED).test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
+                if (value) {
+                    const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"].includes(value.type);
+                    const accepteDefaltFormats = typeof value === 'string' && value.endsWith(".png") || typeof value === 'string' && value.endsWith(".jpeg") ||
+                        typeof value === 'string' && value.endsWith(".jpg") || typeof value === 'string' && value.endsWith(".svg");
+                    return acceptedFormats || accepteDefaltFormats;
+                }
+                return true;
+            }),
         }),
 
         onSubmit: async (values: any) => {
-            const response: any = await AddOffers(values);
+            values.id = OfferId;
+            const response: any = await EditProduct(values);
             const { message, statusCode } = response?.data;
             if (statusCode === 200) {
                 toast.success(message);
@@ -120,16 +147,15 @@ export default function AddOfferPage() {
 
     //date range
     const wrapperRef = useRef(null);
-    const [state, setState] = useState([
+    const [states, setStates] = useState([
         {
             startDate: new Date(),
             endDate: new Date(),
             key: "selection",
         },
     ]);
-    const [prevDate, setPrevDate] = useState(state);
-    const [fromDate, setFromDate] = useState("");
-    const [toDate, setToDate] = useState("");
+    const [prevDate, setPrevDate] = useState(states);
+
     const [showDateRangePicker, setShowDateRangePicker] = useState(false);
 
     //date and discount type
@@ -155,9 +181,10 @@ export default function AddOfferPage() {
                     <ArrowBackIcon className='!text-[20px]' />
                 </IconButton>
                 <Typography component='p' className='!font-bold !text-[25px]'>
-                    {STRING.ADD_OFFER}
+                    {STRING.OFFER_EDIT}
                 </Typography>
             </div>
+
             <form onSubmit={AddOffer.handleSubmit} className='add_product'>
                 <Paper className='mt-[1.5rem] h-[800px] !shadow-none'>
                     <div className='flex justify-end'>
@@ -182,8 +209,9 @@ export default function AddOfferPage() {
                                 style={{ display: 'none' }} />
 
                             <div className='flex-col'>
+
                                 <Avatar
-                                    src={imagePreview}
+                                    src={imagePreview === null ? `${BASE_URL}/${OfferImage}` : `${imagePreview}`}
                                     onClick={AddOfferImg}
                                     className='!w-[120px] !h-[120px] !cursor-pointer !rounded-[10px] !bg-white  border-[1px] !border-header'
                                     alt='Image Preview'>
@@ -206,7 +234,7 @@ export default function AddOfferPage() {
                                 </Typography>
                             </div>
                             <TextFields error={AddOffer.touched.offerName && Boolean(AddOffer.errors.offerName)}
-                                helperText={AddOffer.touched.offerName && AddOffer.errors.offerName} onChange={AddOffer.handleChange} values={AddOffer.values.offerName} autoComplete={'off'} placeholder={STRING.OFFER_NAME_PLACHOLDER}
+                                helperText={AddOffer.touched.offerName && AddOffer.errors.offerName} onChange={AddOffer.handleChange} value={AddOffer.values.offerName} autoComplete={'off'} placeholder={STRING.OFFER_NAME_PLACHOLDER}
                                 name={"offerName"} className={'productField'} />
                         </div>
 
@@ -219,8 +247,8 @@ export default function AddOfferPage() {
                             <div className='flex-col' style={{ width: '70rem' }}>
                                 <ReactDateRangePicker
                                     wrapperRef={wrapperRef}
-                                    state={state}
-                                    setState={setState}
+                                    state={states}
+                                    setState={setStates}
                                     prevDate={prevDate}
                                     setPrevDate={setPrevDate}
                                     fromDate={fromDate}
@@ -278,7 +306,7 @@ export default function AddOfferPage() {
                                 </Typography>
                             </div>
                             <TextFields error={AddOffer.touched.offerCode && Boolean(AddOffer.errors.offerCode)}
-                                helperText={AddOffer.touched.offerCode && AddOffer.errors.offerCode} onChange={AddOffer.handleChange} values={AddOffer.values.offerCode} autoComplete={'off'} placeholder={STRING.OFFER_OFFERCODE_PLACHOLDER}
+                                helperText={AddOffer.touched.offerCode && AddOffer.errors.offerCode} onChange={AddOffer.handleChange} value={AddOffer.values.offerCode} autoComplete={'off'} placeholder={STRING.OFFER_OFFERCODE_PLACHOLDER}
                                 name={"offerCode"} className={'productField'} />
                         </div>
 
@@ -289,7 +317,7 @@ export default function AddOfferPage() {
                                 </Typography>
                             </div>
                             <TextFields error={AddOffer.touched.discount && Boolean(AddOffer.errors.discount)}
-                                helperText={AddOffer.touched.discount && AddOffer.errors.discount} onChange={AddOffer.handleChange} values={AddOffer.values.discount} type={"number"} autoComplete={'off'} placeholder={STRING.OFFER_DISCOUNT_PLACHOLDER}
+                                helperText={AddOffer.touched.discount && AddOffer.errors.discount} onChange={AddOffer.handleChange} value={AddOffer.values.discount} type={"number"} autoComplete={'off'} placeholder={STRING.OFFER_DISCOUNT_PLACHOLDER}
                                 name={"discount"} className={'productField'} />
                         </div>
 

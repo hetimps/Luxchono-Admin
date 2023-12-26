@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import { IconButton, Typography, Paper, Avatar } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Buttons from '../../Buttons';
+import Buttons from '../../common/Buttons';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import '../style.scss';
-import TextFields from '../../TextFields';
+import TextFields from '../../common/TextFields';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useAddCategoryMutation } from '../../../api/Category';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import Loader from '../../Loader';
+import Loader from '../../common/Loader';
 import { STRING } from '../../../constants/String';
-
 
 export default function AddCategoryPage() {
 
@@ -69,7 +68,7 @@ export default function AddCategoryPage() {
     },
 
     validationSchema: Yup.object().shape({
-      categoryName: Yup.string().required(STRING.CATEGORY_NAME_REQUIRED).min(3, STRING.CATEGORY_NAME_FORMAT),
+      categoryName: Yup.string().trim().required(STRING.CATEGORY_NAME_REQUIRED).min(3, STRING.CATEGORY_NAME_FORMAT),
       image: Yup.mixed().required(STRING.CATEGORY_NAME_IMAGE)
         .test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
           if (value) {
@@ -206,13 +205,7 @@ export default function AddCategoryPage() {
               </div>
 
               <TextFields autoComplete={'off'} placeholder={STRING.CATEGORY_NAME_PLACHOLDER} values={AddCategory.values.categoryName}
-                // onChange={AddCategory.handleChange}
-                onChange={(e: any) => AddCategory.handleChange(e)}
-                onBlur={(e: any) => {
-                  const trimmedValue = e.target.value.trim();
-                  AddCategory.handleBlur(e);
-                  AddCategory.setFieldValue("categoryName", trimmedValue);
-                }}
+                onChange={AddCategory.handleChange}
                 error={AddCategory.touched.categoryName && Boolean(AddCategory.errors.categoryName)}
                 helperText={AddCategory.touched.categoryName && AddCategory.errors.categoryName} name={"categoryName"} className={'categoryField'} />
             </div>

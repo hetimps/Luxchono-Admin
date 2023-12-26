@@ -13,7 +13,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { visuallyHidden } from '@mui/utils';
 import './style.scss'
 import Loader from '../Loader';
-import { STRING } from '../../constants/String';
+import { STRING } from '../../../constants/String';
 import { useEffect } from 'react'
 import { BrandRow, CategoryRow, CustomerRow, OfferRow, OrdersRow, ProductRow } from './TableRow';
 
@@ -231,8 +231,6 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
                         ) : (
                             <TableBody>
                                 {visibleRows.map((row, index) => {
-                                    console.log(String(row?.thumbnail), "img")
-                                    console.log(row, "row")
                                     const isItemSelected = isSelected(row.id as number);
                                     const labelId = `enhanced-table-checkbox-${index}`;
                                     return (
@@ -261,7 +259,7 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
                                             {Brand && <BrandRow row={row} index={index} handleDeleteOpen={handleDeleteOpen} />}
                                             {Orders && <OrdersRow handleUpdateOpenConfirmation={handleUpdateOpenConfirmation} row={row} index={index} handleDeleteOpen={handleDeleteOpen} />}
                                             {Customer && <CustomerRow row={row} index={index} />}
-                                            {Offer && <OfferRow row={row} index={index} />}
+                                            {Offer && <OfferRow row={row} index={index} handleDeleteOpen={handleDeleteOpen}  />}
 
                                         </TableRow>
                                     );

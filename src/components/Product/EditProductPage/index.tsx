@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { IconButton, Typography, Paper, Avatar, Select, TextField } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Buttons from '../../Buttons';
+import Buttons from '../../common/Buttons';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import * as Yup from 'yup';
 import '../style.scss';
-import TextFields from '../../TextFields';
+import TextFields from '../../common/TextFields';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useGetAllCategoryQuery } from '../../../api/Category';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { STRING } from '../../../constants/String';
-import Textareas from '../../Textarea';
-import Selects from '../../Selects';
+import Textareas from '../../common/Textarea';
+import Selects from '../../common/Selects';
 import { useGetAllBrandApiQuery } from '../../../api/Brand';
 import CloseIcon from '@mui/icons-material/Close';
 import { useFormik } from 'formik';
 import { useEditProductMutation } from '../../../api/Product';
 import { toast } from 'react-toastify';
-import Loader from '../../Loader';
+import Loader from '../../common/Loader';
 import { BASE_URL } from '../../../api/Utils';
 
 
 export default function EditProductPage() {
-
     const location = useLocation();
     const { state } = location;
     const [imagePreviews, setImagePreviews] = useState<any[]>([]);
@@ -35,7 +34,6 @@ export default function EditProductPage() {
     const [selectedBrandValues, setSelectedBrandValues] = useState<any>()
     const [thumbnailimagePreview, setThumbnailImagePreview] = useState<any>(null);
     const [thumbnailImage, setThumbnailImage] = useState();
-
 
     // const [AddProducts, { isLoading }] = useAddProductMutation();
     const [EditProduct, { isLoading }] = useEditProductMutation();
@@ -50,8 +48,6 @@ export default function EditProductPage() {
             AddProduct.values.image.filter((_: any, index: number) => index !== indexToRemove)
         );
     };
-
-    console.log(ProductImages, "ProductImages")
 
 
     useEffect(() => {
@@ -76,9 +72,6 @@ export default function EditProductPage() {
 
         setProductId(state?.id)
     }, [state])
-
-    console.log(imagePreviews, "imagePreviews")
-
 
     //product image upload
     const AddCategoryImg = () => {
@@ -163,15 +156,14 @@ export default function EditProductPage() {
             },
 
             validationSchema: Yup.object().shape({
-
                 category: Yup.array().min(1, STRING.PRODUCT_CATEGORY_REQUIRED),
-                productName: Yup.string().required(STRING.PRODUCT_NAME_REQUIRED).min(3, STRING.PRODUCT_NAME_FORMAT),
-                description: Yup.string().required(STRING.PRODUCT_DESC_REQUIRED),
-                stock: Yup.string().required(STRING.PRODUCT_STOCK_REQUIRED),
-                brand: Yup.string().required(STRING.PRODUCT_BRAND_REQUIRED),
-                price: Yup.string().required(STRING.PRODUCT_PRICE_REQUIRED),
-                productModel: Yup.string().required(STRING.PRODUCT_MODEL_REQUIRED),
-                warranty: Yup.string().required(STRING.PRODUCT_WARRANTY__REQUIRED),
+                productName: Yup.string().trim().required(STRING.PRODUCT_NAME_REQUIRED).min(3, STRING.PRODUCT_NAME_FORMAT),
+                description: Yup.string().trim().required(STRING.PRODUCT_DESC_REQUIRED),
+                stock: Yup.string().trim().required(STRING.PRODUCT_STOCK_REQUIRED),
+                brand: Yup.string().trim().required(STRING.PRODUCT_BRAND_REQUIRED),
+                price: Yup.string().trim().required(STRING.PRODUCT_PRICE_REQUIRED),
+                productModel: Yup.string().trim().required(STRING.PRODUCT_MODEL_REQUIRED),
+                warranty: Yup.string().trim().required(STRING.PRODUCT_WARRANTY__REQUIRED),
                 // dummyPrice: Yup.string().required(STRING.PRODUCT_DUMMYPRICE__REQUIRED),
                 thumbnail: Yup.mixed().required(STRING.PRODUCT_THUMNAIL_REQUIRED)
                     .test("fileFormat", STRING.PRODUCT_THUMNAIL_FORMAT, (value: any) => {
@@ -227,14 +219,14 @@ export default function EditProductPage() {
                     <ArrowBackIcon className='!text-[20px]' />
                 </IconButton>
                 <Typography component='p' className='!font-bold !text-[25px]'>
-                    {"Edit Product"}
+                    {STRING.PRODUCT_EDIT}
                 </Typography>
             </div>
 
             <form onSubmit={AddProduct.handleSubmit} className='add_product'>
                 <Paper className='mt-[1.5rem] h-[860px] !shadow-none'>
                     <div className='flex justify-end'>
-                        {isLoading ? (<Loader />) : (<Buttons type={"submit"} className={'product_add_button'} startIcon={<BookmarkIcon />} variant={'contained'} text={'Save'} />)}
+                        {isLoading ? (<Loader />) : (<Buttons type={"submit"} className={'product_add_button'} startIcon={<BookmarkIcon />} variant={'contained'} text={STRING.SAVE} />)}
                     </div>
                     <div className='flex !flex-col mt-[1rem] pl-[3rem] pr-[3rem] '>
                         <div className='flex item-center !gap-[15px]'>
@@ -264,8 +256,6 @@ export default function EditProductPage() {
                             ))} */}
 
                             {imagePreviews?.map((preview, index) => {
-
-                                console.log(`${preview}`, "previewpreviewTTT")
                                 const imageUrl = preview?.startsWith("data") ? preview : `${BASE_URL}/${preview}`;
                                 return (
                                     <div key={index} className="image-preview-container">
@@ -327,7 +317,6 @@ export default function EditProductPage() {
                                 type={'file'}
                                 accept={'image/png'}
                                 style={{ display: 'none' }} />
-
                             <div className='flex-col'>
                                 <Avatar
                                     className='!w-[120px] !h-[120px] !cursor-pointer !rounded-[10px] !bg-white  border-[1px] !border-header'
@@ -421,8 +410,6 @@ export default function EditProductPage() {
                                 helperText={AddProduct.touched.stock && AddProduct.errors.stock} onChange={AddProduct.handleChange} value={AddProduct.values.stock} autoComplete={'off'} placeholder={STRING.PRODUCT_STOCK_PLACHOLDER}
                                 name={"stock"} className={'productField'} />
                         </div>
-
-
 
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>

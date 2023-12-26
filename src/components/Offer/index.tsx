@@ -2,29 +2,29 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import "./style.scss"
 import { Icon, Paper } from '@mui/material';
-import Buttons from '../Buttons';
+import Buttons from '../common/Buttons';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
-import Search from '../Search.js';
+import Search from '../common/Search/index';
 import { STRING } from '../../constants/String';
-import Tables from '../Table';
-import Dialogs from '../Dialogs';
+import Tables from '../common/Table';
+import Dialogs from '../common/Dialogs';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useDeleteBrandMutation, useGetAllBrandApiQuery } from '../../api/Brand';
-import { exportToCsv } from '../../api/Utils';
-import { useGetAllOfferQuery } from '../../api/Offer';
+import { useDeleteOfferMutation, useGetAllOfferQuery } from '../../api/Offer';
+import { exportToCsv } from '../../constants/Helper/Csv';
 
 export default function OfferPage() {
     const [selected, setSelected] = React.useState<readonly number[]>([]);
     const [search, setsearch] = useState("");
-    const [DeleteBrand, { isLoading: deleteBrandLoading }] = useDeleteBrandMutation();
+
+    const [DeleteOffer, { isLoading: deleteOfferLoading }] = useDeleteOfferMutation();
 
 
-
-    const { data: OfferData, isFetching: OfferFetching, refetch } = useGetAllOfferQuery({})
+    const { data: OfferData, isFetching: OfferFetching, refetch } = useGetAllOfferQuery({ search: search.trim() })
 
 
     const [rows, setRows] = useState<any[]>([]);
@@ -32,8 +32,8 @@ export default function OfferPage() {
 
     const [OfferDatas, setOfferDatas] = useState([]);
 
-
     const [selectedDeleteRows, setSelectedDelteRows] = useState([]);
+
 
     const [input, setinput] = useState("");
 
@@ -76,14 +76,34 @@ export default function OfferPage() {
         id: string | number,
         offerName: any,
         discount: any,
-        discountType: any
+        discountType: any,
+        image: any,
+        offerCode: any,
+        description: any,
+        brands: any,
+        products: any,
+        dateFrom: any,
+        dateTo: any,
+        defaultBrands: any,
+        defaultProducts :any
 
     ): any {
         return {
             id: id,
             offerName: offerName,
             discount: discount,
-            discountType: discountType
+            discountType: discountType,
+            image: image,
+            offerCode: offerCode,
+            description: description,
+            brands: brands,
+            products: products,
+            dateFrom: dateFrom,
+            dateTo: dateTo,
+            defaultBrands:defaultBrands,
+            defaultProducts:defaultProducts
+
+
         };
     }
 
@@ -91,11 +111,28 @@ export default function OfferPage() {
         const OfferDatas = OfferData?.result?.data;
         setOfferDatas(OfferDatas)
         const rowise = OfferDatas?.map((item: any) => {
+            const defaultBrands = item.brands.map((cat: any) => ({
+                label: cat.brandName,
+                value: cat._id,
+            }));
+            const defaultProducts = item.products.map((cat: any) => ({
+                label: cat.productName,
+                value: cat._id,
+            }));
             return createData(
                 item._id,
                 item.offerName,
                 item.discount,
-                item.discountType
+                item.discountType,
+                item.image,
+                item.offerCode,
+                item.description,
+                item.brands,
+                item.products,
+                item.dateFrom,
+                item.dateTo,
+                defaultBrands,
+                defaultProducts
             );
         });
         setRows(rowise)
@@ -105,10 +142,10 @@ export default function OfferPage() {
         refetch()
     }, [search, refetch])
 
-    console.log(rows, "rows")
+  
 
     const handleDelete = async () => {
-        const response: any = await DeleteBrand({ ids: selectedDeleteRows })
+        const response: any = await DeleteOffer({ ids: selectedDeleteRows })
         const { message, statusCode } = response?.data;
         if (statusCode === 200) {
             toast.success(message)
@@ -141,7 +178,7 @@ export default function OfferPage() {
     };
 
     const handleDeleteSingle = async () => {
-        const response: any = await DeleteBrand({ ids: selectedIdSingle })
+        const response: any = await DeleteOffer({ ids: selectedIdSingle })
         const { message, statusCode } = response?.data;
         if (statusCode === 200) {
             toast.success(message)
@@ -154,9 +191,11 @@ export default function OfferPage() {
 
     const handleCvsExport = () => {
         const exportColumns = [
-            { id: 'brandName', label: 'Brand Name' },
+            { id: 'offerName', label: 'Offer Name' },
+            { id: 'discount', label: 'Discount' },
+            { id: 'discountType' },
         ];
-        exportToCsv(rows, exportColumns, 'Brand_data');
+        exportToCsv(rows, exportColumns, 'offer_data');
     }
 
     return (
@@ -189,10 +228,10 @@ export default function OfferPage() {
             <div className='mt-[1rem]'>
                 <Tables handleDeleteOpen={handleDeleteSingleOpenConfirmation} selected={selected} setSelected={setSelected} Offer={"Offer"} getSelectedDeleteRows={getSelectedDeleteRows} headCells={headCells} rows={rows} isFetching={OfferFetching} />
             </div>
-            <Dialogs loading={deleteBrandLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={"product_delete_yes"} closeClass={"product_delete_cancel"} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmation} onClose={handleDeleteCloseConfirmation} tital={STRING.DELETE_SURE} desc={STRING.BRAND_DELETE_DESC} Action={handleDelete} />
+            <Dialogs loading={deleteOfferLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={"product_delete_yes"} closeClass={"product_delete_cancel"} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmation} onClose={handleDeleteCloseConfirmation} tital={STRING.DELETE_SURE} desc={STRING.OFFER_DELETE_DESC} Action={handleDelete} />
 
             {/* single delete */}
-            <Dialogs loading={deleteBrandLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={"product_delete_yes"} closeClass={"product_delete_cancel"} tital={STRING.DELETE_SURE} desc={STRING.BRAND_DELETE_DESC} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmationSingle} onClose={handleDeleteSingleCloseConfirmations} Action={handleDeleteSingle} />
+            <Dialogs loading={deleteOfferLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={"product_delete_yes"} closeClass={"product_delete_cancel"} tital={STRING.DELETE_SURE} desc={STRING.OFFER_DELETE_DESC} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmationSingle} onClose={handleDeleteSingleCloseConfirmations} Action={handleDeleteSingle} />
         </div>
     )
 }

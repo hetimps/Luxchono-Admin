@@ -1,13 +1,13 @@
 import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
-import Buttons from "../../Buttons";
+import Buttons from "../../common/Buttons";
 import Select from 'react-select';
 import { useState } from 'react';
-import { ReactSelectStyle } from '../../Selects/ReactSelect';
-import Loader from '../../Loader';
+import { ReactSelectStyle } from '../../common/Selects/ReactSelect';
+import Loader from '../../common/Loader';
 export default function UpdateOrderStatusDialog({ open, onClose, yesClass, closeClass, tital, textClose, textYes, selectedValues, setSelectedValues, Action, loading, defaultUpdateStatus }: any) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  console.log(defaultUpdateStatus, "defaultUpdateStatusdefaultUpdateStatus")
+
 
   const EditStatusOption = [
     { value: "Pending", label: "Pending" },

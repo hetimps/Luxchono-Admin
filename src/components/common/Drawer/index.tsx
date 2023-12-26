@@ -1,8 +1,8 @@
 import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ThemeProvider } from '@mui/material'
-import logo from "../../assets/imag/logo.svg";
+import logo from "../../../assets/imag/logo.svg";
 import { useLocation, useNavigate } from 'react-router';
 import { createTheme } from '@mui/material/styles';
-import { DrawerHeader } from '../PageComonComponent.js';
+import { DrawerHeader } from '../../../components/common/PageComonComponent/index';
 import "./style.scss"
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
@@ -87,7 +87,7 @@ export default function Drawers() {
                             <ListItemText className='draewr_dashboard_text' primary="Customer" />
                         </ListItemButton>
                     </ListItem>
-                    <ListItem disablePadding onClick={() => Navigate("/offer")} className={`draewr_dashboard_item ${location.pathname === "/offer" ? "active" : ""}`} >
+                    <ListItem disablePadding onClick={() => Navigate("/offer")} className={`draewr_dashboard_item ${location.pathname === "/offer" || location.pathname === "/addoffer" || location.pathname === "/editoffer" || location.pathname === "/viewoffer"? "active" : ""}`} >
                         <ListItemButton component="a" disableRipple >
                             <ListItemIcon className='draewr_dashboard_icon'>
                                 <LocalOfferIcon />

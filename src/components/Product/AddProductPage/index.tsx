@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { IconButton, Typography, Paper, Avatar, Select } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Buttons from '../../Buttons';
+import Buttons from '../../common/Buttons';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import * as Yup from 'yup';
 import '../style.scss';
-import TextFields from '../../TextFields';
+import TextFields from '../../common/TextFields';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useGetAllCategoryQuery } from '../../../api/Category';
 import { useNavigate } from 'react-router-dom';
 import { STRING } from '../../../constants/String';
-import Textareas from '../../Textarea';
-import Selects from '../../Selects';
+import Textareas from '../../common/Textarea';
+import Selects from '../../common/Selects';
 import { useGetAllBrandApiQuery } from '../../../api/Brand';
 import CloseIcon from '@mui/icons-material/Close';
 import { useFormik } from 'formik';
 import { useAddProductMutation } from '../../../api/Product';
 import { toast } from 'react-toastify';
-import Loader from '../../Loader';
+import Loader from '../../common/Loader';
 
 
 export default function AddProductPage() {
@@ -68,7 +68,6 @@ export default function AddProductPage() {
             });
         }
     };
-
 
     // thumbnail upload
     const AddThumbnailImage = () => {
@@ -128,15 +127,14 @@ export default function AddProductPage() {
             },
 
             validationSchema: Yup.object().shape({
-
                 category: Yup.array().min(1, STRING.PRODUCT_CATEGORY_REQUIRED),
-                productName: Yup.string().required(STRING.PRODUCT_NAME_REQUIRED).min(3, STRING.PRODUCT_NAME_FORMAT),
-                description: Yup.string().required(STRING.PRODUCT_DESC_REQUIRED),
-                stock: Yup.string().required(STRING.PRODUCT_STOCK_REQUIRED),
-                brand: Yup.string().required(STRING.PRODUCT_BRAND_REQUIRED),
-                price: Yup.string().required(STRING.PRODUCT_PRICE_REQUIRED),
-                productModel: Yup.string().required(STRING.PRODUCT_MODEL_REQUIRED),
-                warranty: Yup.string().required(STRING.PRODUCT_WARRANTY__REQUIRED),
+                productName: Yup.string().trim().required(STRING.PRODUCT_NAME_REQUIRED).min(3, STRING.PRODUCT_NAME_FORMAT),
+                description: Yup.string().trim().required(STRING.PRODUCT_DESC_REQUIRED),
+                stock: Yup.string().trim().required(STRING.PRODUCT_STOCK_REQUIRED),
+                brand: Yup.string().trim().required(STRING.PRODUCT_BRAND_REQUIRED),
+                price: Yup.string().trim().required(STRING.PRODUCT_PRICE_REQUIRED),
+                productModel: Yup.string().trim().required(STRING.PRODUCT_MODEL_REQUIRED),
+                warranty: Yup.string().trim().required(STRING.PRODUCT_WARRANTY__REQUIRED),
                 // dummyPrice: Yup.string().required(STRING.PRODUCT_DUMMYPRICE__REQUIRED),
                 thumbnail: Yup.mixed().required(STRING.PRODUCT_THUMNAIL_REQUIRED).test("fileFormat", STRING.PRODUCT_THUMNAIL_FORMAT, (value: any) => {
                     if (value) {
@@ -160,8 +158,6 @@ export default function AddProductPage() {
             }),
 
             onSubmit: async (values: any) => {
-
-                console.log(values.image, "imagess")
                 values.stock = Number(values.stock);
                 const response: any = await AddProducts(values);
                 const { message, statusCode } = response?.data;
@@ -388,7 +384,6 @@ export default function AddProductPage() {
                                     {STRING.PRODUCT_WARRANTY}
                                 </Typography>
                             </div>
-
                             <TextFields error={AddProduct.touched.warranty && Boolean(AddProduct.errors.warranty)}
                                 helperText={AddProduct.touched.warranty && AddProduct.errors.warranty} onChange={AddProduct.handleChange} values={AddProduct.values.warranty} autoComplete={'off'} placeholder={STRING.PRODUCT_WARRANTY_PLACHOLDER}
                                 name={"warranty"} className={'productField'} />
@@ -399,8 +394,6 @@ export default function AddProductPage() {
         </>
     );
 }
-
-
 
 // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 //     const files = e.target.files;
