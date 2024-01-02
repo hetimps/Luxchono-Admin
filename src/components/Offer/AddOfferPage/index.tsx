@@ -159,7 +159,7 @@ export default function AddOfferPage() {
                 </Typography>
             </div>
             <form onSubmit={AddOffer.handleSubmit} className='add_product'>
-                <Paper className='mt-[1.5rem] h-[800px] !shadow-none'>
+                <Paper className='mt-[1.5rem] paperboxshadow p-[1rem]'>
                     <div className='flex justify-end'>
                         {isLoading ? (<Loader />) : (<Buttons type={"submit"} className={'category_add_button'} startIcon={<BookmarkIcon />} variant={'contained'} text={STRING.SAVE} />)}
                     </div>
@@ -205,7 +205,7 @@ export default function AddOfferPage() {
                                     {STRING.OFFER_NAME}
                                 </Typography>
                             </div>
-                            <TextFields error={AddOffer.touched.offerName && Boolean(AddOffer.errors.offerName)}
+                            <TextFields
                                 helperText={AddOffer.touched.offerName && AddOffer.errors.offerName} onChange={AddOffer.handleChange} values={AddOffer.values.offerName} autoComplete={'off'} placeholder={STRING.OFFER_NAME_PLACHOLDER}
                                 name={"offerName"} className={'productField'} />
                         </div>
@@ -277,7 +277,7 @@ export default function AddOfferPage() {
                                     {STRING.OFFER_CODE}
                                 </Typography>
                             </div>
-                            <TextFields error={AddOffer.touched.offerCode && Boolean(AddOffer.errors.offerCode)}
+                            <TextFields
                                 helperText={AddOffer.touched.offerCode && AddOffer.errors.offerCode} onChange={AddOffer.handleChange} values={AddOffer.values.offerCode} autoComplete={'off'} placeholder={STRING.OFFER_OFFERCODE_PLACHOLDER}
                                 name={"offerCode"} className={'productField'} />
                         </div>
@@ -288,7 +288,7 @@ export default function AddOfferPage() {
                                     {STRING.OFFER_DISCOUNT}
                                 </Typography>
                             </div>
-                            <TextFields error={AddOffer.touched.discount && Boolean(AddOffer.errors.discount)}
+                            <TextFields
                                 helperText={AddOffer.touched.discount && AddOffer.errors.discount} onChange={AddOffer.handleChange} values={AddOffer.values.discount} type={"number"} autoComplete={'off'} placeholder={STRING.OFFER_DISCOUNT_PLACHOLDER}
                                 name={"discount"} className={'productField'} />
                         </div>
@@ -323,7 +323,7 @@ export default function AddOfferPage() {
                                     {STRING.OFFER_DESCRIPTION}
                                 </Typography>
                             </div>
-                            <Textareas error={AddOffer.touched.description && Boolean(AddOffer.errors.description)}
+                            <Textareas
                                 helperText={AddOffer.touched.description && AddOffer.errors.description} onChange={AddOffer.handleChange} value={AddOffer.values.description} name={"description"} width={"70rem"} rows={3} placeholder={STRING.OFFER_DESCRIPTION_PLACHOLDER} />
                         </div>
                         <div>

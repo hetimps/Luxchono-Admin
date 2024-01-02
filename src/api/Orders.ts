@@ -26,7 +26,7 @@ export const OrdersApi = createApi({
         }),
         DeleteOrder: builder.mutation({
             query: (params) => ({
-                url: `/order/admin-order-delete`,
+                url: `/order/admin-delete-multiple-orde`,
                 method: 'DELETE',
                 params
             }),

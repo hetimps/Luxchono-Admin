@@ -9,7 +9,7 @@ export default function Switchs() {
     const handleChange = () => {
         setChecked((prev) => !prev);
     };
-
+    
     const customSmallSize = 20;
 
     const IOSSwitch = styled((props: SwitchProps) => (
@@ -19,7 +19,6 @@ export default function Switchs() {
             {...props}
             // Add the onChange handler
             checked={checked} // Add the checked state
-
         />
     ))(({ theme }) => ({
         width: customSmallSize + 18, // Adjust width based on your preference

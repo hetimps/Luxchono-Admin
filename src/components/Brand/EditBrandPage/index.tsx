@@ -139,7 +139,7 @@ export default function EditBrandPage() {
             </div>
 
             <form onSubmit={EditBrands.handleSubmit}>
-                <Paper className='mt-[1.5rem] h-[450px] !shadow-none'>
+                <Paper className='mt-[1.5rem]  p-[1rem] pb-[2rem] paperboxshadow'>
                     <div className='flex justify-end'>
                         {isLoading ? (<Loader />) : (<Buttons type={"submit"} className={'brand_add_button'} startIcon={<BookmarkIcon />} variant={'contained'} text={'Save'} />)}
                     </div>
@@ -224,7 +224,6 @@ export default function EditBrandPage() {
                             <TextFields
                                 onChange={EditBrands.handleChange}
                                 autoComplete={'off'} placeholder={STRING.BRAND_NAME_PLACHOLDER} value={EditBrands.values.brandName}
-                                error={EditBrands.touched.brandName && Boolean(EditBrands.errors.brandName)}
                                 helperText={EditBrands.touched.brandName && EditBrands.errors.brandName} name={"brandName"} className={'BrandField'} />
                         </div>
                     </div>

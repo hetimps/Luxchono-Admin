@@ -132,7 +132,7 @@ export default function EditCategoryPage() {
             </div>
 
             <form onSubmit={AddCategory.handleSubmit}>
-                <Paper className='mt-[1.5rem] h-[450px] !shadow-none'>
+                <Paper className='mt-[1.5rem] p-[1rem] pb-[2rem] paperboxshadow'>
                     <div className='flex justify-end'>
                         {isLoading ? (<Loader />) : (<Buttons type={"submit"} className={'category_add_button'} startIcon={<BookmarkIcon />} variant={'contained'} text={'Save'} />)}
                     </div>
@@ -236,7 +236,6 @@ export default function EditCategoryPage() {
                             <TextFields
                                 onChange={AddCategory.handleChange}
                                 autoComplete={'off'} placeholder={STRING.CATEGORY_NAME_PLACHOLDER} value={AddCategory.values.categoryName}
-                                error={AddCategory.touched.categoryName && Boolean(AddCategory.errors.categoryName)}
                                 helperText={AddCategory.touched.categoryName && AddCategory.errors.categoryName} name={"categoryName"} className={'categoryField'} />
                         </div>
                     </div>

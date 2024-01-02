@@ -14,6 +14,7 @@ export const ProductRow = ({ row, index, handleDeleteOpen }: any) => {
     return (
         <>
             <TableCell
+                width={"20%"}
                 align="left"
                 component="th"
                 id={labelId}
@@ -24,16 +25,16 @@ export const ProductRow = ({ row, index, handleDeleteOpen }: any) => {
                     {row?.productname}
                 </div>
             </TableCell>
-            <TableCell align="left" padding="none">{`${row.category}`}</TableCell>
-            <TableCell align="left" padding="none">{row?.brand}</TableCell>
-            <TableCell align="left" padding="none">{`${row?.price?.toLocaleString('en-IN')} ₹`}</TableCell>
-            <TableCell align="left" padding="none">{row?.stock}</TableCell>
+            <TableCell width={"11%"} align="left" padding="none">{`${row.category}`}</TableCell>
+            <TableCell width={"11%"} align="left" padding="none">{row?.brand}</TableCell>
+            <TableCell width={"10%"} align="left" padding="none">{`${row?.price?.toLocaleString('en-IN')} ₹`}</TableCell>
+            <TableCell width={"10%"} align="left" padding="none">{row?.stock}</TableCell>
             {/* <TableCell align="left" padding="none">
                 <Rating className='!text-main' name="read-only" precision={0.5} value={Number(row?.review) || 0} readOnly />
             </TableCell> */}
-            <TableCell align="left" padding="none">{row?.productModel}</TableCell>
-            <TableCell align="left" padding="none">{row?.warranty}</TableCell>
-            <TableCell align="left" padding="none">{`${row?.dummyPrice?.toLocaleString('en-IN')} ₹` || "-"}</TableCell>
+            <TableCell width={"10%"} align="left" padding="none">{row?.productModel}</TableCell>
+            <TableCell width={"10%"} align="left" padding="none">{row?.warranty}</TableCell>
+            <TableCell width={"10%"} align="left" padding="none">{`${row?.dummyPrice?.toLocaleString('en-IN')} ₹` || "-"}</TableCell>
             <TableCell align="left" padding="none">
                 <div className='flex gap-[5px]'>
                     <EditOutlinedIcon className='text-black' onClick={() => navigate("/editproduct", { state: row })} />
@@ -124,6 +125,7 @@ export const OrdersRow = ({ row, index, handleDeleteOpen, handleUpdateOpenConfir
     return (
         <>
             <TableCell
+                width={"20%"}
                 align="left"
                 component="th"
                 id={labelId}
@@ -133,23 +135,30 @@ export const OrdersRow = ({ row, index, handleDeleteOpen, handleUpdateOpenConfir
                     {row?.id}
                 </div>
             </TableCell>
-            <TableCell align="left" padding="none">{row.userName}</TableCell>
-            <TableCell align="left" padding="none">{formattedDate}</TableCell>
-            <TableCell align="left" padding="none">{row?.method}</TableCell>
-            <TableCell align="left" padding="none">{`${row?.totalAmt?.toLocaleString('en-IN')} ₹`}</TableCell>
-            <TableCell align="left" padding="none">
+            <TableCell width={"20%"} align="left" padding="none">{row.userName}</TableCell>
+            <TableCell width={"20%"} align="left" padding="none">{formattedDate}</TableCell>
+            <TableCell width={"10%"} align="left" padding="none">{row?.method}</TableCell>
+            <TableCell width={"12%"} align="left" padding="none">{`${row?.totalAmt?.toLocaleString('en-IN')} ₹`}</TableCell>
+            <TableCell width={"13%"} align="left" padding="none">
                 {/* <span style={handleStatusesBadge(row?.status)} onClick={() => handleUpdateOpenConfirmation(row)}>
                     {handleStatusesText(row?.status)}
                 </span> */}
-                <span
-                    style={handleStatusesBadge(row?.status)}
-                    onClick={() => {
-                        if (row?.status !== "Cancelled" && row?.status !== "Delivered") {
-                            handleUpdateOpenConfirmation(row);
-                        }
-                    }}>
-                    {handleStatusesText(row?.status)}
-                </span>
+
+                <div>
+                    <span
+                        style={handleStatusesBadge(row?.status)}
+                    // onClick={() => {
+                    //     if (row?.status !== "Cancelled" && row?.status !== "Delivered") {
+                    //         handleUpdateOpenConfirmation(row);
+                    //     }
+                    // }}
+                    >
+                        {handleStatusesText(row?.status)}
+                    </span>
+
+                    {row?.status !== "Cancelled" && row?.status !== "Delivered" && <EditOutlinedIcon sx={{ fontSize: "17px", marginLeft: "0.3rem" }} className='text-black' onClick={() => handleUpdateOpenConfirmation(row)} />}
+                </div>
+
 
             </TableCell>
             <TableCell align="left" padding="none">
@@ -169,18 +178,19 @@ export const CustomerRow = ({ row, index }: any) => {
     return (
         <>
             <TableCell
+                width={"33%"}
                 align="left"
                 component="th"
                 id={labelId}
                 scope="row"
                 padding="none">
                 <div className='flex gap-[10px] items-center'>
-                    <Avatar className='!h-[35px] !w-[35px] !rounded-[10px] !border-header  border-[1px]' alt="c" src={`${BASE_URL}/${row?.image}`} />
+                    <Avatar className='!h-[35px] !w-[35px] !rounded-[10px] !border-header  border-[1px]' alt="c" src={`${BASE_URL}/${row?.profilePic}`} />
                     {row?.userName || "-"}
                 </div>
             </TableCell>
-            <TableCell align="left" padding="none">{row.email || "-"}</TableCell>
-            <TableCell align="left" padding="none">{row.phone || "-"}</TableCell>
+            <TableCell width={"33%"} align="left" padding="none">{row.email || "-"}</TableCell>
+            <TableCell width={"33%"} align="left" padding="none">{row.phone || "-"}</TableCell>
 
             {/* <TableCell className='w-[5rem]' align="left" padding="none">
                 <div className='flex gap-[5px]'>
@@ -208,10 +218,10 @@ export const OfferRow = ({ row, index, handleDeleteOpen }: any) => {
                     {row?.offerName || "-"}
                 </div>
             </TableCell>
-            <TableCell align="left" padding="none">
+            <TableCell width={"40%"} align="left" padding="none">
                 {row.discountType === "percentage" ? `${row.discount} %` : row.discountType === "cash" ? `${row.discount} ₹` : "-"}
             </TableCell>
-            <TableCell className='w-[5rem]' align="left" padding="none">
+            <TableCell width={"6%"} align="left" padding="none">
                 <div className='flex gap-[5px]'>
                     <EditOutlinedIcon className='text-black' onClick={() => navigate("/editoffer", { state: row })} />
                     <RemoveRedEyeOutlinedIcon className='text-black !text-[22px]' onClick={() => navigate("/viewoffer", { state: row })} />

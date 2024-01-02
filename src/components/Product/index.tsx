@@ -4,7 +4,7 @@ import Buttons from '../common/Buttons'
 import IosShareIcon from '@mui/icons-material/IosShare';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
-import { Paper } from '@mui/material';
+import {  Paper } from '@mui/material';
 import Search from '../common/Search/index';
 import Selects from '../common/Selects';
 import Tables from '../common/Table';
@@ -12,15 +12,13 @@ import { useDeleteProductMutation, useGetAllProductQuery } from '../../api/Produ
 import { useGetAllCategoryQuery } from '../../api/Category';
 import { useGetAllBrandApiQuery } from '../../api/Brand';
 import { STRING } from '../../constants/String';
-import TextFields from '../common/TextFields';
-import { Box } from '@mui/system';
-import ClearIcon from '@mui/icons-material/Clear';
-import SyncAltIcon from '@mui/icons-material/SyncAlt';
 import Dialogs from '../common/Dialogs';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { exportToCsv } from '../../constants/Helper/Csv';
+import TuneIcon from '@mui/icons-material/Tune';
+import ProductDrawer from './ProductFilterDrawer';
 
 export default function ProductPage() {
 
@@ -52,7 +50,6 @@ export default function ProductPage() {
     const [selectedDeleteRows, setSelectedDelteRows] = useState([]);
     const [selectedIdSingle, setSelectedIdSingle] = useState<number[]>([])
     const [openDeleteConfirmationSingle, setDeleteOpenConfirmationSingle] = useState(false);
-
 
 
     const getSelectedDeleteRows = (rows: any) => {
@@ -250,7 +247,6 @@ export default function ProductPage() {
             { id: 'productModel', label: 'Product Model' },
             { id: 'warranty', label: 'Warranty' },
             { id: 'dummyPrice', label: 'Dummy Price' },
-
         ];
         exportToCsv(rows, exportColumns, 'Product_data');
     }
@@ -282,9 +278,15 @@ export default function ProductPage() {
         navigate("/addproduct")
     }
 
+    //product drawer
+    const [isProductDrawerOpen, setIsProductDrawerOpen] = useState(false);
+    const toggleProductDrawer = () => {
+        setIsProductDrawerOpen(!isProductDrawerOpen);
+    };
+
     return (
         <div className='productContainer'>
-            <Paper className='!shadow-none h-[83px] flex justify-between items-center p-[1rem] mt-[0.5rem]'>
+            <Paper className='h-[83px] flex justify-between items-center p-[1rem] mt-[0.5rem] paperboxshadow'>
                 <div className='productbtns flex justify-between'>
                     <div className='flex gap-[10px]'>
                         <Buttons onClick={handleCvsExport} startIcon={<IosShareIcon />} text={"Export"} variant={"outlined"} className={"productheaderbtn1"} />
@@ -303,7 +305,7 @@ export default function ProductPage() {
                 </div>
             </Paper>
 
-            <Paper className='!shadow-none h-[83px] mt-[0.8rem] flex  items-center p-[1rem] gap-[10px]'>
+            <Paper className='paperboxshadow h-[83px] mt-[0.8rem] flex  items-center p-[1rem] gap-[10px]'>
                 <Search
                     placeholder={STRING.PRODUCT_SEARCH_PLACHOLDER}
                     setinput={setinput}
@@ -312,7 +314,7 @@ export default function ProductPage() {
                 <Selects width={"250px"} height={"45px"} placeholder={"Category"} options={filteredCategory} selectedValues={selectedCategoryValues} setSelectedValues={setSelectedCategoryValues} isMulti={true} />
                 <Selects width={"250px"} height={"45px"} placeholder={"Brand"} options={filteredBrand} selectedValues={selectedBrandValues} setSelectedValues={setSelectedBrandValues} isMulti={true} />
 
-                <Box className="prices">
+                {/* <Box className="prices">
                     <TextFields action={() => setStartPrice('')} icons={startPrice ? <ClearIcon className='!text-[1.2rem]' /> : null} endAdornment={true} type={"number"} onChange={(e: any) => setStartPrice(e.target.value)} value={startPrice} className="price" placeholder={"Start Price"} autoComplete={'off'} />
                     <SyncAltIcon className='text-black' />
                     <TextFields action={() => setEndPrice('')} icons={endPrice ? <ClearIcon className='!text-[1.2rem]' /> : null} endAdornment={true} type={"number"} onChange={(e: any) => setEndPrice(e.target.value)} value={endPrice} className="price" placeholder={"End Price"} autoComplete={'off'} />
@@ -322,7 +324,11 @@ export default function ProductPage() {
                     <TextFields action={() => setStartStock('')} icons={startStock ? <ClearIcon className='!text-[1.2rem]' /> : null} endAdornment={true} type={"number"} onChange={(e: any) => setStartStock(e.target.value)} value={startStock} className="price" placeholder={"Start Stock"} autoComplete={'off'} />
                     <SyncAltIcon className='text-black' />
                     <TextFields action={() => setEndStock('')} icons={endStock ? <ClearIcon className='!text-[1.2rem]' /> : null} endAdornment={true} type={"number"} onChange={(e: any) => setEndStock(e.target.value)} value={endStock} className="price" placeholder={"End Stock"} autoComplete={'off'} />
-                </Box>
+                </Box> */}
+
+                <button className='filter_button' onClick={() => toggleProductDrawer()} >
+                    <TuneIcon />
+                </button>
             </Paper>
 
             <div className='mt-[1rem]'>
@@ -332,7 +338,12 @@ export default function ProductPage() {
             <Dialogs loading={deleteProductLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={"product_delete_yes"} closeClass={"product_delete_cancel"} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmation} onClose={handleDeleteCloseConfirmation} tital={STRING.DELETE_SURE} desc={STRING.PRODUCT_DELETE_DESC} Action={handleDelete} />
 
             {/* single delete */}
-            <Dialogs loading={deleteProductLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={"product_delete_yes"} closeClass={"product_delete_cancel"} tital={STRING.DELETE_SURE} desc={STRING.CATEGORY_DELETE_DESC} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmationSingle} onClose={handleDeleteSingleCloseConfirmations} Action={handleDeleteSingle} />
+            <Dialogs loading={deleteProductLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={"product_delete_yes"} closeClass={"product_delete_cancel"} tital={STRING.DELETE_SURE} desc={STRING.PRODUCT_DELETE_DESC} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmationSingle} onClose={handleDeleteSingleCloseConfirmations} Action={handleDeleteSingle} />
+
+            {/* product filter */}
+
+            <ProductDrawer startPrice={startPrice} endPrice={endPrice} startStock={startStock} endStock={endStock} setStartPrice={setStartPrice} setEndPrice={setEndPrice} setStartStock={setStartStock} setEndStock={setEndStock} isProductDrawerOpen={isProductDrawerOpen} toggleProductDrawer={toggleProductDrawer} />
+
         </div>
     )
 }

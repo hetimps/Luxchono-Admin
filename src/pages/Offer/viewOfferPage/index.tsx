@@ -4,7 +4,6 @@ import { DrawerHeader, Main } from "../../../components/common/PageComonComponen
 import Drawers from "../../../components/common/Drawer";
 import ViewOfferPage from "../../../components/Offer/viewOfferPage/index";
 
-
 export default function ViewOffer() {
     return (
         <Box sx={{ display: 'flex' }}>

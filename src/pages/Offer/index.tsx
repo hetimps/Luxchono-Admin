@@ -8,11 +8,11 @@ export default function Offer() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBars  haddings="Offer"/>
+      <AppBars haddings="Offer" />
       <Drawers />
       <Main open={true}>
         <DrawerHeader />
-        <OfferPage/>
+        <OfferPage />
       </Main>
     </Box>
   )

@@ -33,14 +33,12 @@ export default function CustomerPage() {
             disablePadding: true,
             label: 'Customer name',
         },
-
         {
             id: 'email',
             numeric: false,
             disablePadding: true,
             label: 'Email',
         },
-
         {
             id: 'phone',
             numeric: true,
@@ -59,13 +57,15 @@ export default function CustomerPage() {
         id: string | number,
         userName: any,
         email: any,
-        phone: any
+        phone: any,
+        profilePic: any
     ): any {
         return {
             id: id,
             userName: userName,
             email: email,
             phone: phone,
+            profilePic: profilePic
         };
     }
 
@@ -77,7 +77,8 @@ export default function CustomerPage() {
                 item._id,
                 item.userName,
                 item.email,
-                item.phone
+                item.phone,
+                item.profilePic
             );
         });
         setRows(rowise)
@@ -86,7 +87,6 @@ export default function CustomerPage() {
     useEffect(() => {
         refetch()
     }, [search, refetch])
-
 
 
     const handleCvsExport = () => {
@@ -99,9 +99,8 @@ export default function CustomerPage() {
     }
 
     return (
-
         <div className='productContainer'>
-            <Paper className='!shadow-none h-[83px] flex justify-between items-center p-[1rem] mt-[0.5rem]'>
+            <Paper className='paperboxshadow h-[83px] flex justify-between items-center p-[1rem] mt-[0.5rem]'>
                 <div className='productbtns flex justify-between'>
                     <div className='flex gap-[10px]'>
                         <Buttons onClick={handleCvsExport} startIcon={<IosShareIcon />} text={STRING.EXPORT_BUTTON} variant={"outlined"} className={"productheaderbtn1"} />
@@ -119,11 +118,12 @@ export default function CustomerPage() {
                 </div>
             </Paper>
 
-            <Paper className='!shadow-none h-[83px] mt-[0.8rem] flex  items-center p-[1rem] gap-[10px]'>
+            <Paper className='paperboxshadow h-[83px] mt-[0.8rem] flex  items-center p-[1rem] gap-[10px]'>
                 <Search setinput={setinput}
                     input={input}
                     setsearch={setsearch} placeholder={"Search Customer"} />
             </Paper>
+            
 
             <div className='mt-[1rem]'>
                 <Tables selected={selected} setSelected={setSelected} Customer={"Customer"} getSelectedDeleteRows={getSelectedDeleteRows} headCells={headCells} rows={rows} isFetching={CustomerFetching} />

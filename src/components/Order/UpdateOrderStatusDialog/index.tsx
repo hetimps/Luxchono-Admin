@@ -1,22 +1,32 @@
 import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import Buttons from "../../common/Buttons";
 import Select from 'react-select';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReactSelectStyle } from '../../common/Selects/ReactSelect';
 import Loader from '../../common/Loader';
-export default function UpdateOrderStatusDialog({ open, onClose, yesClass, closeClass, tital, textClose, textYes, selectedValues, setSelectedValues, Action, loading, defaultUpdateStatus }: any) {
+import { EditStatusOption } from '../../../constants/Array';
+export default function UpdateOrderStatusDialog({ open, onClose, yesClass, closeClass, tital, textClose, textYes, selectedValues, setSelectedValues, Action, loading, defaultUpdateStatus, optionValue }: any) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
 
+  const [disabledBtton, setDisabledButton] = useState(true);
 
-  const EditStatusOption = [
-    { value: "Pending", label: "Pending" },
-    { value: "Cancelled", label: "Cancelled" },
-    // { value: "Completed", label: "Completed" },
-    { value: "Shipped", label: "Shipped" },
-    { value: "Out of Delivery", label: "Out of Delivery" },
-    { value: "Delivered", label: "Delivered" },
-  ]
+  useEffect(() => {
+    if (optionValue?.value !== selectedValues?.value) {
+      setDisabledButton(false)
+    } else {
+      setDisabledButton(true)
+    }
+  }, [selectedValues, optionValue])
+
+
+  // const EditStatusOption = [
+  //   { value: "Pending", label: "Pending" },
+  //   { value: "Shipped", label: "Shipped" },
+  //   { value: "Out of Delivery", label: "Out of Delivery" },
+  //   { value: "Delivered", label: "Delivered" },
+  //   { value: "Cancelled", label: "Cancelled" },
+  // ]
 
   const handleSelectChange = (selectedOptions: any) => {
     setSelectedValues(selectedOptions);
@@ -31,7 +41,7 @@ export default function UpdateOrderStatusDialog({ open, onClose, yesClass, close
           </span>
         </DialogTitle>
 
-        <div className='mb-[20px]' style={{ height: isMenuOpen ? '30vh' : 'auto' }}>
+        <div className='mb-[20px]' style={{ height: isMenuOpen ? '26vh' : 'auto' }}>
           <Select
             value={selectedValues}
             onChange={handleSelectChange}
@@ -52,7 +62,7 @@ export default function UpdateOrderStatusDialog({ open, onClose, yesClass, close
           {loading ? <Loader /> : (
             <Box className="!flex !gap-[8px] mt-[0.5rem]">
               <Buttons text={textClose} className={closeClass} variant={"outlined"} onClick={onClose} />
-              <Buttons text={textYes} className={yesClass} variant={"contained"} onClick={Action} />
+              <Buttons disabled={disabledBtton} text={textYes} className={yesClass} variant={"contained"} onClick={Action} />
             </Box>
           )}
 

@@ -220,14 +220,15 @@ export default function OrderPage() {
 
     //edit status 
     const [UpdateselectedId, setUpdateSelectedId] = useState<any>("");
-
     const [selectStatus, setSelectStatus] = useState<any>("");
     const [openUpdateConfirmationSingle, setUpdateOpenConfirmationSingle] = useState(false);
+    const [optionValue, setOptionValue] = useState<any>("")
 
     const handleUpdateOpenConfirmation = (row: any) => {
         setUpdateOpenConfirmationSingle(true);
         setUpdateSelectedId(row?.id);
         setSelectStatus({ label: row?.status, value: row?.status })
+        setOptionValue({ label: row?.status, value: row?.status })
     };
     const handleUpdateCloseConfirmations = () => {
         setUpdateOpenConfirmationSingle(false);
@@ -262,7 +263,7 @@ export default function OrderPage() {
 
     return (
         <div className='productContainer'>
-            <Paper className='!shadow-none h-[83px] flex justify-between items-center p-[1rem] mt-[0.5rem]'>
+            <Paper className='paperboxshadow h-[83px] flex justify-between items-center p-[1rem] mt-[0.5rem]'>
                 <div className='productbtns flex justify-between'>
                     <div className='flex gap-[10px]'>
                         <Buttons onClick={handleCvsExport} startIcon={<IosShareIcon />} text={STRING.EXPORT_BUTTON} variant={"outlined"} className={"productheaderbtn1"} />
@@ -279,7 +280,7 @@ export default function OrderPage() {
                 </div>
             </Paper>
 
-            <Paper className='!shadow-none h-[83px] mt-[0.8rem] flex  items-center p-[1rem] gap-[10px]'>
+            <Paper className='paperboxshadow h-[83px] mt-[0.8rem] flex  items-center p-[1rem] gap-[10px]'>
                 <Search setinput={setinput}
                     input={input}
                     setsearch={setsearch} placeholder={STRING.ORDER__SEARCH_PLACHOLDER} />
@@ -296,7 +297,7 @@ export default function OrderPage() {
             <Dialogs loading={deleteOrderLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={"product_delete_yes"} closeClass={"product_delete_cancel"} tital={STRING.DELETE_SURE} desc={STRING.ORDER_DELETE_DESC} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmationSingle} onClose={handleDeleteSingleCloseConfirmations} Action={handleDeleteSingle} />
 
             {/* update status */}
-            <UpdateOrderStatusDialog loading={UpdateStatusLoading} selectedValues={selectStatus} setSelectedValues={setSelectStatus} tital={"Update Order Status"} textClose={"Cancel"} textYes={"Edit"} yesClass={"dialog_yes"} closeClass={"dialog_cancel"} open={openUpdateConfirmationSingle} Action={handleUpdateOrderStatus} onClose={handleUpdateCloseConfirmations} />
+            <UpdateOrderStatusDialog loading={UpdateStatusLoading} selectedValues={selectStatus} setSelectedValues={setSelectStatus} tital={"Update Order Status"} textClose={"Cancel"} textYes={"Edit"} yesClass={"dialog_yes"} closeClass={"dialog_cancel"} open={openUpdateConfirmationSingle} Action={handleUpdateOrderStatus} onClose={handleUpdateCloseConfirmations} optionValue={optionValue} />
         </div>
     )
 }

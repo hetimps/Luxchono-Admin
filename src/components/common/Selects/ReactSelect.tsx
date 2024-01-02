@@ -7,12 +7,12 @@ export const ReactSelectStyle = (width: any, height: any) => {
         }),
         control: (styles: any) => ({
             ...styles,
-            // borderRadius: "5px",
+            borderRadius: "12px",
             boxShadow: "none",
             width: width,
             height: height || "50px",
             "&:hover": {
-                borderColor: "#964315",
+                borderColor: "#000",
             },
             borderColor: "#DCDBDB",
             fontSize: "1rem",

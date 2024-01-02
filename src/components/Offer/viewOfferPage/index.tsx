@@ -1,22 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import ReactDateRangePicker from '../../common/DateRangePicker'
 import { Avatar, IconButton, Paper, Typography } from '@mui/material';
-import Buttons from '../../common/Buttons';
 import { STRING } from '../../../constants/String';
 import TextFields from '../../common/TextFields';
 import Selects from '../../common/Selects';
 import Textareas from '../../common/Textarea';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { useGetAllBrandApiQuery } from '../../../api/Brand';
-import { useGetAllProductQuery } from '../../../api/Product';
-import { useAddOfferMutation, useEditOfferMutation } from '../../../api/Offer';
-import { toast } from 'react-toastify';
-import Loader from '../../common/Loader';
 import { BASE_URL } from '../../../api/Utils';
 
 export default function ViewOfferPage() {
@@ -49,7 +39,7 @@ export default function ViewOfferPage() {
             </div>
 
             <form className='add_product'>
-                <Paper className='mt-[1.5rem] h-[710px] !shadow-none'>
+                <Paper className='mt-[1.5rem] paperboxshadow p-[1rem]'>
                     <div className='flex !flex-col mt-[1rem] pl-[3rem] pr-[3rem] '>
                         <div className='flex item-center !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] !flex !justify-end mt-[0.5rem] '>
@@ -90,7 +80,7 @@ export default function ViewOfferPage() {
                                     showDateRangePicker={false}
                                     setShowDateRangePicker={setShowDateRangePicker}
                                     fromDate={state?.dateFrom}
-                                    toDate={state?.dateTo}/>
+                                    toDate={state?.dateTo} />
                             </div>
                         </div>
 

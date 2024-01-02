@@ -32,6 +32,7 @@ export default function Searchs({ setpage, setsearch, setinput, input, isFetchin
             placeholder={placeholder}
             inputProps={{ "aria-label": "search" }}
             className="appbar_search "
+
             endAdornment={
                 <div className="flex justify-end">
                     {input !== "" && (

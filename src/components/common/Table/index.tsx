@@ -92,9 +92,7 @@ function EnhancedTableHead(props: any) {
                         onChange={onSelectAllClick}
                         inputProps={{
                             'aria-label': 'select all desserts',
-                        }}
-
-                    />
+                        }} />
                 </TableCell>
                 {headCells.map((headCell: any) => (
                     <TableCell
@@ -150,7 +148,6 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
             if (Array.isArray(rows)) {
                 const newSelected = rows.map((n) => n.id as any);
                 setSelected(newSelected);
-
             }
             return;
         }
@@ -184,7 +181,6 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
         setPage(0);
     };
 
-
     const isSelected = (id: number) => selected?.indexOf(id) !== -1;
 
     const emptyRows =
@@ -202,9 +198,8 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
     return (
         <Box>
             <Paper className="table-pepar">
-                <TableContainer className="table-container">
+                <TableContainer className="table-container"  >
                     <Table
-                        // sx={{ minWidth: 750 }}
                         aria-labelledby="tableTitle"
                         size={dense ? 'small' : 'medium'}>
                         <EnhancedTableHead
@@ -216,9 +211,7 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
                             rowCount={rows?.length}
                             headCells={headCells}
                             Orders={Orders}
-                            Customer={Customer}
-
-                        />
+                            Customer={Customer} />
 
                         {isFetching ? (
                             <div className='table_loading'>
@@ -259,7 +252,7 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
                                             {Brand && <BrandRow row={row} index={index} handleDeleteOpen={handleDeleteOpen} />}
                                             {Orders && <OrdersRow handleUpdateOpenConfirmation={handleUpdateOpenConfirmation} row={row} index={index} handleDeleteOpen={handleDeleteOpen} />}
                                             {Customer && <CustomerRow row={row} index={index} />}
-                                            {Offer && <OfferRow row={row} index={index} handleDeleteOpen={handleDeleteOpen}  />}
+                                            {Offer && <OfferRow row={row} index={index} handleDeleteOpen={handleDeleteOpen} />}
 
                                         </TableRow>
                                     );

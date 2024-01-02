@@ -38,9 +38,9 @@ export default function ViewOrderPage() {
             </div>
 
             <form className='add_product'>
-                <Paper className='mt-[1.5rem] h-[760px] !shadow-none'>
+                <Paper className='mt-[1rem] p-[1rem]  paperboxshadow'>
 
-                    <div className='flex !flex-col mt-[1rem] pl-[3rem] pr-[3rem] '>
+                    <div className='flex !flex-col  pl-[3rem] pr-[3rem] '>
 
                         <div className='flex item-center !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] !flex !justify-end mt-[0.5rem] '>

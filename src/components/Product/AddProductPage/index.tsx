@@ -19,7 +19,6 @@ import { useAddProductMutation } from '../../../api/Product';
 import { toast } from 'react-toastify';
 import Loader from '../../common/Loader';
 
-
 export default function AddProductPage() {
 
     const [imagePreviews, setImagePreviews] = useState<any[]>([]);
@@ -41,7 +40,6 @@ export default function AddProductPage() {
             AddProduct.values.image.filter((_: any, index: number) => index !== indexToRemove)
         );
     };
-
 
     //product image upload
     const AddCategoryImg = () => {
@@ -186,7 +184,7 @@ export default function AddProductPage() {
             </div>
 
             <form onSubmit={AddProduct.handleSubmit} className='add_product'>
-                <Paper className='mt-[1.5rem] h-[860px] !shadow-none'>
+                <Paper className='mt-[1.5rem] paperboxshadow p-[1rem]'>
                     <div className='flex justify-end'>
                         {isLoading ? (<Loader />) : (<Buttons type={"submit"} className={'product_add_button'} startIcon={<BookmarkIcon />} variant={'contained'} text={'Save'} />)}
                     </div>
@@ -313,7 +311,7 @@ export default function AddProductPage() {
                                     {STRING.PRODUCT_NAME}
                                 </Typography>
                             </div>
-                            <TextFields error={AddProduct.touched.productName && Boolean(AddProduct.errors.productName)}
+                            <TextFields
                                 helperText={AddProduct.touched.productName && AddProduct.errors.productName} onChange={AddProduct.handleChange} values={AddProduct.values.productName} autoComplete={'off'} placeholder={STRING.PRODUCT_NAME_PLACHOLDER}
                                 name={"productName"} className={'productField'} />
                         </div>
@@ -326,7 +324,7 @@ export default function AddProductPage() {
                                 </Typography>
                             </div>
 
-                            <TextFields error={AddProduct.touched.productModel && Boolean(AddProduct.errors.productModel)}
+                            <TextFields
                                 helperText={AddProduct.touched.productModel && AddProduct.errors.productModel} onChange={AddProduct.handleChange} values={AddProduct.values.productModel} autoComplete={'off'} placeholder={STRING.PRODUCT_MODEL_PLACHOLDER}
                                 name={"productModel"} className={'productField'} />
                         </div>
@@ -337,7 +335,7 @@ export default function AddProductPage() {
                                     {STRING.PRODUCT_DESC}
                                 </Typography>
                             </div>
-                            <Textareas error={AddProduct.touched.description && Boolean(AddProduct.errors.description)}
+                            <Textareas
                                 helperText={AddProduct.touched.description && AddProduct.errors.description} onChange={AddProduct.handleChange} value={AddProduct.values.description} name={"description"} width={"70rem"} rows={3} placeholder={STRING.PRODUCT_DESC_PLACHOLDER} />
                         </div>
 
@@ -347,7 +345,7 @@ export default function AddProductPage() {
                                     {STRING.PRODUCT_STOCK}
                                 </Typography>
                             </div>
-                            <TextFields type={"number"} error={AddProduct.touched.stock && Boolean(AddProduct.errors.stock)}
+                            <TextFields type={"number"}
                                 helperText={AddProduct.touched.stock && AddProduct.errors.stock} onChange={AddProduct.handleChange} values={AddProduct.values.stock} autoComplete={'off'} placeholder={STRING.PRODUCT_STOCK_PLACHOLDER}
                                 name={"stock"} className={'productField'} />
                         </div>
@@ -361,7 +359,7 @@ export default function AddProductPage() {
                                 </Typography>
                             </div>
 
-                            <TextFields type={"number"} error={AddProduct.touched.price && Boolean(AddProduct.errors.price)}
+                            <TextFields type={"number"}
                                 helperText={AddProduct.touched.price && AddProduct.errors.price} onChange={AddProduct.handleChange} values={AddProduct.values.price} autoComplete={'off'} placeholder={STRING.PRODUCT_PRICE_PLACHOLDER}
                                 name={"price"} className={'productField'} />
                         </div>
@@ -374,7 +372,7 @@ export default function AddProductPage() {
                                 </Typography>
                             </div>
 
-                            <TextFields type={"number"} error={AddProduct.touched.dummyPrice && Boolean(AddProduct.errors.dummyPrice)}
+                            <TextFields type={"number"}
                                 helperText={AddProduct.touched.dummyPrice && AddProduct.errors.dummyPrice} onChange={AddProduct.handleChange} values={AddProduct.values.dummyPrice} autoComplete={'off'} placeholder={STRING.PRODUCT_DUMMYPRICE_PLACHOLDER}
                                 name={"dummyPrice"} className={'productField'} />
                         </div>
@@ -384,7 +382,7 @@ export default function AddProductPage() {
                                     {STRING.PRODUCT_WARRANTY}
                                 </Typography>
                             </div>
-                            <TextFields error={AddProduct.touched.warranty && Boolean(AddProduct.errors.warranty)}
+                            <TextFields
                                 helperText={AddProduct.touched.warranty && AddProduct.errors.warranty} onChange={AddProduct.handleChange} values={AddProduct.values.warranty} autoComplete={'off'} placeholder={STRING.PRODUCT_WARRANTY_PLACHOLDER}
                                 name={"warranty"} className={'productField'} />
                         </div>

@@ -1,5 +1,10 @@
 @import "../../constants/color";
 
+
+.paperboxshadow {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+}
+
 .productContainer {
 
     // background-color: #F8F8F8;
@@ -30,11 +35,30 @@
         height: 43px;
     }
 
+    .filter_button {
+        background-color: $primary;
+        color: $white;
+        border-radius: 8px;
+        height: 2.5rem;
+        width: 2.6rem;
+
+
+
+    }
+
+    .filter_button:hover {
+        background-color: $white;
+        color: $primary;
+        border: 2px solid $primary;
+
+    }
+
     .addbtn {
         background-color: $primary !important;
         width: 144px !important;
     }
-    .addcustomerbtn{
+
+    .addcustomerbtn {
         background-color: $primary !important;
         width: 154px !important;
     }
@@ -87,6 +111,7 @@
 
 .productField {
     width: 70rem;
+
     .MuiInputBase-root {
         border-radius: 12px !important;
         height: 45px;

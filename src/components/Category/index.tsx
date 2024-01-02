@@ -147,7 +147,7 @@ export default function CategoryPage() {
 
     return (
         <div className='productContainer'>
-            <Paper className='!shadow-none h-[83px] flex justify-between items-center p-[1rem] mt-[0.5rem]'>
+            <Paper className='paperboxshadow h-[83px] flex justify-between items-center p-[1rem] mt-[0.5rem]'>
                 <div className='productbtns flex justify-between'>
                     <div className='flex gap-[10px]'>
                         <Buttons onClick={handleCvsExport} startIcon={<IosShareIcon />} text={STRING.EXPORT_BUTTON} variant={"outlined"} className={"productheaderbtn1"} />
@@ -165,7 +165,7 @@ export default function CategoryPage() {
                 </div>
             </Paper>
 
-            <Paper className='!shadow-none h-[83px] mt-[0.8rem] flex  items-center p-[1rem] gap-[10px]'>
+            <Paper className='paperboxshadow h-[83px] mt-[0.8rem] flex  items-center p-[1rem] gap-[10px]'>
                 <Search setinput={setinput}
                     input={input}
                     setsearch={setsearch} placeholder={STRING.CATEGORY_SEARCH_PLACHOLDER} />

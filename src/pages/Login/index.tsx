@@ -59,7 +59,7 @@ export default function Login() {
 
   return (
     <div className='flex items-center justify-center  h-[100vh] logincontainer'>
-      <Paper className='!rounded-[40px] w-[1080px] overflow-hidden loginpepar'>
+      <Paper className='!rounded-[40px] w-[1080px] overflow-hidden loginpepar  paperboxshadow '>
         <Grid container>
           <Grid item xs={12} sm={12} md={6}>
             <div>

@@ -39,6 +39,35 @@
     }
 }
 
+.logout_icon_div {
+    background-color: $secondary;
+    bottom: 0.5rem !important;
+    border-radius: 10px !important;
+    left: 0.8rem;
+    right: 1rem;
+    bottom: 0;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 3rem;
+    gap: 6px;
+    cursor: pointer;
+
+    .logout_text {
+        font-size: 15px;
+        font-weight: 800;
+        color: $primary;
+    }
+
+    .logout_icon {
+        font-size: 20px;
+        color: $primary;
+    }
+
+}
+
 .draewr_dashboard_item:active .draewr_dashboard_icon {
     color: $primary;
 }
