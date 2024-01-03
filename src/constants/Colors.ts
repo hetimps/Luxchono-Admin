@@ -9,7 +9,6 @@ export const Colors = {
     yellow: "rgb(107, 92, 31)",
     blue: "#57ACFF",
     purple: "#58565e"
-
   },
   light: {
     white: "#fff",

@@ -4,7 +4,7 @@ import Buttons from '../common/Buttons'
 import IosShareIcon from '@mui/icons-material/IosShare';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
-import {  Paper } from '@mui/material';
+import { Paper } from '@mui/material';
 import Search from '../common/Search/index';
 import Selects from '../common/Selects';
 import Tables from '../common/Table';
@@ -44,13 +44,11 @@ export default function ProductPage() {
     const [endStock, setEndStock] = useState("");
     const { data, isFetching, refetch } = useGetAllProductQuery({
         search: search.trim(), category: searchCategoryValues, brands: searchBrandValues, startPrice: startPrice, endPrice: endPrice, startStockRange: startStock, endStockRange: endStock
-
     }, { refetchOnMountOrArgChange: true, });
     const [openDeleteConfirmation, setDeleteOpenConfirmation] = useState(false);
     const [selectedDeleteRows, setSelectedDelteRows] = useState([]);
     const [selectedIdSingle, setSelectedIdSingle] = useState<number[]>([])
     const [openDeleteConfirmationSingle, setDeleteOpenConfirmationSingle] = useState(false);
-
 
     const getSelectedDeleteRows = (rows: any) => {
         setSelectedDelteRows(rows)
@@ -101,8 +99,6 @@ export default function ProductPage() {
         };
     }
 
-
-
     useEffect(() => {
         const producData = data?.result?.data;
         setProductData(producData)
@@ -113,7 +109,6 @@ export default function ProductPage() {
                 label: cat.categoryName,
                 value: cat._id,
             }));
-
             return createData(
                 item._id,
                 item.productName,
@@ -303,6 +298,7 @@ export default function ProductPage() {
                         }`} />}
                     <Buttons onClick={AddProduct} startIcon={<ControlPointIcon />} variant={"contained"} text={"Add Product"} className="productheaderbtn2 addbtn" />
                 </div>
+
             </Paper>
 
             <Paper className='paperboxshadow h-[83px] mt-[0.8rem] flex  items-center p-[1rem] gap-[10px]'>

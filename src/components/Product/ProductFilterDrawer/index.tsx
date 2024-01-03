@@ -78,7 +78,7 @@ function ProductDrawer({ isProductDrawerOpen, toggleProductDrawer, setStartPrice
                             </div>
 
                             <div onClick={() => toggleProductDrawer()}>
-                                <CloseIcon  className="cursor-pointer"/>
+                                <CloseIcon className="cursor-pointer" />
                             </div>
                         </div>
                     </div>

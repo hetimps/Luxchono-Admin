@@ -1,4 +1,3 @@
-import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "../pages/Login/index"
 import Dashboard from '../pages/Dashboard';
@@ -19,6 +18,10 @@ import ViewOrder from '../pages/Order/ViewOrder';
 import AddOffer from '../pages/Offer/AddOfferPage';
 import EditOffer from '../pages/Offer/EditOfferPage';
 import ViewOffer from '../pages/Offer/viewOfferPage';
+import Register from '../pages/Register';
+import OtpVerify from '../pages/Otp';
+import ForgotPassword from '../pages/ForgotPassword';
+import ResetPassword from '../pages/ResetPassword';
 
 export default function Router() {
   return (
@@ -27,6 +30,10 @@ export default function Router() {
         <AuthHandler />
         <Routes>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
+          <Route path="/otp" element={<OtpVerify />}></Route>
+          <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
+          <Route path="/resetpassword" element={<ResetPassword />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/product" element={<Product />}></Route>
           <Route path="/addproduct" element={<AddProduct />}></Route>
@@ -39,7 +46,7 @@ export default function Router() {
           <Route path="/offer" element={<Offer />}></Route>
           <Route path='/addoffer' element={<AddOffer />} />
           <Route path='/editoffer' element={<EditOffer />} />
-          <Route path='/viewoffer' element={<ViewOffer/>} />
+          <Route path='/viewoffer' element={<ViewOffer />} />
           <Route path="/customer" element={<Customer />}></Route>
           <Route path="/brand" element={<Brand />}></Route>
           <Route path="/addbrand" element={<AddBrand />}></Route>

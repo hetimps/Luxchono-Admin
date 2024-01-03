@@ -38,7 +38,7 @@ export default function AppBars(props: any) {
                         <Typography variant="h6" component="div" className="text-black !font-bold" >
                             {"hello"}
                         </Typography>
-                        <LogoutIcon onClick={handleOpenConfirmation} className='text-black cursor-pointer' />
+                        {/* <LogoutIcon onClick={handleOpenConfirmation} className='text-black cursor-pointer' /> */}
                     </Box>
                 </Toolbar>
             </AppBar>

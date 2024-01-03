@@ -1,5 +1,5 @@
 import { Paper, Grid, Typography, InputAdornment, IconButton } from '@mui/material'
-import LoginImg from "../../assets/imag/LoginImg.svg";
+import LoginImg from "../../assets/imag/LoginImg2.svg";
 import Logo from "../../assets/imag/logo.svg"
 import TextFields from '../../components/common/TextFields';
 import "./style.scss"
@@ -11,7 +11,7 @@ import { REGEX } from "../../constants/Regex";
 import { toast } from "react-toastify";
 import Loader from '../../components/common/Loader';
 import { useLoginMutation } from '../../api/Login';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -68,10 +68,10 @@ export default function Login() {
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <form onSubmit={login.handleSubmit}>
-              <div className='flex items-center justify-center m-[2.5rem]'>
+              {/* <div className='flex items-center justify-center m-[2.5rem]'>
                 <img src={Logo} alt="logo" className='!ml-[1rem]' />
-              </div>
-              <div className='flex flex-col gap-[5px] !ml-[3rem] !mr-[3rem] lgoinform'>
+              </div> */}
+              <div className='flex flex-col gap-[5px] !ml-[3rem] !mr-[3rem] lgoinform mt-[6rem]'>
                 <Typography
                   className='!font-extrabold'
                   variant='h5'
@@ -125,12 +125,23 @@ export default function Login() {
                 </div>
                 {isLoading ? (<div className='flex items-center justify-center mt-[3rem]'>
                   <Loader />
-                </div >) : (<Buttons type={"submit"} text={STRING.LOGIN_BUTTON} variant={"contained"} className={"loginButton"} values={login.values.password} />)}
+                </div >) : (
+                  <>
+                    <Buttons type={"submit"} text={STRING.LOGIN_BUTTON} variant={"contained"} className={"loginButton"} values={login.values.password} />
+                    <span className='flex items-center justify-center mt-[0.5rem] gap-[2px]'>
+                      {STRING.REGISTER_LABEL}
+                      <Link to={"/register"} className="signup_link" >
+                        {STRING.SIGN_UP}
+                      </Link>
+                    </span>
+                  </>
+                )}
               </div>
             </form>
           </Grid>
         </Grid>
       </Paper>
+
     </div>
   )
 }

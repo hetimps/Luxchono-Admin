@@ -9,7 +9,7 @@ export default function Switchs() {
     const handleChange = () => {
         setChecked((prev) => !prev);
     };
-    
+
     const customSmallSize = 20;
 
     const IOSSwitch = styled((props: SwitchProps) => (

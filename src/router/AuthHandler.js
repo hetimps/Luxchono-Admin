@@ -5,15 +5,20 @@ const AuthHandler = () => {
     const navigate = useNavigate();
     const token = localStorage.getItem("lw-token");
     const location = useLocation();
-
+    const { pathname } = location
+    const { state } = location
+    const email = state?.email
     useEffect(() => {
         if (token) {
-            ['/login']?.includes(location.pathname) && navigate("/category")
+            ['/login', '/register', "/Otp", "/forgotpassword", "/resetpassword"]?.includes(pathname) && navigate("/category")
         } else {
-            navigate("/login")
+            if (!['/register', "/Otp", "/forgotpassword", "/resetpassword"]?.includes(pathname)) {
+                navigate("/login")
+            } else if (!email && ["/Otp"]?.includes(pathname)) {
+                navigate("/register")
+            }
         }
-    }, [navigate, token, location])
-
+    }, [token, pathname])
 };
 
 export default AuthHandler;

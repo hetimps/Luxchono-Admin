@@ -6,36 +6,27 @@
     box-sizing: border-box;
 }
 
-.MuiFormHelperText-root {
-    font-weight: 800 !important;
-    color: #D32F2F !important;
-}
 
 
 
-
-.logincontainer {
+.otpcontainer {
     background-image: url("../../assets/imag/loginbackground1.svg"), url("../../assets/imag/loginbackground2.svg");
     background-repeat: no-repeat, no-repeat;
     background-position: top right, bottom left;
 
+    .css-tccdxk {
+
+        gap: 25px !important;
+    }
+
     .MuiInputBase-root {
         border-radius: 12px !important;
-        height: 45px;
+        height: 70px;
+        width: 90px;
     }
 }
 
-.signup_link {
-    color: $primary;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.loginField {
-    width: 100%;
-}
-
-.loginButton {
+.otpButton {
     color: $white !important;
     margin-top: 3rem !important;
     height: 3rem;
@@ -46,7 +37,7 @@
 }
 
 @media (max-width: 1500px) {
-    .logincontainer {
+    .otpcontainer {
         background-image: none !important;
         width: 100% !important;
     }
@@ -54,11 +45,11 @@
 
 
 @media (max-width: 1000px) {
-    .logincontainer {
+    .otpcontainer {
         background-image: none !important;
         width: 100% !important;
 
-        .loginpepar {
+        .otppepar {
             width: 100% !important;
             height: 100vh;
             display: flex !important;
@@ -69,15 +60,29 @@
             .LoginImg {
                 display: none;
             }
+
+            .MuiInputBase-root {
+                border-radius: 12px !important;
+                height: 50px;
+                width: 50px;
+            }
         }
     }
 }
 
 @media (max-width: 700px) {
-    .logincontainer {
-        .loginpepar {
+    .otpcontainer {
+        .otppepar {
             width: 100% !important;
             border-radius: 0rem !important;
         }
+
+        .MuiInputBase-root {
+            border-radius: 12px !important;
+            height: 50px;
+            width: 50px;
+        }
     }
+
+
 }

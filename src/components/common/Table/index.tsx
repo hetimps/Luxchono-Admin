@@ -80,7 +80,7 @@ function EnhancedTableHead(props: any) {
         };
 
     return (
-        <TableHead style={{ position: 'sticky', top: 0, zIndex: 1, backgroundColor: '#fff' }} >
+        <TableHead style={{ position: 'sticky', top: 0, zIndex: 2, backgroundColor: '#fff' }} >
             <TableRow className='bg-header !h-[40px] ' >
                 <TableCell padding="checkbox">
                     <Checkbox
@@ -153,6 +153,16 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
         }
         setSelected([]);
     };
+
+    // const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     if (event.target.checked) {
+    //         const newSelected = rows?.map((n:any) => n.id as any) || [];
+    //         setSelected(newSelected);
+    //     } else {
+    //         setSelected([]);
+    //     }
+    // };
+
 
     const handleClick = (event: React.MouseEvent<unknown>, id: string | number) => {
         const selectedIndex = selected.indexOf(id as number);
@@ -246,7 +256,6 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
                                                         'aria-labelledby': labelId,
                                                     }} />
                                             </TableCell>
-
                                             {Product && <ProductRow row={row} index={index} handleDeleteOpen={handleDeleteOpen} />}
                                             {Category && <CategoryRow row={row} index={index} handleDeleteOpen={handleDeleteOpen} />}
                                             {Brand && <BrandRow row={row} index={index} handleDeleteOpen={handleDeleteOpen} />}

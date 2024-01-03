@@ -6,15 +6,7 @@
     box-sizing: border-box;
 }
 
-.MuiFormHelperText-root {
-    font-weight: 800 !important;
-    color: #D32F2F !important;
-}
-
-
-
-
-.logincontainer {
+.resetcontainer {
     background-image: url("../../assets/imag/loginbackground1.svg"), url("../../assets/imag/loginbackground2.svg");
     background-repeat: no-repeat, no-repeat;
     background-position: top right, bottom left;
@@ -31,11 +23,11 @@
     cursor: pointer;
 }
 
-.loginField {
+.resetField {
     width: 100%;
 }
 
-.loginButton {
+.resetButton {
     color: $white !important;
     margin-top: 3rem !important;
     height: 3rem;
@@ -46,7 +38,7 @@
 }
 
 @media (max-width: 1500px) {
-    .logincontainer {
+    .resetcontainer {
         background-image: none !important;
         width: 100% !important;
     }
@@ -54,11 +46,11 @@
 
 
 @media (max-width: 1000px) {
-    .logincontainer {
+    .resetcontainer {
         background-image: none !important;
         width: 100% !important;
 
-        .loginpepar {
+        .resetpepar {
             width: 100% !important;
             height: 100vh;
             display: flex !important;
@@ -74,8 +66,8 @@
 }
 
 @media (max-width: 700px) {
-    .logincontainer {
-        .loginpepar {
+    .resetcontainer {
+        .resetpepar {
             width: 100% !important;
             border-radius: 0rem !important;
         }

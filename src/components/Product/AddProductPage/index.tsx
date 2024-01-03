@@ -141,7 +141,6 @@ export default function AddProductPage() {
                     }
                     return true;
                 }),
-
                 image: Yup.array().min(1, STRING.PRODUCT_IMAGE_REQUIRED).max(4, STRING.PRODUCT_MAXIMU_IMAGE).test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
                     if (value && value.length > 0) {
                         const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"];
@@ -152,9 +151,7 @@ export default function AddProductPage() {
                     }
                     return true;
                 }),
-
             }),
-
             onSubmit: async (values: any) => {
                 values.stock = Number(values.stock);
                 const response: any = await AddProducts(values);
@@ -201,7 +198,7 @@ export default function AddProductPage() {
                                 <div key={index} className="image-preview-container">
                                     <div className='flex'>
                                         <Avatar
-                                            className='!w-[120px] !h-[120px] !cursor-pointer !rounded-[10px] !bg-white  border-[1px] !border-header'
+                                            className='!w-[120px] !h-[120px] !cursor-pointer !rounded-[10px] !bg-white  border-[1px] !border-header img_avtar'
                                             src={preview}
                                             alt={`Image Preview ${index + 1}`} />
                                         <div className='close_icon'>

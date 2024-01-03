@@ -6,15 +6,7 @@
     box-sizing: border-box;
 }
 
-.MuiFormHelperText-root {
-    font-weight: 800 !important;
-    color: #D32F2F !important;
-}
-
-
-
-
-.logincontainer {
+.registercontainer {
     background-image: url("../../assets/imag/loginbackground1.svg"), url("../../assets/imag/loginbackground2.svg");
     background-repeat: no-repeat, no-repeat;
     background-position: top right, bottom left;
@@ -25,19 +17,19 @@
     }
 }
 
-.signup_link {
+.signin_link {
     color: $primary;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.loginField {
+.regsiterField {
     width: 100%;
 }
 
-.loginButton {
+.registerButton {
     color: $white !important;
-    margin-top: 3rem !important;
+    margin-top: 2rem !important;
     height: 3rem;
     font-weight: 700 !important;
     text-transform: capitalize !important;
@@ -46,7 +38,7 @@
 }
 
 @media (max-width: 1500px) {
-    .logincontainer {
+    .registercontainer {
         background-image: none !important;
         width: 100% !important;
     }
@@ -54,11 +46,11 @@
 
 
 @media (max-width: 1000px) {
-    .logincontainer {
+    .registercontainer {
         background-image: none !important;
         width: 100% !important;
 
-        .loginpepar {
+        .registerpepar {
             width: 100% !important;
             height: 100vh;
             display: flex !important;
@@ -74,8 +66,8 @@
 }
 
 @media (max-width: 700px) {
-    .logincontainer {
-        .loginpepar {
+    .registercontainer {
+        .registerpepar {
             width: 100% !important;
             border-radius: 0rem !important;
         }

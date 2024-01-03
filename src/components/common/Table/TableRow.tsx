@@ -27,14 +27,16 @@ export const ProductRow = ({ row, index, handleDeleteOpen }: any) => {
             </TableCell>
             <TableCell width={"11%"} align="left" padding="none">{`${row.category}`}</TableCell>
             <TableCell width={"11%"} align="left" padding="none">{row?.brand}</TableCell>
-            <TableCell width={"10%"} align="left" padding="none">{`${row?.price?.toLocaleString('en-IN')} ₹`}</TableCell>
+            <TableCell width={"10%"} align="left" padding="none">{`${row?.price?.toLocaleString('en-IN')} ₹` || "-"}</TableCell>
             <TableCell width={"10%"} align="left" padding="none">{row?.stock}</TableCell>
             {/* <TableCell align="left" padding="none">
                 <Rating className='!text-main' name="read-only" precision={0.5} value={Number(row?.review) || 0} readOnly />
             </TableCell> */}
             <TableCell width={"10%"} align="left" padding="none">{row?.productModel}</TableCell>
             <TableCell width={"10%"} align="left" padding="none">{row?.warranty}</TableCell>
-            <TableCell width={"10%"} align="left" padding="none">{`${row?.dummyPrice?.toLocaleString('en-IN')} ₹` || "-"}</TableCell>
+            <TableCell width={"10%"} align="left" padding="none">
+                {row?.dummyPrice ? `${row.dummyPrice.toLocaleString('en-IN')} ₹` : "-"}
+            </TableCell>
             <TableCell align="left" padding="none">
                 <div className='flex gap-[5px]'>
                     <EditOutlinedIcon className='text-black' onClick={() => navigate("/editproduct", { state: row })} />
