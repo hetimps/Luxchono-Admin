@@ -33,7 +33,7 @@ export default function Router() {
           <Route path="/register" element={<Register />}></Route>
           <Route path="/otp" element={<OtpVerify />}></Route>
           <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
-          <Route path="/resetpassword" element={<ResetPassword />}></Route>
+          <Route path="/resetpassword/:id" element={<ResetPassword />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/product" element={<Product />}></Route>
           <Route path="/addproduct" element={<AddProduct />}></Route>

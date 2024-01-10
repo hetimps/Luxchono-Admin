@@ -151,7 +151,7 @@ export default function BrandPage() {
     return (
 
         <div className='productContainer'>
-            <Paper className='paperboxshadow h-[83px] flex justify-between items-center p-[1rem] mt-[0.5rem]'>
+            <Paper className='paperboxshadow h-[83px] flex justify-between items-center p-[1rem] mt-[0.5rem]' >
                 <div className='productbtns flex justify-between'>
                     <div className='flex gap-[10px]'>
                         <Buttons onClick={handleCvsExport} startIcon={<IosShareIcon />} text={STRING.EXPORT_BUTTON} variant={"outlined"} className={"productheaderbtn1"} />

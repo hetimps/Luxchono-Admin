@@ -8,11 +8,8 @@
 
 .MuiFormHelperText-root {
     font-weight: 800 !important;
-    color: #D32F2F !important;
+    color: $error !important;
 }
-
-
-
 
 .logincontainer {
     background-image: url("../../assets/imag/loginbackground1.svg"), url("../../assets/imag/loginbackground2.svg");
@@ -52,12 +49,10 @@
     }
 }
 
-
 @media (max-width: 1000px) {
     .logincontainer {
         background-image: none !important;
         width: 100% !important;
-
         .loginpepar {
             width: 100% !important;
             height: 100vh;

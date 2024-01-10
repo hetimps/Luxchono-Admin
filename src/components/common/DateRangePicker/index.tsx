@@ -9,7 +9,6 @@ import moment from "moment";
 import "./style.scss";
 import { Colors } from "../../../constants/Colors";
 import { DateRangePicker } from "react-date-range";
-
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 
@@ -102,9 +101,7 @@ function ReactDateRangePicker(props: any) {
                             months={1}
                             ranges={state}
                             direction="horizontal"
-                            rangeColors={["#964315"]}
-                            
-                         />
+                            rangeColors={["#964315"]}/>
 
                         <div className="button-container">
                             <button
@@ -121,8 +118,7 @@ function ReactDateRangePicker(props: any) {
                                     ]);
                                     handleTimeRangeSelection("CLEAR");
                                 }}
-                                className="okButton clearButton"
-                            >
+                                className="okButton clearButton">
                                 <span>
                                     <BackspaceIcon /> &nbsp;
                                     <strong>{"CLEAR"}</strong>
@@ -132,8 +128,7 @@ function ReactDateRangePicker(props: any) {
                                 onClick={() => {
                                     setShowDateRangePicker(false);
                                 }}
-                                className="cancelButton"
-                            >
+                                className="cancelButton">
                                 <span>
                                     <CancelIcon sx={{ width: "1.5rem", height: "1.5rem" }} />{" "}
                                     <strong>{"Cancel"}</strong>

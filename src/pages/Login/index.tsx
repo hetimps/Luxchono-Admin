@@ -1,6 +1,5 @@
 import { Paper, Grid, Typography, InputAdornment, IconButton } from '@mui/material'
 import LoginImg from "../../assets/imag/LoginImg2.svg";
-import Logo from "../../assets/imag/logo.svg"
 import TextFields from '../../components/common/TextFields';
 import "./style.scss"
 import Buttons from '../../components/common/Buttons';
@@ -45,9 +44,7 @@ export default function Login() {
           toast.success(message)
           await localStorage.setItem("lw-token", result?.Token)
           const token = localStorage.getItem("lw-token");
-
-          navigate("/product")
-
+          navigate("/dashboard")
         } else {
           toast.error(message)
         }
@@ -93,7 +90,7 @@ export default function Login() {
                       </Typography>
                     </div>
                     <div>
-                      <TextFields className={"loginField"} name={"email"} values={login.values.email} onChange={login.handleChange} error={login.touched.email && Boolean(login.errors.email)}
+                      <TextFields className={"loginField"} name={"email"} values={login.values.email} onChange={login.handleChange}
                         helperText={login.touched.email && login.errors.email} placeholder={STRING.LOGIN_EMAIL_PLACEHOLDER} autoComplete={'off'} />
                     </div>
                   </div>
@@ -111,16 +108,17 @@ export default function Login() {
                         name={"password"}
                         values={login.values.password}
                         onChange={login.handleChange}
-                        error={login.touched.password && Boolean(login.errors.password)}
                         helperText={login.touched.password && login.errors.password}
                         placeholder={STRING.LOGIN_PASSWORD_PLACEHOLDER}
                         autoComplete={'off'}
                         type={showPassword ? 'text' : 'password'}
                         action={togglePasswordVisibility}
                         endAdornment={true}
-                        icons={showPassword ? <VisibilityIcon className='!text-[1.4rem]' /> : <VisibilityOffIcon className='!text-[1.4rem]' />}
-                      />
+                        icons={showPassword ? <VisibilityIcon className='!text-[1.4rem]' /> : <VisibilityOffIcon className='!text-[1.4rem]' />} />
                     </div>
+                    <Link className='flex justify-end mt-[0.2rem] text-main text-[15px] cursor-pointer' to={"/forgotpassword"} >
+                      {STRING.FORGOT_PASSWORD_LINK}
+                    </Link>
                   </div>
                 </div>
                 {isLoading ? (<div className='flex items-center justify-center mt-[3rem]'>
@@ -141,7 +139,6 @@ export default function Login() {
           </Grid>
         </Grid>
       </Paper>
-
     </div>
   )
 }

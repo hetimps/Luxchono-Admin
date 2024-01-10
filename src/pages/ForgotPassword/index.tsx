@@ -11,8 +11,6 @@ import { REGEX } from "../../constants/Regex";
 import { toast } from "react-toastify";
 import Loader from '../../components/common/Loader';
 import { useForgotPasswordMutation, useLoginMutation } from '../../api/Login';
-import { Link, useNavigate } from 'react-router-dom';
-
 
 interface ForgotFormValues {
     email: string;
@@ -20,7 +18,6 @@ interface ForgotFormValues {
 
 export default function ForgotPassword() {
     const [ForgotPassword, { isLoading }] = useForgotPasswordMutation();
-
     const ForgotPasswords = useFormik<ForgotFormValues>({
         initialValues: {
             email: '',
@@ -42,7 +39,6 @@ export default function ForgotPassword() {
             }
         },
     });
-
     return (
         <div className='flex items-center justify-center  h-[100vh] fordatecontainer'>
             <Paper className='!rounded-[40px] w-[1080px] overflow-hidden forgatepepar  paperboxshadow '>
@@ -83,7 +79,6 @@ export default function ForgotPassword() {
                                                 helperText={ForgotPasswords.touched.email && ForgotPasswords.errors.email} placeholder={STRING.LOGIN_EMAIL_PLACEHOLDER} autoComplete={'off'} />
                                         </div>
                                     </div>
-
                                 </div>
                                 {isLoading ? (<div className='flex items-center justify-center mt-[3rem]'>
                                     <Loader />
@@ -97,7 +92,6 @@ export default function ForgotPassword() {
                     </Grid>
                 </Grid>
             </Paper>
-
         </div>
     )
 }

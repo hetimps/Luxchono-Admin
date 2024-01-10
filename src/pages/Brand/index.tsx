@@ -8,11 +8,11 @@ export default function Brand() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBars  haddings="Brand" />
+      <AppBars haddings="Brand" />
       <Drawers />
       <Main open={true}>
         <DrawerHeader />
-        <BrandPage/>
+        <BrandPage />
       </Main>
     </Box>
   )

@@ -20,7 +20,6 @@ import { toast } from 'react-toastify';
 import Loader from '../../common/Loader';
 
 export default function AddProductPage() {
-
     const [imagePreviews, setImagePreviews] = useState<any[]>([]);
     const [ProductImages, setProductImages] = useState<any[]>([]);
     const [filteredCategory, setFilteredCategory] = useState<any[]>([]);
@@ -47,7 +46,6 @@ export default function AddProductPage() {
     };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
         const files = e.target.files;
         if (files) {
             const newImages = Array.from(files).map((file: File) => {
@@ -123,7 +121,6 @@ export default function AddProductPage() {
                 dummyPrice: "",
                 thumbnail: "",
             },
-
             validationSchema: Yup.object().shape({
                 category: Yup.array().min(1, STRING.PRODUCT_CATEGORY_REQUIRED),
                 productName: Yup.string().trim().required(STRING.PRODUCT_NAME_REQUIRED).min(3, STRING.PRODUCT_NAME_FORMAT),
@@ -235,7 +232,6 @@ export default function AddProductPage() {
                                 )}
                             </div>
                         </div>
-
                         <div className='flex item-center !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] !flex !justify-end mt-[0.5rem] '>
                                 <Typography component='span' className='!font-bold'>
@@ -269,15 +265,14 @@ export default function AddProductPage() {
                                 )}
                             </div>
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
                                     {STRING.PRODUCT_CATEGORY}
                                 </Typography>
                             </div>
-                            <div className='flex-col'>
-                                <Selects selectedValues={selectedCategoryValues} setSelectedValues={setSelectedCategoryValues} placeholder={STRING.PRODUCT_CATEGORY_PLACHOLDER} width={"70rem"} height={"45px"} options={filteredCategory} isMulti={true} />
+                            <div className='flex-col w-[100%]'>
+                                <Selects selectedValues={selectedCategoryValues} setSelectedValues={setSelectedCategoryValues} placeholder={STRING.PRODUCT_CATEGORY_PLACHOLDER} height={"45px"} options={filteredCategory} isMulti={true} />
                                 {AddProduct.touched.category && AddProduct.errors.category && (
                                     <Typography variant='caption' className='!font-bold !ml-[1rem]' color='error'>
                                         {AddProduct.errors.category.toString()}
@@ -285,15 +280,14 @@ export default function AddProductPage() {
                                 )}
                             </div>
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold '>
                                     {STRING.PRODUCT_BRAND}
                                 </Typography>
                             </div>
-                            <div className='flex-col'>
-                                <Selects options={filteredBrand} selectedValues={selectedBrandValues} setSelectedValues={setSelectedBrandValues} placeholder={STRING.PRODUCT_BRAND_PLACHOLDER} width={"70rem"} height={"45px"} />
+                            <div className='flex-col w-[100%]'>
+                                <Selects options={filteredBrand} selectedValues={selectedBrandValues} setSelectedValues={setSelectedBrandValues} placeholder={STRING.PRODUCT_BRAND_PLACHOLDER} height={"45px"} />
                                 {(AddProduct.submitCount > 0 && AddProduct.errors.brand) && (
                                     <Typography variant='caption' className='!font-bold !ml-[1rem]' color='error'>
                                         {AddProduct.errors.brand.toString()}
@@ -301,7 +295,6 @@ export default function AddProductPage() {
                                 )}
                             </div>
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -312,20 +305,16 @@ export default function AddProductPage() {
                                 helperText={AddProduct.touched.productName && AddProduct.errors.productName} onChange={AddProduct.handleChange} values={AddProduct.values.productName} autoComplete={'off'} placeholder={STRING.PRODUCT_NAME_PLACHOLDER}
                                 name={"productName"} className={'productField'} />
                         </div>
-
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
                                     {STRING.PRODUCT_MODEL}
                                 </Typography>
                             </div>
-
                             <TextFields
                                 helperText={AddProduct.touched.productModel && AddProduct.errors.productModel} onChange={AddProduct.handleChange} values={AddProduct.values.productModel} autoComplete={'off'} placeholder={STRING.PRODUCT_MODEL_PLACHOLDER}
                                 name={"productModel"} className={'productField'} />
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -333,9 +322,9 @@ export default function AddProductPage() {
                                 </Typography>
                             </div>
                             <Textareas
-                                helperText={AddProduct.touched.description && AddProduct.errors.description} onChange={AddProduct.handleChange} value={AddProduct.values.description} name={"description"} width={"70rem"} rows={3} placeholder={STRING.PRODUCT_DESC_PLACHOLDER} />
-                        </div>
+                                helperText={AddProduct.touched.description && AddProduct.errors.description} onChange={AddProduct.handleChange} value={AddProduct.values.description} name={"description"} width={"100%"} rows={3} placeholder={STRING.PRODUCT_DESC_PLACHOLDER} />
 
+                        </div>
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -346,9 +335,6 @@ export default function AddProductPage() {
                                 helperText={AddProduct.touched.stock && AddProduct.errors.stock} onChange={AddProduct.handleChange} values={AddProduct.values.stock} autoComplete={'off'} placeholder={STRING.PRODUCT_STOCK_PLACHOLDER}
                                 name={"stock"} className={'productField'} />
                         </div>
-
-
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -360,8 +346,6 @@ export default function AddProductPage() {
                                 helperText={AddProduct.touched.price && AddProduct.errors.price} onChange={AddProduct.handleChange} values={AddProduct.values.price} autoComplete={'off'} placeholder={STRING.PRODUCT_PRICE_PLACHOLDER}
                                 name={"price"} className={'productField'} />
                         </div>
-
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>

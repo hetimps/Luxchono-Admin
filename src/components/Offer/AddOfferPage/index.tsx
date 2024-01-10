@@ -158,8 +158,8 @@ export default function AddOfferPage() {
                     {STRING.ADD_OFFER}
                 </Typography>
             </div>
-            <form onSubmit={AddOffer.handleSubmit} className='add_product'>
-                <Paper className='mt-[1.5rem] paperboxshadow p-[1rem]'>
+            <form onSubmit={AddOffer.handleSubmit} className='add_offer'>
+                <Paper className='mt-[1.5rem] paperboxshadow p-[1rem] w-[100%]'>
                     <div className='flex justify-end'>
                         {isLoading ? (<Loader />) : (<Buttons type={"submit"} className={'category_add_button'} startIcon={<BookmarkIcon />} variant={'contained'} text={STRING.SAVE} />)}
                     </div>
@@ -207,7 +207,7 @@ export default function AddOfferPage() {
                             </div>
                             <TextFields
                                 helperText={AddOffer.touched.offerName && AddOffer.errors.offerName} onChange={AddOffer.handleChange} values={AddOffer.values.offerName} autoComplete={'off'} placeholder={STRING.OFFER_NAME_PLACHOLDER}
-                                name={"offerName"} className={'productField'} />
+                                name={"offerName"} className={'offerField'} />
                         </div>
 
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
@@ -216,7 +216,7 @@ export default function AddOfferPage() {
                                     {STRING.OFFER_DATE}
                                 </Typography>
                             </div>
-                            <div className='flex-col' style={{ width: '70rem' }}>
+                            <div className='flex-col' style={{ width: '100%' }}>
                                 <ReactDateRangePicker
                                     wrapperRef={wrapperRef}
                                     state={state}
@@ -244,8 +244,8 @@ export default function AddOfferPage() {
                                     {STRING.OFFER_BRANDS}
                                 </Typography>
                             </div>
-                            <div className='flex-col'>
-                                <Selects options={filteredBrand} selectedValues={selectedBrandValues} setSelectedValues={setSelectedBrandValues} placeholder={STRING.OFFER_BRANDS_PLACHOLDER} width={"70rem"} height={"45px"} isMulti={true} />
+                            <div className='flex-col !w-[100%]'>
+                                <Selects options={filteredBrand} selectedValues={selectedBrandValues} setSelectedValues={setSelectedBrandValues} placeholder={STRING.OFFER_BRANDS_PLACHOLDER} height={"45px"} isMulti={true} />
                                 {AddOffer.touched.brands && AddOffer.errors.brands && (
                                     <Typography variant='caption' className='!font-bold !ml-[1rem]' color='error'>
                                         {AddOffer.errors.brands.toString()}
@@ -254,15 +254,14 @@ export default function AddOfferPage() {
                             </div>
                         </div>
 
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
                                     {STRING.OFFER_PRODUCT}
                                 </Typography>
                             </div>
-                            <div className='flex-col'>
-                                <Selects options={filteredProduct} selectedValues={selectedProductValues} setSelectedValues={setSelectedProductValues} placeholder={STRING.OFFER_PRODUCTS_PLACHOLDER} width={"70rem"} height={"45px"} isMulti={true} />
+                            <div className='flex-col w-[100%]'>
+                                <Selects options={filteredProduct} selectedValues={selectedProductValues} setSelectedValues={setSelectedProductValues} placeholder={STRING.OFFER_PRODUCTS_PLACHOLDER} height={"45px"} isMulti={true} />
                                 {AddOffer.touched.products && AddOffer.errors.products && (
                                     <Typography variant='caption' className='!font-bold !ml-[1rem]' color='error'>
                                         {AddOffer.errors.products.toString()}
@@ -279,7 +278,7 @@ export default function AddOfferPage() {
                             </div>
                             <TextFields
                                 helperText={AddOffer.touched.offerCode && AddOffer.errors.offerCode} onChange={AddOffer.handleChange} values={AddOffer.values.offerCode} autoComplete={'off'} placeholder={STRING.OFFER_OFFERCODE_PLACHOLDER}
-                                name={"offerCode"} className={'productField'} />
+                                name={"offerCode"} className={'offerField'} />
                         </div>
 
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
@@ -290,7 +289,7 @@ export default function AddOfferPage() {
                             </div>
                             <TextFields
                                 helperText={AddOffer.touched.discount && AddOffer.errors.discount} onChange={AddOffer.handleChange} values={AddOffer.values.discount} type={"number"} autoComplete={'off'} placeholder={STRING.OFFER_DISCOUNT_PLACHOLDER}
-                                name={"discount"} className={'productField'} />
+                                name={"discount"} className={'offerField'} />
                         </div>
 
                         <div className='!flex !item-center !gap-[15px] mt-[1rem]'>
@@ -299,13 +298,12 @@ export default function AddOfferPage() {
                                     {STRING.OFFER_DISCOUNT_TYPE}
                                 </Typography>
                             </div>
-                            <div className='flex-col'>
+                            <div className='flex-col w-[100%]'>
                                 <Selects
                                     options={Discount}
                                     selectedValues={selectedDiscountTypeValues}
                                     setSelectedValues={setSelectedDiscountTypeValues}
                                     placeholder={STRING.OFFER_DISCOUNTTYPE_PLACHOLDER}
-                                    width={"70rem"}
                                     height={"45px"} />
 
                                 {(AddOffer.submitCount > 0 && AddOffer.errors.discountType) && (
@@ -324,7 +322,7 @@ export default function AddOfferPage() {
                                 </Typography>
                             </div>
                             <Textareas
-                                helperText={AddOffer.touched.description && AddOffer.errors.description} onChange={AddOffer.handleChange} value={AddOffer.values.description} name={"description"} width={"70rem"} rows={3} placeholder={STRING.OFFER_DESCRIPTION_PLACHOLDER} />
+                                helperText={AddOffer.touched.description && AddOffer.errors.description} onChange={AddOffer.handleChange} value={AddOffer.values.description} name={"description"} rows={3} placeholder={STRING.OFFER_DESCRIPTION_PLACHOLDER} />
                         </div>
                         <div>
                         </div>
@@ -332,9 +330,6 @@ export default function AddOfferPage() {
                 </Paper>
             </form>
         </>
-
-
-
     )
 }
 

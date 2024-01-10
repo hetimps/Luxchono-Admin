@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import "./style.scss"
-import { Icon, Paper } from '@mui/material';
+import { Paper } from '@mui/material';
 import Buttons from '../common/Buttons';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -13,36 +13,23 @@ import Dialogs from '../common/Dialogs';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { useDeleteBrandMutation, useGetAllBrandApiQuery } from '../../api/Brand';
 import { useDeleteOfferMutation, useGetAllOfferQuery } from '../../api/Offer';
 import { exportToCsv } from '../../constants/Helper/Csv';
 
 export default function OfferPage() {
     const [selected, setSelected] = React.useState<readonly number[]>([]);
     const [search, setsearch] = useState("");
-
     const [DeleteOffer, { isLoading: deleteOfferLoading }] = useDeleteOfferMutation();
-
-
     const { data: OfferData, isFetching: OfferFetching, refetch } = useGetAllOfferQuery({ search: search.trim() })
-
-
     const [rows, setRows] = useState<any[]>([]);
     const navigate = useNavigate();
-
     const [OfferDatas, setOfferDatas] = useState([]);
-
     const [selectedDeleteRows, setSelectedDelteRows] = useState([]);
-
-
     const [input, setinput] = useState("");
-
     const getSelectedDeleteRows = (rows: any) => {
         setSelectedDelteRows(rows)
     }
-
     const [openDeleteConfirmation, setDeleteOpenConfirmation] = useState(false);
-
     const handleDeleteOpenConfirmation = () => {
         setDeleteOpenConfirmation(true);
     };
@@ -50,7 +37,6 @@ export default function OfferPage() {
         setDeleteOpenConfirmation(false);
         setSelected([])
     };
-
     const headCells: any[] = [
         {
             id: 'offerName',
@@ -85,8 +71,7 @@ export default function OfferPage() {
         dateFrom: any,
         dateTo: any,
         defaultBrands: any,
-        defaultProducts :any
-
+        defaultProducts: any
     ): any {
         return {
             id: id,
@@ -100,10 +85,8 @@ export default function OfferPage() {
             products: products,
             dateFrom: dateFrom,
             dateTo: dateTo,
-            defaultBrands:defaultBrands,
-            defaultProducts:defaultProducts
-
-
+            defaultBrands: defaultBrands,
+            defaultProducts: defaultProducts
         };
     }
 
@@ -141,8 +124,6 @@ export default function OfferPage() {
     useEffect(() => {
         refetch()
     }, [search, refetch])
-
-  
 
     const handleDelete = async () => {
         const response: any = await DeleteOffer({ ids: selectedDeleteRows })
@@ -182,7 +163,6 @@ export default function OfferPage() {
         const { message, statusCode } = response?.data;
         if (statusCode === 200) {
             toast.success(message)
-
         } else {
             toast.error(message)
         }
@@ -199,8 +179,7 @@ export default function OfferPage() {
     }
 
     return (
-
-        <div className='productContainer'>
+        <div className='offerContainer'>
             <Paper className='paperboxshadow h-[83px] flex justify-between items-center p-[1rem] mt-[0.5rem]'>
                 <div className='productbtns flex justify-between'>
                     <div className='flex gap-[10px]'>
@@ -218,7 +197,6 @@ export default function OfferPage() {
                     <Buttons onClick={AddOffer} startIcon={<ControlPointIcon />} variant={"contained"} text={"Add Offer"} className="productheaderbtn2 addbtn" />
                 </div>
             </Paper>
-
             <Paper className='paperboxshadow h-[83px] mt-[0.8rem] flex  items-center p-[1rem] gap-[10px]'>
                 <Search setinput={setinput}
                     input={input}
@@ -229,7 +207,6 @@ export default function OfferPage() {
                 <Tables handleDeleteOpen={handleDeleteSingleOpenConfirmation} selected={selected} setSelected={setSelected} Offer={"Offer"} getSelectedDeleteRows={getSelectedDeleteRows} headCells={headCells} rows={rows} isFetching={OfferFetching} />
             </div>
             <Dialogs loading={deleteOfferLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={"product_delete_yes"} closeClass={"product_delete_cancel"} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmation} onClose={handleDeleteCloseConfirmation} tital={STRING.DELETE_SURE} desc={STRING.OFFER_DELETE_DESC} Action={handleDelete} />
-
             {/* single delete */}
             <Dialogs loading={deleteOfferLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={"product_delete_yes"} closeClass={"product_delete_cancel"} tital={STRING.DELETE_SURE} desc={STRING.OFFER_DELETE_DESC} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmationSingle} onClose={handleDeleteSingleCloseConfirmations} Action={handleDeleteSingle} />
         </div>

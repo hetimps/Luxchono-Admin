@@ -15,7 +15,6 @@ export const theme = createTheme({
       },
     },
   },
-  
   palette: {
     primary: {
       main: "#964315",
@@ -23,6 +22,5 @@ export const theme = createTheme({
   },
   typography: {
     fontFamily: ["Open Sans", "sans-serif"].join(","),
-
   },
 });

@@ -9,7 +9,7 @@ export const ReactSelectStyle = (width: any, height: any) => {
             ...styles,
             borderRadius: "12px",
             boxShadow: "none",
-            width: width,
+            width: width || "100%",
             height: height || "50px",
             "&:hover": {
                 borderColor: "#000",

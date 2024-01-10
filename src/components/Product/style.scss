@@ -1,15 +1,10 @@
 @import "../../constants/color";
 
-
 .paperboxshadow {
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+    box-shadow: $paper_boxshadow 0px 1px 4px !important;
 }
 
-
-
 .productContainer {
-
-    // background-color: #F8F8F8;
     .MuiInputBase-root {
         border-radius: 12px !important;
         height: 45px;
@@ -43,16 +38,12 @@
         border-radius: 8px;
         height: 2.5rem;
         width: 2.6rem;
-
-
-
     }
 
     .filter_button:hover {
         background-color: $white;
         color: $primary;
         border: 2px solid $primary;
-
     }
 
     .addbtn {
@@ -92,7 +83,6 @@
 
 
 .add_product {
-
     .close_icon {
         margin-left: -8px !important;
         margin-top: -8px !important;
@@ -103,6 +93,10 @@
         -webkit-appearance: none;
         margin: 0;
     }
+
+    .css-zgmdl2-MuiFormControl-root-MuiTextField-root {
+        width: 100% !important;
+    }
 }
 
 .product_add_button {
@@ -112,7 +106,7 @@
 }
 
 .productField {
-    width: 70rem;
+    width: 100%;
 
     .MuiInputBase-root {
         border-radius: 12px !important;

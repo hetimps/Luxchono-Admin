@@ -117,13 +117,11 @@ export default function AddBrandPage() {
                     </div>
                     <div className='flex !flex-col mt-[1rem] pl-[3rem] pr-[3rem] '>
                         <div className='flex item-center !gap-[15px]'  >
-
                             <div className='w-[12rem] !flex !justify-end mt-[0.5rem] '>
                                 <Typography component='span' className='!font-bold'>
                                     {STRING.BARND_IMAGE}
                                 </Typography>
                             </div>
-
                             <TextFields
                                 name={"image"}
                                 values={AddBrand.values.image}
@@ -132,7 +130,6 @@ export default function AddBrandPage() {
                                 type={'file'}
                                 accept={'image/*'}
                                 style={{ display: 'none' }} />
-
                             <div className='flex-col'>
                                 <Avatar
                                     className='!w-[120px] !h-[120px] !cursor-pointer !rounded-[10px] !bg-white  border-[1px] !border-header'
@@ -153,23 +150,20 @@ export default function AddBrandPage() {
                         </div>
 
                         <div className='flex item-center !gap-[15px] mt-[1rem]'  >
-
                             <div className='w-[12rem] !flex !justify-end mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
                                     {STRING.ICON}
                                 </Typography>
                             </div>
 
-                            {/* <TextFields name={"image"} values={AddCategory.values.image} onChange={handleFileChange} id={'fileInput'} type={'file'} style={{ display: 'none' }} /> */}
                             <TextFields
                                 name={"icon"}
                                 values={AddBrand.values.icon}
                                 onChange={handleIconFileChange}
                                 id={'fileIconInput'}
                                 type={'file'}
-                                accept={'image/*'} // This will allow only image files
+                                accept={'image/*'}
                                 style={{ display: 'none' }} />
-
                             <div className='flex-col'>
                                 <Avatar
                                     className='!w-[120px] !h-[120px] !cursor-pointer !rounded-[10px] !bg-white  border-[1px] !border-header'
@@ -194,7 +188,6 @@ export default function AddBrandPage() {
                                     {STRING.BARND_NAME}
                                 </Typography>
                             </div>
-
                             <TextFields autoComplete={'off'} placeholder={STRING.BRAND_NAME_PLACHOLDER} values={AddBrand.values.brandName}
                                 onChange={AddBrand.handleChange}
                                 helperText={AddBrand.touched.brandName && AddBrand.errors.brandName} name={"brandName"} className={'BrandField'} />

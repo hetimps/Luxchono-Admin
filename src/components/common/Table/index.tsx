@@ -72,7 +72,7 @@ function stableSort<T>(array: readonly T[] | null | undefined, comparator: (a: T
 
 function EnhancedTableHead(props: any) {
     const { headCells } = props
-    const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, Orders, Customer } =
+    const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, Orders, Customer, DashboardProduct } =
         props;
     const createSortHandler =
         (property: keyof any) => (event: React.MouseEvent<unknown>) => {
@@ -84,7 +84,7 @@ function EnhancedTableHead(props: any) {
             <TableRow className='bg-header !h-[40px] ' >
                 <TableCell padding="checkbox">
                     <Checkbox
-                        disabled={Orders || Customer ? true : false}
+                        disabled={Orders || Customer || DashboardProduct ? true : false}
                         disableRipple
                         color="primary"
                         indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -121,7 +121,7 @@ function EnhancedTableHead(props: any) {
     );
 }
 
-export default function Tables({ headCells, rows, isFetching, search, getSelectedDeleteRows, Product, Category, selected, setSelected, handleDeleteOpen, Brand, Orders, handleUpdateOpenConfirmation, Customer, Offer }: any) {
+export default function Tables({ headCells, rows, isFetching, search, getSelectedDeleteRows, Product, Category, selected, setSelected, handleDeleteOpen, Brand, Orders, handleUpdateOpenConfirmation, Customer, Offer, DashboardProduct }: any) {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof any>('productname');
     // const [selected, setSelected] = React.useState<readonly number[]>([]);
@@ -131,6 +131,9 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
 
     //set select row for delete
     useEffect(() => {
+        if (!getSelectedDeleteRows) {
+            return
+        }
         getSelectedDeleteRows(selected)
     }, [selected]);
 
@@ -208,7 +211,7 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
     return (
         <Box>
             <Paper className="table-pepar">
-                <TableContainer className="table-container"  >
+                <TableContainer className="table-container"   >
                     <Table
                         aria-labelledby="tableTitle"
                         size={dense ? 'small' : 'medium'}>
@@ -221,7 +224,9 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
                             rowCount={rows?.length}
                             headCells={headCells}
                             Orders={Orders}
-                            Customer={Customer} />
+                            Customer={Customer}
+                            DashboardProduct={DashboardProduct}
+                        />
 
                         {isFetching ? (
                             <div className='table_loading'>
@@ -247,7 +252,7 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
                                             sx={{ cursor: 'pointer', fontWeight: "800" }}>
                                             <TableCell padding="checkbox">
                                                 <Checkbox
-                                                    disabled={Orders || Customer ? true : false}
+                                                    disabled={Orders || Customer || DashboardProduct ? true : false}
                                                     onClick={(event) => handleClick(event, row.id)}
                                                     disableRipple
                                                     color="primary"
@@ -262,6 +267,7 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
                                             {Orders && <OrdersRow handleUpdateOpenConfirmation={handleUpdateOpenConfirmation} row={row} index={index} handleDeleteOpen={handleDeleteOpen} />}
                                             {Customer && <CustomerRow row={row} index={index} />}
                                             {Offer && <OfferRow row={row} index={index} handleDeleteOpen={handleDeleteOpen} />}
+                                            {DashboardProduct && null}
 
                                         </TableRow>
                                     );
@@ -279,7 +285,7 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
                     </Table>
                 </TableContainer>
 
-                {rows && (
+                {rows  && !DashboardProduct &&   (
                     <>
                         <TablePagination
                             rowsPerPageOptions={[10, 25, { label: "All", value: rows?.length }]}
