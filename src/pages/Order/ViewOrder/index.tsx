@@ -1,8 +1,8 @@
-import { Box, CssBaseline } from "@mui/material";
-import AppBars from "../../../components/common/AppBar/index";
-import { DrawerHeader, Main } from "../../../components/common/PageComonComponent/index";
-import Drawers from "../../../components/common/Drawer";
-import ViewOrderPage from "../../../components/Order/ViewOder/ViewOderPage";
+import { Box, CssBaseline } from '@mui/material';
+import AppBars from '../../../components/common/AppBar/index';
+import { DrawerHeader, Main } from '../../../components/common/PageComonComponent/index';
+import Drawers from '../../../components/common/Drawer';
+import ViewOrderPage from '../../../components/Order/ViewOder/ViewOderPage';
 
 export default function ViewOrder() {
     return (
@@ -15,5 +15,5 @@ export default function ViewOrder() {
                 <ViewOrderPage />
             </Main>
         </Box>
-    )
+    );
 }

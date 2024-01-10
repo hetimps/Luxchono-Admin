@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IconButton, Typography, Paper, Avatar, Select } from '@mui/material';
+import { IconButton, Typography, Paper, Avatar} from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Buttons from '../../common/Buttons';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
@@ -24,13 +24,13 @@ export default function AddProductPage() {
     const [ProductImages, setProductImages] = useState<any[]>([]);
     const [filteredCategory, setFilteredCategory] = useState<any[]>([]);
     const [filteredBrand, setFilteredBrand] = useState<any[]>([]);
-    const { data: CategoryData, isFetching: CategoryFetching } = useGetAllCategoryQuery({});
+    const { data: CategoryData} = useGetAllCategoryQuery({});
     const navigate = useNavigate();
     const [selectedCategoryValues, setSelectedCategoryValues] = useState<any[]>([]);
-    const [selectedBrandValues, setSelectedBrandValues] = useState<any>()
+    const [selectedBrandValues, setSelectedBrandValues] = useState<any>();
     const [thumbnailimagePreview, setThumbnailImagePreview] = useState<any>(null);
     const [AddProducts, { isLoading }] = useAddProductMutation();
-    const { data: BrandData, isFetching: BrandFetching } = useGetAllBrandApiQuery({});
+    const { data: BrandData} = useGetAllBrandApiQuery({});
     const removeImage = (indexToRemove: number) => {
         setImagePreviews((prevPreviews) => prevPreviews.filter((_, index) => index !== indexToRemove));
         setProductImages((prevImages) => prevImages.filter((_, index) => index !== indexToRemove));
@@ -42,7 +42,7 @@ export default function AddProductPage() {
 
     //product image upload
     const AddCategoryImg = () => {
-        document.getElementById("fileInput")?.click()
+        document.getElementById('fileInput')?.click();
     };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,12 +67,12 @@ export default function AddProductPage() {
 
     // thumbnail upload
     const AddThumbnailImage = () => {
-        document.getElementById("fileInput2")?.click()
+        document.getElementById('fileInput2')?.click();
     };
     const handleThumbnailChanges = (e: any) => {
         const file = e.target.files[0];
         if (file) {
-            AddProduct.setFieldValue("thumbnail", file)
+            AddProduct.setFieldValue('thumbnail', file);
             const reader = new FileReader();
             reader.onloadend = () => {
                 setThumbnailImagePreview(reader.result);
@@ -91,80 +91,79 @@ export default function AddProductPage() {
         }));
         setFilteredCategory(filteredCategories);
         const CategoryValues = selectedCategoryValues?.map(category => category.value);
-        AddProduct.setFieldValue("category", CategoryValues)
-    }, [CategoryData, selectedCategoryValues])
+        AddProduct.setFieldValue('category', CategoryValues);
+    }, [CategoryData, selectedCategoryValues]);
 
     //brand select
     useEffect(() => {
         const filterBrands = BrandData?.result?.data && (BrandData?.result?.data as any[]).map((brand: any) => ({
             label: brand.brandName,
             value: brand._id
-        }))
-        setFilteredBrand(filterBrands)
+        }));
+        setFilteredBrand(filterBrands);
         const values = selectedBrandValues?.value;
-        AddProduct.setFieldValue("brand", values)
-    }, [BrandData, selectedBrandValues])
+        AddProduct.setFieldValue('brand', values);
+    }, [BrandData, selectedBrandValues]);
 
     //form data submit
-    const AddProduct = useFormik
-        ({
-            initialValues: {
-                image: [],
-                productName: "",
-                description: "",
-                stock: "",
-                category: [],
-                brand: "",
-                price: "",
-                productModel: "",
-                warranty: "",
-                dummyPrice: "",
-                thumbnail: "",
-            },
-            validationSchema: Yup.object().shape({
-                category: Yup.array().min(1, STRING.PRODUCT_CATEGORY_REQUIRED),
-                productName: Yup.string().trim().required(STRING.PRODUCT_NAME_REQUIRED).min(3, STRING.PRODUCT_NAME_FORMAT),
-                description: Yup.string().trim().required(STRING.PRODUCT_DESC_REQUIRED),
-                stock: Yup.string().trim().required(STRING.PRODUCT_STOCK_REQUIRED),
-                brand: Yup.string().trim().required(STRING.PRODUCT_BRAND_REQUIRED),
-                price: Yup.string().trim().required(STRING.PRODUCT_PRICE_REQUIRED),
-                productModel: Yup.string().trim().required(STRING.PRODUCT_MODEL_REQUIRED),
-                warranty: Yup.string().trim().required(STRING.PRODUCT_WARRANTY__REQUIRED),
-                // dummyPrice: Yup.string().required(STRING.PRODUCT_DUMMYPRICE__REQUIRED),
-                thumbnail: Yup.mixed().required(STRING.PRODUCT_THUMNAIL_REQUIRED).test("fileFormat", STRING.PRODUCT_THUMNAIL_FORMAT, (value: any) => {
-                    if (value) {
-                        const acceptedFormats = ["image/png"];
-                        return acceptedFormats.includes(value.type);
-                    }
-                    return true;
-                }),
-                image: Yup.array().min(1, STRING.PRODUCT_IMAGE_REQUIRED).max(4, STRING.PRODUCT_MAXIMU_IMAGE).test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
-                    if (value && value.length > 0) {
-                        const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"];
-                        const isValidFormat = value.every((file: any) => {
-                            return acceptedFormats.includes(file.type);
-                        });
-                        return isValidFormat;
-                    }
-                    return true;
-                }),
-            }),
-            onSubmit: async (values: any) => {
-                values.stock = Number(values.stock);
-                const response: any = await AddProducts(values);
-                const { message, statusCode } = response?.data;
-                if (statusCode === 200) {
-                    toast.success(message);
-                    navigate("/product")
-                } else {
-                    toast.error(message || response?.error?.data?.message);
+    const AddProduct = useFormik({
+        initialValues: {
+            image: [],
+            productName: '',
+            description: '',
+            stock: '',
+            category: [],
+            brand: '',
+            price: '',
+            productModel: '',
+            warranty: '',
+            dummyPrice: '',
+            thumbnail: '',
+        },
+        validationSchema: Yup.object().shape({
+            category: Yup.array().min(1, STRING.PRODUCT_CATEGORY_REQUIRED),
+            productName: Yup.string().trim().required(STRING.PRODUCT_NAME_REQUIRED).min(3, STRING.PRODUCT_NAME_FORMAT),
+            description: Yup.string().trim().required(STRING.PRODUCT_DESC_REQUIRED),
+            stock: Yup.string().trim().required(STRING.PRODUCT_STOCK_REQUIRED),
+            brand: Yup.string().trim().required(STRING.PRODUCT_BRAND_REQUIRED),
+            price: Yup.string().trim().required(STRING.PRODUCT_PRICE_REQUIRED),
+            productModel: Yup.string().trim().required(STRING.PRODUCT_MODEL_REQUIRED),
+            warranty: Yup.string().trim().required(STRING.PRODUCT_WARRANTY__REQUIRED),
+            // dummyPrice: Yup.string().required(STRING.PRODUCT_DUMMYPRICE__REQUIRED),
+            thumbnail: Yup.mixed().required(STRING.PRODUCT_THUMNAIL_REQUIRED).test('fileFormat', STRING.PRODUCT_THUMNAIL_FORMAT, (value: any) => {
+                if (value) {
+                    const acceptedFormats = ['image/png'];
+                    return acceptedFormats.includes(value.type);
                 }
-            },
-        });
+                return true;
+            }),
+            image: Yup.array().min(1, STRING.PRODUCT_IMAGE_REQUIRED).max(4, STRING.PRODUCT_MAXIMU_IMAGE).test('fileFormat', STRING.IMAGE_FORMATES, (value: any) => {
+                if (value && value.length > 0) {
+                    const acceptedFormats = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/jpg'];
+                    const isValidFormat = value.every((file: any) => {
+                        return acceptedFormats.includes(file.type);
+                    });
+                    return isValidFormat;
+                }
+                return true;
+            }),
+        }),
+        onSubmit: async (values: any) => {
+            values.stock = Number(values.stock);
+            const response: any = await AddProducts(values);
+            const { message, statusCode } = response?.data;
+            if (statusCode === 200) {
+                toast.success(message);
+                navigate('/product');
+            } else {
+                toast.error(message || response?.error?.data?.message);
+            }
+        },
+    });
 
     const Category = () => {
-        navigate("/product")
-    }
+        navigate('/product');
+    };
 
     return (
         <>
@@ -180,7 +179,7 @@ export default function AddProductPage() {
             <form onSubmit={AddProduct.handleSubmit} className='add_product'>
                 <Paper className='mt-[1.5rem] paperboxshadow p-[1rem]'>
                     <div className='flex justify-end'>
-                        {isLoading ? (<Loader />) : (<Buttons type={"submit"} className={'product_add_button'} startIcon={<BookmarkIcon />} variant={'contained'} text={'Save'} />)}
+                        {isLoading ? (<Loader />) : (<Buttons type={'submit'} className={'product_add_button'} startIcon={<BookmarkIcon />} variant={'contained'} text={'Save'} />)}
                     </div>
                     <div className='flex !flex-col mt-[1rem] pl-[3rem] pr-[3rem] '>
                         <div className='flex item-center !gap-[15px]'>
@@ -240,7 +239,7 @@ export default function AddProductPage() {
                             </div>
 
                             <TextFields
-                                name={"thumbnail"}
+                                name={'thumbnail'}
                                 values={AddProduct.values.thumbnail}
                                 onChange={handleThumbnailChanges}
                                 id={'fileInput2'}
@@ -272,7 +271,7 @@ export default function AddProductPage() {
                                 </Typography>
                             </div>
                             <div className='flex-col w-[100%]'>
-                                <Selects selectedValues={selectedCategoryValues} setSelectedValues={setSelectedCategoryValues} placeholder={STRING.PRODUCT_CATEGORY_PLACHOLDER} height={"45px"} options={filteredCategory} isMulti={true} />
+                                <Selects selectedValues={selectedCategoryValues} setSelectedValues={setSelectedCategoryValues} placeholder={STRING.PRODUCT_CATEGORY_PLACHOLDER} height={'45px'} options={filteredCategory} isMulti={true} />
                                 {AddProduct.touched.category && AddProduct.errors.category && (
                                     <Typography variant='caption' className='!font-bold !ml-[1rem]' color='error'>
                                         {AddProduct.errors.category.toString()}
@@ -287,7 +286,7 @@ export default function AddProductPage() {
                                 </Typography>
                             </div>
                             <div className='flex-col w-[100%]'>
-                                <Selects options={filteredBrand} selectedValues={selectedBrandValues} setSelectedValues={setSelectedBrandValues} placeholder={STRING.PRODUCT_BRAND_PLACHOLDER} height={"45px"} />
+                                <Selects options={filteredBrand} selectedValues={selectedBrandValues} setSelectedValues={setSelectedBrandValues} placeholder={STRING.PRODUCT_BRAND_PLACHOLDER} height={'45px'} />
                                 {(AddProduct.submitCount > 0 && AddProduct.errors.brand) && (
                                     <Typography variant='caption' className='!font-bold !ml-[1rem]' color='error'>
                                         {AddProduct.errors.brand.toString()}
@@ -303,7 +302,7 @@ export default function AddProductPage() {
                             </div>
                             <TextFields
                                 helperText={AddProduct.touched.productName && AddProduct.errors.productName} onChange={AddProduct.handleChange} values={AddProduct.values.productName} autoComplete={'off'} placeholder={STRING.PRODUCT_NAME_PLACHOLDER}
-                                name={"productName"} className={'productField'} />
+                                name={'productName'} className={'productField'} />
                         </div>
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
@@ -313,7 +312,7 @@ export default function AddProductPage() {
                             </div>
                             <TextFields
                                 helperText={AddProduct.touched.productModel && AddProduct.errors.productModel} onChange={AddProduct.handleChange} values={AddProduct.values.productModel} autoComplete={'off'} placeholder={STRING.PRODUCT_MODEL_PLACHOLDER}
-                                name={"productModel"} className={'productField'} />
+                                name={'productModel'} className={'productField'} />
                         </div>
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
@@ -322,7 +321,7 @@ export default function AddProductPage() {
                                 </Typography>
                             </div>
                             <Textareas
-                                helperText={AddProduct.touched.description && AddProduct.errors.description} onChange={AddProduct.handleChange} value={AddProduct.values.description} name={"description"} width={"100%"} rows={3} placeholder={STRING.PRODUCT_DESC_PLACHOLDER} />
+                                helperText={AddProduct.touched.description && AddProduct.errors.description} onChange={AddProduct.handleChange} value={AddProduct.values.description} name={'description'} width={'100%'} rows={3} placeholder={STRING.PRODUCT_DESC_PLACHOLDER} />
 
                         </div>
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
@@ -331,9 +330,9 @@ export default function AddProductPage() {
                                     {STRING.PRODUCT_STOCK}
                                 </Typography>
                             </div>
-                            <TextFields type={"number"}
+                            <TextFields type={'number'}
                                 helperText={AddProduct.touched.stock && AddProduct.errors.stock} onChange={AddProduct.handleChange} values={AddProduct.values.stock} autoComplete={'off'} placeholder={STRING.PRODUCT_STOCK_PLACHOLDER}
-                                name={"stock"} className={'productField'} />
+                                name={'stock'} className={'productField'} />
                         </div>
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
@@ -342,9 +341,9 @@ export default function AddProductPage() {
                                 </Typography>
                             </div>
 
-                            <TextFields type={"number"}
+                            <TextFields type={'number'}
                                 helperText={AddProduct.touched.price && AddProduct.errors.price} onChange={AddProduct.handleChange} values={AddProduct.values.price} autoComplete={'off'} placeholder={STRING.PRODUCT_PRICE_PLACHOLDER}
-                                name={"price"} className={'productField'} />
+                                name={'price'} className={'productField'} />
                         </div>
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
@@ -353,9 +352,9 @@ export default function AddProductPage() {
                                 </Typography>
                             </div>
 
-                            <TextFields type={"number"}
+                            <TextFields type={'number'}
                                 helperText={AddProduct.touched.dummyPrice && AddProduct.errors.dummyPrice} onChange={AddProduct.handleChange} values={AddProduct.values.dummyPrice} autoComplete={'off'} placeholder={STRING.PRODUCT_DUMMYPRICE_PLACHOLDER}
-                                name={"dummyPrice"} className={'productField'} />
+                                name={'dummyPrice'} className={'productField'} />
                         </div>
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
@@ -365,7 +364,7 @@ export default function AddProductPage() {
                             </div>
                             <TextFields
                                 helperText={AddProduct.touched.warranty && AddProduct.errors.warranty} onChange={AddProduct.handleChange} values={AddProduct.values.warranty} autoComplete={'off'} placeholder={STRING.PRODUCT_WARRANTY_PLACHOLDER}
-                                name={"warranty"} className={'productField'} />
+                                name={'warranty'} className={'productField'} />
                         </div>
                     </div>
                 </Paper>

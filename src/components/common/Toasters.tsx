@@ -1,7 +1,6 @@
-import { css } from '@emotion/react'
-import React from 'react'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import React from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Toasters() {
     return (
@@ -12,5 +11,5 @@ export default function Toasters() {
             closeOnClick
             rtl={false}
             draggable />
-    )
+    );
 }

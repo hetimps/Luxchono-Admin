@@ -1,24 +1,16 @@
-import { Paper, Grid, Typography, InputAdornment, IconButton } from '@mui/material'
-import LoginImg from "../../assets/imag/LoginImg2.svg";
-import Logo from "../../assets/imag/logo.svg"
-import TextFields from '../../components/common/TextFields';
-import "./style.scss"
+import { Paper, Grid, Typography} from '@mui/material';
+import LoginImg from '../../assets/imag/LoginImg2.svg';
+import Logo from '../../assets/imag/logo.svg';
+import './style.scss';
 import Buttons from '../../components/common/Buttons';
 import { useFormik } from 'formik';
-import * as Yup from "yup";
-import { STRING } from '../../constants/String';
-import { REGEX } from "../../constants/Regex";
-import { toast } from "react-toastify";
+import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 import Loader from '../../components/common/Loader';
-import { useLoginMutation, useResendOtpMutation, useVerifyOtpMutation } from '../../api/Login';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useState } from "react";
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useResendOtpMutation, useVerifyOtpMutation } from '../../api/Login';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { MuiOtpInput } from 'mui-one-time-password-input';
 import OtpTimer from '../../components/common/OtpTimer';
-import OtpControl from '../../components/common/OtpTimer';
-
 
 interface OtpFormValues {
     verifyOtp: string;
@@ -29,31 +21,28 @@ export default function OtpVerify() {
     const navigate = useNavigate();
     const location = useLocation();
     const { state } = location;
-
     const [Rsend, { isLoading: ResendOtpLoading }] = useResendOtpMutation();
-
-    console.log(state, "state")
     const OtpVerifys = useFormik<OtpFormValues>({
         initialValues: {
             verifyOtp: state?.verifyOtp,
         },
         validationSchema: Yup.object().shape({
-            verifyOtp: Yup.string().length(4, "Enter valid OTP")
-                .required("OTP is a required "),
+            verifyOtp: Yup.string().length(4, 'Enter valid OTP')
+                .required('OTP is a required '),
 
         }),
         onSubmit: async (values) => {
             const body = {
                 email: state?.email,
                 verifyOtp: values?.verifyOtp
-            }
+            };
             const response: any = await VerifyOtp(body);
-            const { statusCode, message, result } = response?.data;
+            const { statusCode, message} = response?.data;
             if (statusCode === 200) {
-                navigate("/login")
-                toast.success(message)
+                navigate('/login');
+                toast.success(message);
             } else {
-                toast.error(message)
+                toast.error(message);
             }
         },
     });
@@ -66,18 +55,18 @@ export default function OtpVerify() {
 
     const validateChar = (value: any) => {
         return matchIsNumeric(value) && value !== ' ';
-    }
+    };
 
     const handleResend = async () => {
         const body = {
             email: state?.email,
-        }
+        };
         const response: any = await Rsend(body);
-        const { statusCode, message, result } = response?.data;
+        const { statusCode, message} = response?.data;
         if (statusCode === 200) {
-            toast.success(message)
+            toast.success(message);
         } else {
-            toast.error(message)
+            toast.error(message);
         }
 
     };
@@ -100,7 +89,7 @@ export default function OtpVerify() {
                                     className='!font-extrabold'
                                     variant='h5'
                                     component="h5">
-                                    {"Verify email"}
+                                    {'Verify email'}
                                 </Typography>
                                 <Typography
                                     className='!font-bold text-light'
@@ -110,7 +99,7 @@ export default function OtpVerify() {
                                 <div className='!mt-[2rem] flex flex-col gap-[20px]' >
 
                                     <MuiOtpInput
-                                        onChange={OtpVerifys.handleChange("verifyOtp")}
+                                        onChange={OtpVerifys.handleChange('verifyOtp')}
                                         value={OtpVerifys.values.verifyOtp}
                                         TextFieldsProps={{ placeholder: '-' }}
                                         // autoFocus
@@ -122,7 +111,7 @@ export default function OtpVerify() {
                                     <Loader />
                                 </div >) : (
                                     <>
-                                        <Buttons type={"submit"} text={"Next"} variant={"contained"} className={"otpButton"} />
+                                        <Buttons type={'submit'} text={'Next'} variant={'contained'} className={'otpButton'} />
 
                                         <div className='flex items-center justify-center mt-[1rem] '>
                                             <OtpTimer expiryTimeInSeconds={60} onResend={handleResend} />
@@ -135,5 +124,5 @@ export default function OtpVerify() {
                 </Grid>
             </Paper>
         </div>
-    )
+    );
 }

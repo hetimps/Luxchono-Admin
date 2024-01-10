@@ -1,6 +1,6 @@
-import React from 'react'
-import { useEffect, useState } from 'react'
-import "./style.scss"
+import React from 'react';
+import { useEffect, useState } from 'react';
+import './style.scss';
 import { Paper } from '@mui/material';
 import Buttons from '../common/Buttons';
 import IosShareIcon from '@mui/icons-material/IosShare';
@@ -18,24 +18,23 @@ import { exportToCsv } from '../../constants/Helper/Csv';
 
 export default function OfferPage() {
     const [selected, setSelected] = React.useState<readonly number[]>([]);
-    const [search, setsearch] = useState("");
+    const [search, setsearch] = useState('');
     const [DeleteOffer, { isLoading: deleteOfferLoading }] = useDeleteOfferMutation();
-    const { data: OfferData, isFetching: OfferFetching, refetch } = useGetAllOfferQuery({ search: search.trim() })
+    const { data: OfferData, isFetching: OfferFetching, refetch } = useGetAllOfferQuery({ search: search.trim() });
     const [rows, setRows] = useState<any[]>([]);
     const navigate = useNavigate();
-    const [OfferDatas, setOfferDatas] = useState([]);
     const [selectedDeleteRows, setSelectedDelteRows] = useState([]);
-    const [input, setinput] = useState("");
+    const [input, setinput] = useState('');
     const getSelectedDeleteRows = (rows: any) => {
-        setSelectedDelteRows(rows)
-    }
+        setSelectedDelteRows(rows);
+    };
     const [openDeleteConfirmation, setDeleteOpenConfirmation] = useState(false);
     const handleDeleteOpenConfirmation = () => {
         setDeleteOpenConfirmation(true);
     };
     const handleDeleteCloseConfirmation = () => {
         setDeleteOpenConfirmation(false);
-        setSelected([])
+        setSelected([]);
     };
     const headCells: any[] = [
         {
@@ -92,7 +91,6 @@ export default function OfferPage() {
 
     useEffect(() => {
         const OfferDatas = OfferData?.result?.data;
-        setOfferDatas(OfferDatas)
         const rowise = OfferDatas?.map((item: any) => {
             const defaultBrands = item.brands.map((cat: any) => ({
                 label: cat.brandName,
@@ -118,33 +116,33 @@ export default function OfferPage() {
                 defaultProducts
             );
         });
-        setRows(rowise)
-    }, [OfferData])
+        setRows(rowise);
+    }, [OfferData]);
 
     useEffect(() => {
-        refetch()
-    }, [search, refetch])
+        refetch();
+    }, [search, refetch]);
 
     const handleDelete = async () => {
-        const response: any = await DeleteOffer({ ids: selectedDeleteRows })
+        const response: any = await DeleteOffer({ ids: selectedDeleteRows });
         const { message, statusCode } = response?.data;
         if (statusCode === 200) {
-            toast.success(message)
-            setSelected([])
+            toast.success(message);
+            setSelected([]);
 
         } else {
-            toast.error(message)
+            toast.error(message);
         }
-        response && handleDeleteCloseConfirmation()
-    }
+        response && handleDeleteCloseConfirmation();
+    };
 
     const AddOffer = () => {
-        navigate("/addoffer")
-    }
+        navigate('/addoffer');
+    };
 
     //delete single category
 
-    const [selectedIdSingle, setSelectedIdSingle] = useState<number[]>([])
+    const [selectedIdSingle, setSelectedIdSingle] = useState<number[]>([]);
 
     const [openDeleteConfirmationSingle, setDeleteOpenConfirmationSingle] = useState(false);
 
@@ -155,19 +153,19 @@ export default function OfferPage() {
 
     const handleDeleteSingleCloseConfirmations = () => {
         setDeleteOpenConfirmationSingle(false);
-        setSelectedIdSingle([])
+        setSelectedIdSingle([]);
     };
 
     const handleDeleteSingle = async () => {
-        const response: any = await DeleteOffer({ ids: selectedIdSingle })
+        const response: any = await DeleteOffer({ ids: selectedIdSingle });
         const { message, statusCode } = response?.data;
         if (statusCode === 200) {
-            toast.success(message)
+            toast.success(message);
         } else {
-            toast.error(message)
+            toast.error(message);
         }
-        response && handleDeleteSingleCloseConfirmations()
-    }
+        response && handleDeleteSingleCloseConfirmations();
+    };
 
     const handleCvsExport = () => {
         const exportColumns = [
@@ -176,39 +174,39 @@ export default function OfferPage() {
             { id: 'discountType' },
         ];
         exportToCsv(rows, exportColumns, 'offer_data');
-    }
+    };
 
     return (
         <div className='offerContainer'>
             <Paper className='paperboxshadow h-[83px] flex justify-between items-center p-[1rem] mt-[0.5rem]'>
                 <div className='productbtns flex justify-between'>
                     <div className='flex gap-[10px]'>
-                        <Buttons onClick={handleCvsExport} startIcon={<IosShareIcon />} text={STRING.EXPORT_BUTTON} variant={"outlined"} className={"productheaderbtn1"} />
+                        <Buttons onClick={handleCvsExport} startIcon={<IosShareIcon />} text={STRING.EXPORT_BUTTON} variant={'outlined'} className={'productheaderbtn1'} />
                         {/* <Buttons startIcon={<SystemUpdateAltIcon />} variant={"outlined"} text={"Import"} className={"productheaderbtn1"} /> */}
                     </div>
                 </div>
                 <div className='flex gap-[10px]'>
-                    {(selected.length > 0 && rows?.length > 0) && <Buttons onClick={handleDeleteOpenConfirmation} startIcon={<DeleteOutlineIcon />} variant={"contained"} text={
+                    {(selected.length > 0 && rows?.length > 0) && <Buttons onClick={handleDeleteOpenConfirmation} startIcon={<DeleteOutlineIcon />} variant={'contained'} text={
                         selectedDeleteRows.length === 0
                             ? `${STRING.DELETE_BUTTON}`
                             : `${STRING.DELETE_BUTTON} ( ${selectedDeleteRows.length} )`
                     } className={`productheaderbtn2 ${selectedDeleteRows.length > 0 ? '!w-[135px]' : ''
-                        }`} />}
-                    <Buttons onClick={AddOffer} startIcon={<ControlPointIcon />} variant={"contained"} text={"Add Offer"} className="productheaderbtn2 addbtn" />
+                    }`} />}
+                    <Buttons onClick={AddOffer} startIcon={<ControlPointIcon />} variant={'contained'} text={'Add Offer'} className="productheaderbtn2 addbtn" />
                 </div>
             </Paper>
             <Paper className='paperboxshadow h-[83px] mt-[0.8rem] flex  items-center p-[1rem] gap-[10px]'>
                 <Search setinput={setinput}
                     input={input}
-                    setsearch={setsearch} placeholder={"Search Offer"} />
+                    setsearch={setsearch} placeholder={'Search Offer'} />
             </Paper>
 
             <div className='mt-[1rem]'>
-                <Tables handleDeleteOpen={handleDeleteSingleOpenConfirmation} selected={selected} setSelected={setSelected} Offer={"Offer"} getSelectedDeleteRows={getSelectedDeleteRows} headCells={headCells} rows={rows} isFetching={OfferFetching} />
+                <Tables handleDeleteOpen={handleDeleteSingleOpenConfirmation} selected={selected} setSelected={setSelected} Offer={'Offer'} getSelectedDeleteRows={getSelectedDeleteRows} headCells={headCells} rows={rows} isFetching={OfferFetching} />
             </div>
-            <Dialogs loading={deleteOfferLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={"product_delete_yes"} closeClass={"product_delete_cancel"} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmation} onClose={handleDeleteCloseConfirmation} tital={STRING.DELETE_SURE} desc={STRING.OFFER_DELETE_DESC} Action={handleDelete} />
+            <Dialogs loading={deleteOfferLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={'product_delete_yes'} closeClass={'product_delete_cancel'} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmation} onClose={handleDeleteCloseConfirmation} tital={STRING.DELETE_SURE} desc={STRING.OFFER_DELETE_DESC} Action={handleDelete} />
             {/* single delete */}
-            <Dialogs loading={deleteOfferLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={"product_delete_yes"} closeClass={"product_delete_cancel"} tital={STRING.DELETE_SURE} desc={STRING.OFFER_DELETE_DESC} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmationSingle} onClose={handleDeleteSingleCloseConfirmations} Action={handleDeleteSingle} />
+            <Dialogs loading={deleteOfferLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={'product_delete_yes'} closeClass={'product_delete_cancel'} tital={STRING.DELETE_SURE} desc={STRING.OFFER_DELETE_DESC} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmationSingle} onClose={handleDeleteSingleCloseConfirmations} Action={handleDeleteSingle} />
         </div>
-    )
+    );
 }

@@ -1,9 +1,9 @@
-import { Box, CssBaseline } from "@mui/material";
-import AppBars from "../../../components/common/AppBar/index";
-import { DrawerHeader, Main } from "../../../components/common/PageComonComponent/index";
-import Drawers from "../../../components/common/Drawer";
+import { Box, CssBaseline } from '@mui/material';
+import AppBars from '../../../components/common/AppBar/index';
+import { DrawerHeader, Main } from '../../../components/common/PageComonComponent/index';
+import Drawers from '../../../components/common/Drawer';
 
-import AddOfferPage from "../../../components/Offer/AddOfferPage";
+import AddOfferPage from '../../../components/Offer/AddOfferPage';
 
 export default function AddOffer() {
     return (
@@ -16,5 +16,5 @@ export default function AddOffer() {
                 <AddOfferPage />
             </Main>
         </Box>
-    )
+    );
 }

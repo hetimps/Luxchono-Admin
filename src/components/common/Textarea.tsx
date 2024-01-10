@@ -1,5 +1,5 @@
-import React from "react";
-import { TextField } from "@mui/material";
+import React from 'react';
+import { TextField } from '@mui/material';
 
 const Textareas = ({
     id,
@@ -16,13 +16,13 @@ const Textareas = ({
     return (
         <TextField
             sx={{
-                "& .MuiInputBase-root": {
-                    borderRadius: "10px !important",
-                    width: width || "100%",
+                '& .MuiInputBase-root': {
+                    borderRadius: '10px !important',
+                    width: width || '100%',
                 },
-                "@media (max-width: 768px)": {
-                    "& .MuiInputBase-input::placeholder": {
-                        fontSize: "11px !important",
+                '@media (max-width: 768px)': {
+                    '& .MuiInputBase-input::placeholder': {
+                        fontSize: '11px !important',
                     },
                 },
             }}

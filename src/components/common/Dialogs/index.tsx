@@ -1,6 +1,6 @@
-import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
+import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import Buttons from '../Buttons';
-import "./style.scss"
+import './style.scss';
 import Loader from '../Loader';
 
 export default function Dialogs({ open, onClose, tital, text, Action, loading, icon, yesClass, closeClass, textClose, textYes, desc }: any) {
@@ -33,12 +33,12 @@ export default function Dialogs({ open, onClose, tital, text, Action, loading, i
                 <DialogActions >
                     {loading ? <Loader /> : (
                         <Box className="dialog_button">
-                            <Buttons variant={"outlined"} className={closeClass} onClick={onClose} text={textClose} />
-                            <Buttons variant={"contained"} className={yesClass} onClick={Action} text={textYes} />
+                            <Buttons variant={'outlined'} className={closeClass} onClick={onClose} text={textClose} />
+                            <Buttons variant={'contained'} className={yesClass} onClick={Action} text={textYes} />
                         </Box>
                     )}
                 </DialogActions>
             </Box>
         </Dialog>
-    )
+    );
 }

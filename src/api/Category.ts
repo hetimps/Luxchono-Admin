@@ -1,7 +1,7 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { prepareHeaders } from "./Utils";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { prepareHeaders } from './Utils';
 import queryString from 'query-string';
-import { categoryFromDataApi } from "./FormData";
+import { categoryFromDataApi } from './FormData';
 
 export const CategoryApi = createApi({
     reducerPath: 'CategoryApi',
@@ -12,7 +12,7 @@ export const CategoryApi = createApi({
             return queryString.stringify(params, { arrayFormat: 'index' });
         },
     }),
-    tagTypes: ["Category"],
+    tagTypes: ['Category'],
     endpoints: (builder) => ({
         GetAllCategory: builder.query({
             query: (params) => {
@@ -21,26 +21,26 @@ export const CategoryApi = createApi({
                     params
                 };
             },
-            providesTags: ["Category"],
+            providesTags: ['Category'],
         }),
         DeleteCategory: builder.mutation({
             query: (params) => ({
-                url: `/category/delete-category`,
+                url: '/category/delete-category',
                 method: 'DELETE',
                 params
             }),
-            invalidatesTags: ["Category"],
+            invalidatesTags: ['Category'],
         }),
         AddCategory: builder.mutation({
             query: (body) => {
                 const formData = categoryFromDataApi.createCategory(body);
                 return {
-                    url: "/category/create-category",
-                    method: "POST",
+                    url: '/category/create-category',
+                    method: 'POST',
                     body: formData
                 };
             },
-            invalidatesTags: ["Category"],
+            invalidatesTags: ['Category'],
         }),
         EditCategory: builder.mutation({
             query: (body) => {
@@ -52,7 +52,7 @@ export const CategoryApi = createApi({
 
                 };
             },
-            invalidatesTags: ["Category"],
+            invalidatesTags: ['Category'],
         }),
     }),
 });

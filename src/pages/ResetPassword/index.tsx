@@ -1,16 +1,16 @@
-import { Paper, Grid, Typography, InputAdornment, IconButton } from '@mui/material'
-import LoginImg from "../../assets/imag/LoginImg2.svg";
+import { Paper, Grid, Typography} from '@mui/material';
+import LoginImg from '../../assets/imag/LoginImg2.svg';
 import TextFields from '../../components/common/TextFields';
-import "./style.scss"
+import './style.scss';
 import Buttons from '../../components/common/Buttons';
 import { useFormik } from 'formik';
-import * as Yup from "yup";
+import * as Yup from 'yup';
 import { STRING } from '../../constants/String';
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 import Loader from '../../components/common/Loader';
 import { useResetPasswordMutation } from '../../api/Login';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useState } from "react";
+import { useState } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
@@ -44,17 +44,17 @@ export default function ResetPassword() {
                     password: values?.password,
                     confirmPassword: values?.confirmPassword,
                     id: id
-                }
+                };
                 const response: any = await ResetPassword(body);
-                const { statusCode, message, result } = response?.data;
+                const { statusCode, message} = response?.data;
                 if (statusCode === 200) {
-                    toast.success(message)
-                    navigate("/login")
+                    toast.success(message);
+                    navigate('/login');
                 } else {
-                    toast.error(message)
+                    toast.error(message);
                 }
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
         },
     });
@@ -93,8 +93,8 @@ export default function ResetPassword() {
                                         </div>
                                         <div>
                                             <TextFields
-                                                className={"resetField"}
-                                                name={"password"}
+                                                className={'resetField'}
+                                                name={'password'}
                                                 values={ResetPasswords.values.password}
                                                 onChange={ResetPasswords.handleChange}
                                                 helperText={ResetPasswords.touched.password && ResetPasswords.errors.password}
@@ -117,8 +117,8 @@ export default function ResetPassword() {
                                         </div>
                                         <div>
                                             <TextFields
-                                                className={"loginField"}
-                                                name={"confirmPassword"}
+                                                className={'loginField'}
+                                                name={'confirmPassword'}
                                                 values={ResetPasswords.values.confirmPassword}
                                                 onChange={ResetPasswords.handleChange}
                                                 helperText={ResetPasswords.touched.confirmPassword && ResetPasswords.errors.confirmPassword}
@@ -133,7 +133,7 @@ export default function ResetPassword() {
                                     <Loader />
                                 </div >) : (
                                     <>
-                                        <Buttons type={"submit"} text={STRING.SUBMIT} variant={"contained"} className={"resetButton"} />
+                                        <Buttons type={'submit'} text={STRING.SUBMIT} variant={'contained'} className={'resetButton'} />
                                     </>
                                 )}
                             </div>
@@ -142,5 +142,5 @@ export default function ResetPassword() {
                 </Grid>
             </Paper>
         </div>
-    )
+    );
 }

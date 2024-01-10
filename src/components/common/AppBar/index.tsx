@@ -1,7 +1,6 @@
-import { Avatar, Box, Toolbar, Typography } from '@mui/material'
-import React, { useState } from 'react'
-import { AppBar } from "./style"
-import LogoutIcon from '@mui/icons-material/Logout';
+import { Avatar, Box, Toolbar, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { AppBar } from './style';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import { useNavigate } from 'react-router-dom';
 import Dialogs from '../Dialogs';
@@ -12,15 +11,15 @@ export default function AppBars(props: any) {
     const [openConfirmation, setOpenConfirmation] = useState(false);
     const navigate = useNavigate();
 
-    const handleOpenConfirmation = () => {
-        setOpenConfirmation(true);
-    };
+    // const handleOpenConfirmation = () => {
+    //     setOpenConfirmation(true);
+    // };
     const handleCloseConfirmation = () => {
         setOpenConfirmation(false);
     };
 
     const handleLogout = () => {
-        localStorage.removeItem("lw-token")
+        localStorage.removeItem('lw-token');
         navigate('/login');
     };
 
@@ -36,13 +35,13 @@ export default function AppBars(props: any) {
                     <Box className="!flex !items-center gap-[13px]">
                         <Avatar className='!bg-[#964315] !h-[35px] !w-[35px]' alt="user_img" src="" />
                         <Typography variant="h6" component="div" className="text-black !font-bold" >
-                            {"hello"}
+                            {'hello'}
                         </Typography>
                         {/* <LogoutIcon onClick={handleOpenConfirmation} className='text-black cursor-pointer' /> */}
                     </Box>
                 </Toolbar>
             </AppBar>
-            <Dialogs textClose={STRING.DIALOG_CANCEL_BUTTON} textYes={STRING.DIALOG_YES_BUTTON} yesClass={"logout_dialog_yes"} closeClass={"logout_dialog_cancel"} icon={<NewReleasesIcon className='text-main !text-[4rem] !mb-[-15px]' />} open={openConfirmation} onClose={handleCloseConfirmation} tital={STRING.DIALOG_TITAL} text={STRING.DIALOG_DESC} Action={handleLogout} />
+            <Dialogs textClose={STRING.DIALOG_CANCEL_BUTTON} textYes={STRING.DIALOG_YES_BUTTON} yesClass={'logout_dialog_yes'} closeClass={'logout_dialog_cancel'} icon={<NewReleasesIcon className='text-main !text-[4rem] !mb-[-15px]' />} open={openConfirmation} onClose={handleCloseConfirmation} tital={STRING.DIALOG_TITAL} text={STRING.DIALOG_DESC} Action={handleLogout} />
         </>
-    )
+    );
 }

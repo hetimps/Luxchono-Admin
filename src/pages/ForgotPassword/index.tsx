@@ -1,16 +1,16 @@
-import { Paper, Grid, Typography, InputAdornment, IconButton } from '@mui/material'
-import LoginImg from "../../assets/imag/LoginImg2.svg";
-import Logo from "../../assets/imag/logo.svg"
+import { Paper, Grid, Typography} from '@mui/material';
+import LoginImg from '../../assets/imag/LoginImg2.svg';
+import Logo from '../../assets/imag/logo.svg';
 import TextFields from '../../components/common/TextFields';
-import "./style.scss"
+import './style.scss';
 import Buttons from '../../components/common/Buttons';
 import { useFormik } from 'formik';
-import * as Yup from "yup";
+import * as Yup from 'yup';
 import { STRING } from '../../constants/String';
-import { REGEX } from "../../constants/Regex";
-import { toast } from "react-toastify";
+import { REGEX } from '../../constants/Regex';
+import { toast } from 'react-toastify';
 import Loader from '../../components/common/Loader';
-import { useForgotPasswordMutation, useLoginMutation } from '../../api/Login';
+import { useForgotPasswordMutation} from '../../api/Login';
 
 interface ForgotFormValues {
     email: string;
@@ -28,14 +28,14 @@ export default function ForgotPassword() {
         onSubmit: async (values) => {
             try {
                 const response: any = await ForgotPassword(values);
-                const { statusCode, message, result } = response?.data;
+                const { statusCode, message} = response?.data;
                 if (statusCode === 200) {
-                    toast.success(message)
+                    toast.success(message);
                 } else {
-                    toast.error(message)
+                    toast.error(message);
                 }
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
         },
     });
@@ -75,7 +75,7 @@ export default function ForgotPassword() {
                                             </Typography>
                                         </div>
                                         <div>
-                                            <TextFields className={"forgateField"} name={"email"} values={ForgotPasswords.values.email} onChange={ForgotPasswords.handleChange} error={ForgotPasswords.touched.email && Boolean(ForgotPasswords.errors.email)}
+                                            <TextFields className={'forgateField'} name={'email'} values={ForgotPasswords.values.email} onChange={ForgotPasswords.handleChange} error={ForgotPasswords.touched.email && Boolean(ForgotPasswords.errors.email)}
                                                 helperText={ForgotPasswords.touched.email && ForgotPasswords.errors.email} placeholder={STRING.LOGIN_EMAIL_PLACEHOLDER} autoComplete={'off'} />
                                         </div>
                                     </div>
@@ -84,7 +84,7 @@ export default function ForgotPassword() {
                                     <Loader />
                                 </div >) : (
                                     <>
-                                        <Buttons type={STRING.SUBMIT} text={"Submit"} variant={"contained"} className={"forgateButton"} />
+                                        <Buttons type={STRING.SUBMIT} text={'Submit'} variant={'contained'} className={'forgateButton'} />
                                     </>
                                 )}
                             </div>
@@ -93,5 +93,5 @@ export default function ForgotPassword() {
                 </Grid>
             </Paper>
         </div>
-    )
+    );
 }

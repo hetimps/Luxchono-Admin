@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, MenuItem } from '@mui/material'
+
 import Select from 'react-select';
 import { ReactSelectStyle } from './ReactSelect';
 export default function Selects({ width, height, placeholder, options, selectedValues, setSelectedValues, isMulti,isDisabled }: any) {
@@ -11,7 +11,7 @@ export default function Selects({ width, height, placeholder, options, selectedV
         <>
             <Select
 
-            isDisabled={isDisabled}
+                isDisabled={isDisabled}
                 // closeMenuOnSelect={false}
                 isMulti={isMulti}
                 value={selectedValues}
@@ -22,7 +22,7 @@ export default function Selects({ width, height, placeholder, options, selectedV
                 options={options}
                 menuPlacement="bottom" />
         </>
-    )
+    );
 }
 
 

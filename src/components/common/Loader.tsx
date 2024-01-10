@@ -1,5 +1,5 @@
-import React from 'react'
-import { ColorRing } from 'react-loader-spinner'
+import React from 'react';
+import { ColorRing } from 'react-loader-spinner';
 
 export default function Loader() {
     return (
@@ -11,5 +11,5 @@ export default function Loader() {
             wrapperStyle={{}}
             wrapperClass="blocks-wrapper"
             colors={['#964315', '#964315', '#964315', '#964315', '#964315']} />
-    )
+    );
 }

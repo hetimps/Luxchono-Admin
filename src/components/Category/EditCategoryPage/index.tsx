@@ -20,28 +20,28 @@ export default function EditCategoryPage() {
     const [EditCategory, { isLoading }] = useEditCategoryMutation();
     const [imagePreview, setImagePreview] = useState<any>(null);
     const [categoryId, setCategoryId] = useState();
-    const [CategoryImg, setCategoryImag] = useState()
+    const [CategoryImg, setCategoryImag] = useState();
     const [iconPreview, setIconPreview] = useState<any>(null);
-    const [iconImg, setIconImag] = useState()
+    const [iconImg, setIconImag] = useState();
     const location = useLocation();
     const { state } = location;
 
     useEffect(() => {
-        AddCategory.setFieldValue("categoryName", state?.categoryName)
-        AddCategory.setFieldValue("image", state?.image)
-        AddCategory.setFieldValue("icon", state?.icon)
+        AddCategory.setFieldValue('categoryName', state?.categoryName);
+        AddCategory.setFieldValue('image', state?.image);
+        AddCategory.setFieldValue('icon', state?.icon);
         // setImagePreview(state?.image)
-        setCategoryImag(state?.image)
-        setIconImag(state?.icon)
-        setCategoryId(state?.id)
-    }, [state])
+        setCategoryImag(state?.image);
+        setIconImag(state?.icon);
+        setCategoryId(state?.id);
+    }, [state]);
 
     const navigate = useNavigate();
 
     const handleFileChange = (e: any) => {
         const file = e.target.files[0];
         if (file) {
-            AddCategory.setFieldValue("image", file)
+            AddCategory.setFieldValue('image', file);
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImagePreview(reader.result);
@@ -52,7 +52,7 @@ export default function EditCategoryPage() {
         }
     };
     const AddCategoryImg = () => {
-        document.getElementById("fileInput")?.click()
+        document.getElementById('fileInput')?.click();
     };
 
     //icon uplaod
@@ -60,7 +60,7 @@ export default function EditCategoryPage() {
     const handleIconFileChange = (e: any) => {
         const file = e.target.files[0];
         if (file) {
-            AddCategory.setFieldValue("icon", file)
+            AddCategory.setFieldValue('icon', file);
             const reader = new FileReader();
             reader.onloadend = () => {
                 setIconPreview(reader.result);
@@ -72,31 +72,31 @@ export default function EditCategoryPage() {
     };
 
     const AddIconImg = () => {
-        document.getElementById("fileIconInput")?.click()
+        document.getElementById('fileIconInput')?.click();
     };
 
     const AddCategory = useFormik({
         initialValues: {
             categoryName: '',
             image: '',
-            icon: "",
+            icon: '',
         },
         validationSchema: Yup.object().shape({
             categoryName: Yup.string().trim().required(STRING.CATEGORY_NAME_REQUIRED).min(3, STRING.CATEGORY_NAME_FORMAT),
-            image: Yup.mixed().required(STRING.CATEGORY_NAME_IMAGE).test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
+            image: Yup.mixed().required(STRING.CATEGORY_NAME_IMAGE).test('fileFormat', STRING.IMAGE_FORMATES, (value: any) => {
                 if (value) {
-                    const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"].includes(value.type);
-                    const accepteDefaltFormats = typeof value === 'string' && value.endsWith(".png") || typeof value === 'string' && value.endsWith(".jpeg") ||
-                        typeof value === 'string' && value.endsWith(".jpg") || typeof value === 'string' && value.endsWith(".svg");
+                    const acceptedFormats = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/jpg'].includes(value.type);
+                    const accepteDefaltFormats = typeof value === 'string' && value.endsWith('.png') || typeof value === 'string' && value.endsWith('.jpeg') ||
+                        typeof value === 'string' && value.endsWith('.jpg') || typeof value === 'string' && value.endsWith('.svg');
                     return acceptedFormats || accepteDefaltFormats;
                 }
                 return true;
             }),
-            icon: Yup.mixed().required(STRING.CATEGORY_ICON_REQUIRED).test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
+            icon: Yup.mixed().required(STRING.CATEGORY_ICON_REQUIRED).test('fileFormat', STRING.IMAGE_FORMATES, (value: any) => {
                 if (value) {
-                    const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"].includes(value.type);
-                    const accepteDefaltFormats = typeof value === 'string' && value.endsWith(".png") || typeof value === 'string' && value.endsWith(".jpeg") ||
-                        typeof value === 'string' && value.endsWith(".jpg") || typeof value === 'string' && value.endsWith(".svg");
+                    const acceptedFormats = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/jpg'].includes(value.type);
+                    const accepteDefaltFormats = typeof value === 'string' && value.endsWith('.png') || typeof value === 'string' && value.endsWith('.jpeg') ||
+                        typeof value === 'string' && value.endsWith('.jpg') || typeof value === 'string' && value.endsWith('.svg');
 
                     return acceptedFormats || accepteDefaltFormats;
                 }
@@ -109,7 +109,7 @@ export default function EditCategoryPage() {
             const { message, statusCode } = response?.data;
             if (statusCode === 200) {
                 toast.success(message);
-                navigate("/category")
+                navigate('/category');
             } else {
                 toast.error(message);
             }
@@ -117,8 +117,8 @@ export default function EditCategoryPage() {
     });
 
     const Category = () => {
-        navigate("/category")
-    }
+        navigate('/category');
+    };
 
     return (
         <>
@@ -134,7 +134,7 @@ export default function EditCategoryPage() {
             <form onSubmit={AddCategory.handleSubmit}>
                 <Paper className='mt-[1.5rem] p-[1rem] pb-[2rem] paperboxshadow'>
                     <div className='flex justify-end'>
-                        {isLoading ? (<Loader />) : (<Buttons type={"submit"} className={'category_add_button'} startIcon={<BookmarkIcon />} variant={'contained'} text={'Save'} />)}
+                        {isLoading ? (<Loader />) : (<Buttons type={'submit'} className={'category_add_button'} startIcon={<BookmarkIcon />} variant={'contained'} text={'Save'} />)}
                     </div>
                     <div className='flex !flex-col mt-[1rem] pl-[3rem] pr-[3rem] '>
                         <div className='flex item-center !gap-[15px]'  >
@@ -146,7 +146,7 @@ export default function EditCategoryPage() {
 
                             {/* <TextFields name={"image"} values={AddCategory.values.image} onChange={handleFileChange} id={'fileInput'} type={'file'} style={{ display: 'none' }} /> */}
                             <TextFields
-                                name={"image"}
+                                name={'image'}
                                 values={AddCategory.values.image}
                                 onChange={handleFileChange}
                                 id={'fileInput'}
@@ -190,7 +190,7 @@ export default function EditCategoryPage() {
 
                             {/* <TextFields name={"image"} values={AddCategory.values.image} onChange={handleFileChange} id={'fileInput'} type={'file'} style={{ display: 'none' }} /> */}
                             <TextFields
-                                name={"icon"}
+                                name={'icon'}
                                 values={AddCategory.values.icon}
                                 onChange={handleIconFileChange}
                                 id={'fileIconInput'}
@@ -236,7 +236,7 @@ export default function EditCategoryPage() {
                             <TextFields
                                 onChange={AddCategory.handleChange}
                                 autoComplete={'off'} placeholder={STRING.CATEGORY_NAME_PLACHOLDER} value={AddCategory.values.categoryName}
-                                helperText={AddCategory.touched.categoryName && AddCategory.errors.categoryName} name={"categoryName"} className={'categoryField'} />
+                                helperText={AddCategory.touched.categoryName && AddCategory.errors.categoryName} name={'categoryName'} className={'categoryField'} />
                         </div>
                     </div>
                 </Paper>

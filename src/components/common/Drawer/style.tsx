@@ -7,9 +7,9 @@ interface CustomTheme extends Theme {
 }
 
 export const DrawerHeader = styled('div')(({ theme }: { theme: CustomTheme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1), 
-  ...theme.mixins?.toolbar,
-  justifyContent: 'flex-end',
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1), 
+    ...theme.mixins?.toolbar,
+    justifyContent: 'flex-end',
 }));

@@ -1,7 +1,7 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { prepareHeaders } from "./Utils";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { prepareHeaders } from './Utils';
 import queryString from 'query-string';
-import { OfferFromDataApi } from "./FormData";
+import { OfferFromDataApi } from './FormData';
 
 
 export const OfferApi = createApi({
@@ -14,7 +14,7 @@ export const OfferApi = createApi({
         },
 
     }),
-    tagTypes: ["Offer"],
+    tagTypes: ['Offer'],
     endpoints: (builder) => ({
         GetAllOffer: builder.query({
             query: (params) => {
@@ -23,26 +23,26 @@ export const OfferApi = createApi({
                     params
                 };
             },
-            providesTags: ["Offer"],
+            providesTags: ['Offer'],
         }),
         AddOffer: builder.mutation({
             query: (body) => {
                 const formData = OfferFromDataApi.createOffer(body);
                 return {
-                    url: "/offer/create-offer",
-                    method: "POST",
+                    url: '/offer/create-offer',
+                    method: 'POST',
                     body: formData
                 };
             },
-            invalidatesTags: ["Offer"],
+            invalidatesTags: ['Offer'],
         }),
         DeleteOffer: builder.mutation({
             query: (params) => ({
-                url: `/offer/delete-offer`,
+                url: '/offer/delete-offer',
                 method: 'DELETE',
                 params
             }),
-            invalidatesTags: ["Offer"],
+            invalidatesTags: ['Offer'],
         }),
         EditOffer: builder.mutation({
             query: (body) => {
@@ -54,9 +54,9 @@ export const OfferApi = createApi({
 
                 };
             },
-            invalidatesTags: ["Offer"],
+            invalidatesTags: ['Offer'],
         }),
     }),
 });
 
-export const { useGetAllOfferQuery, useAddOfferMutation ,useDeleteOfferMutation ,useEditOfferMutation } = OfferApi;
+export const { useGetAllOfferQuery, useAddOfferMutation, useDeleteOfferMutation, useEditOfferMutation } = OfferApi;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IconButton, Typography, Paper, Avatar, TextField } from '@mui/material';
+import { IconButton, Typography, Paper, Avatar} from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Buttons from '../../common/Buttons';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
@@ -24,29 +24,29 @@ export default function EditBrandPage() {
 
 
     const [iconPreview, setIconPreview] = useState<any>(null);
-    const [iconImg, setIconImag] = useState()
+    const [iconImg, setIconImag] = useState();
 
 
-    const [BrandImg, setBrandImag] = useState()
+    const [BrandImg, setBrandImag] = useState();
     const location = useLocation();
     const { state } = location;
 
     useEffect(() => {
-        EditBrands.setFieldValue("brandName", state?.brandName)
-        EditBrands.setFieldValue("image", state?.image)
-        EditBrands.setFieldValue("icon", state?.icon)
+        EditBrands.setFieldValue('brandName', state?.brandName);
+        EditBrands.setFieldValue('image', state?.image);
+        EditBrands.setFieldValue('icon', state?.icon);
         // setImagePreview(state?.image)
-        setBrandImag(state?.image)
-        setIconImag(state?.icon)
-        setBrandId(state?.id)
-    }, [state])
+        setBrandImag(state?.image);
+        setIconImag(state?.icon);
+        setBrandId(state?.id);
+    }, [state]);
 
     const navigate = useNavigate();
 
     const handleFileChange = (e: any) => {
         const file = e.target.files[0];
         if (file) {
-            EditBrands.setFieldValue("image", file)
+            EditBrands.setFieldValue('image', file);
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImagePreview(reader.result);
@@ -58,7 +58,7 @@ export default function EditBrandPage() {
     };
 
     const AddCategoryImg = () => {
-        document.getElementById("fileInput")?.click()
+        document.getElementById('fileInput')?.click();
     };
 
 
@@ -66,7 +66,7 @@ export default function EditBrandPage() {
     const handleIconFileChange = (e: any) => {
         const file = e.target.files[0];
         if (file) {
-            EditBrands.setFieldValue("icon", file)
+            EditBrands.setFieldValue('icon', file);
             const reader = new FileReader();
             reader.onloadend = () => {
                 setIconPreview(reader.result);
@@ -78,32 +78,32 @@ export default function EditBrandPage() {
     };
 
     const AddIconImg = () => {
-        document.getElementById("fileIconInput")?.click()
+        document.getElementById('fileIconInput')?.click();
     };
 
     const EditBrands = useFormik({
         initialValues: {
             brandName: '',
             image: '',
-            icon: "",
+            icon: '',
         },
 
         validationSchema: Yup.object().shape({
             brandName: Yup.string().trim().required(STRING.BRAND_NAME_REQUIRED).min(3, STRING.BRAND_NAME_FORMAT),
-            image: Yup.mixed().required(STRING.BRAND_NAME_IMAGE).test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
+            image: Yup.mixed().required(STRING.BRAND_NAME_IMAGE).test('fileFormat', STRING.IMAGE_FORMATES, (value: any) => {
                 if (value) {
-                    const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"].includes(value.type);
-                    const accepteDefaltFormats = typeof value === 'string' && value.endsWith(".png") || typeof value === 'string' && value.endsWith(".jpeg") ||
-                        typeof value === 'string' && value.endsWith(".jpg") || typeof value === 'string' && value.endsWith(".svg");
+                    const acceptedFormats = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/jpg'].includes(value.type);
+                    const accepteDefaltFormats = typeof value === 'string' && value.endsWith('.png') || typeof value === 'string' && value.endsWith('.jpeg') ||
+                        typeof value === 'string' && value.endsWith('.jpg') || typeof value === 'string' && value.endsWith('.svg');
                     return acceptedFormats || accepteDefaltFormats;
                 }
                 return true;
             }),
-            icon: Yup.mixed().required(STRING.BRAND_ICON_REQUIRED).test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
+            icon: Yup.mixed().required(STRING.BRAND_ICON_REQUIRED).test('fileFormat', STRING.IMAGE_FORMATES, (value: any) => {
                 if (value) {
-                    const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"].includes(value.type);
-                    const accepteDefaltFormats = typeof value === 'string' && value.endsWith(".png") || typeof value === 'string' && value.endsWith(".jpeg") ||
-                        typeof value === 'string' && value.endsWith(".jpg") || typeof value === 'string' && value.endsWith(".svg");
+                    const acceptedFormats = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/jpg'].includes(value.type);
+                    const accepteDefaltFormats = typeof value === 'string' && value.endsWith('.png') || typeof value === 'string' && value.endsWith('.jpeg') ||
+                        typeof value === 'string' && value.endsWith('.jpg') || typeof value === 'string' && value.endsWith('.svg');
                     return acceptedFormats || accepteDefaltFormats;
                 }
                 return true;
@@ -116,7 +116,7 @@ export default function EditBrandPage() {
             const { message, statusCode } = response?.data;
             if (statusCode === 200) {
                 toast.success(message);
-                navigate("/brand")
+                navigate('/brand');
             } else {
                 toast.error(message);
             }
@@ -124,8 +124,8 @@ export default function EditBrandPage() {
     });
 
     const Category = () => {
-        navigate("/brand")
-    }
+        navigate('/brand');
+    };
 
     return (
         <>
@@ -141,7 +141,7 @@ export default function EditBrandPage() {
             <form onSubmit={EditBrands.handleSubmit}>
                 <Paper className='mt-[1.5rem]  p-[1rem] pb-[2rem] paperboxshadow'>
                     <div className='flex justify-end'>
-                        {isLoading ? (<Loader />) : (<Buttons type={"submit"} className={'brand_add_button'} startIcon={<BookmarkIcon />} variant={'contained'} text={'Save'} />)}
+                        {isLoading ? (<Loader />) : (<Buttons type={'submit'} className={'brand_add_button'} startIcon={<BookmarkIcon />} variant={'contained'} text={'Save'} />)}
                     </div>
                     <div className='flex !flex-col mt-[1rem] pl-[3rem] pr-[3rem] '>
                         <div className='flex item-center !gap-[15px]'  >
@@ -151,7 +151,7 @@ export default function EditBrandPage() {
                                 </Typography>
                             </div>
                             <TextFields
-                                name={"image"}
+                                name={'image'}
                                 values={EditBrands.values.image}
                                 onChange={handleFileChange}
                                 id={'fileInput'}
@@ -189,7 +189,7 @@ export default function EditBrandPage() {
 
                             {/* <TextFields name={"image"} values={AddCategory.values.image} onChange={handleFileChange} id={'fileInput'} type={'file'} style={{ display: 'none' }} /> */}
                             <TextFields
-                                name={"icon"}
+                                name={'icon'}
                                 values={EditBrands.values.icon}
                                 onChange={handleIconFileChange}
                                 id={'fileIconInput'}
@@ -224,7 +224,7 @@ export default function EditBrandPage() {
                             <TextFields
                                 onChange={EditBrands.handleChange}
                                 autoComplete={'off'} placeholder={STRING.BRAND_NAME_PLACHOLDER} value={EditBrands.values.brandName}
-                                helperText={EditBrands.touched.brandName && EditBrands.errors.brandName} name={"brandName"} className={'BrandField'} />
+                                helperText={EditBrands.touched.brandName && EditBrands.errors.brandName} name={'brandName'} className={'BrandField'} />
                         </div>
                     </div>
                 </Paper>

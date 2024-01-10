@@ -1,12 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
-import { LoginApi } from "../api/Login";
-import { ProductApi } from "../api/Product";
-import { CategoryApi } from "../api/Category";
-import { BrandApi } from "../api/Brand";
-import { OrdersApi } from "../api/Orders";
-import { CustomerApi } from "../api/Customer";
-import { OfferApi } from "../api/Offer";
+import { LoginApi } from '../api/Login';
+import { ProductApi } from '../api/Product';
+import { CategoryApi } from '../api/Category';
+import { BrandApi } from '../api/Brand';
+import { OrdersApi } from '../api/Orders';
+import { CustomerApi } from '../api/Customer';
+import { OfferApi } from '../api/Offer';
 
 export const store = configureStore({
     reducer: {
@@ -27,5 +27,5 @@ export const store = configureStore({
             .concat(OrdersApi.middleware)
             .concat(CustomerApi.middleware)
             .concat(OfferApi.middleware)
-})
+});
 setupListeners(store.dispatch);

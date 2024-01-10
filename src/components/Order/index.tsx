@@ -1,6 +1,6 @@
-import React from 'react'
-import { useEffect, useState } from 'react'
-import "./style.scss"
+import React from 'react';
+import { useEffect, useState } from 'react';
+import './style.scss';
 import { Paper } from '@mui/material';
 import Buttons from '../common/Buttons';
 import IosShareIcon from '@mui/icons-material/IosShare';
@@ -8,63 +8,57 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Search from '../common/Search/index';
 import { STRING } from '../../constants/String';
 import Tables from '../common/Table';
-import { useDeleteCategoryMutation } from '../../api/Category';
 import Dialogs from '../common/Dialogs';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 import { useDeleteOrderMutation, useGetAllOrdersQuery, useUpdateOrderStatusMutation } from '../../api/Orders';
 import Selects from '../common/Selects';
 import UpdateOrderStatusDialog from './UpdateOrderStatusDialog';
 import { exportToCsv } from '../../constants/Helper/Csv';
 
-
-
 export default function OrderPage() {
 
     const [selected, setSelected] = React.useState<readonly number[]>([]);
-    const [search, setsearch] = useState("");
-    const [status, setStatus] = useState<any>("");
-    const [method, setMethod] = useState<any>("");
+    const [search, setsearch] = useState('');
+    const [status, setStatus] = useState<any>('');
+    const [method, setMethod] = useState<any>('');
 
 
     const { data: OrdersData, isFetching, refetch } = useGetAllOrdersQuery({ search: search.trim(), status: status?.value, method: method?.value });
-    const [DeleteOredr, { isLoading: deleteOrderLoading }] = useDeleteOrderMutation()
+    const [DeleteOredr, { isLoading: deleteOrderLoading }] = useDeleteOrderMutation();
     const [rows, setRows] = useState<any[]>([]);
-    const navigate = useNavigate();
-    const [orderData, setOrderData] = useState([]);
     const [selectedDeleteRows, setSelectedDelteRows] = useState([]);
 
-    const [input, setinput] = useState("");
+    const [input, setinput] = useState('');
     const [openDeleteConfirmation, setDeleteOpenConfirmation] = useState(false);
 
     const [UpdateOrderStatus, { isLoading: UpdateStatusLoading }] = useUpdateOrderStatusMutation();
 
     useEffect(() => {
-        setRows([])
-        refetch()
-    }, [search, refetch, status, method])
+        setRows([]);
+        refetch();
+    }, [search, refetch, status, method]);
 
     const statusOption = [
-        { value: "Pending", label: "Pending" },
-        { value: "Cancelled", label: "Cancelled" },
+        { value: 'Pending', label: 'Pending' },
+        { value: 'Cancelled', label: 'Cancelled' },
         // { value: "Completed", label: "Completed" },
-        { value: "Shipped", label: "Shipped" },
-        { value: "Out of Delivery", label: "Out of Delivery" },
-        { value: "Delivered", label: "Delivered" },
-    ]
+        { value: 'Shipped', label: 'Shipped' },
+        { value: 'Out of Delivery', label: 'Out of Delivery' },
+        { value: 'Delivered', label: 'Delivered' },
+    ];
 
     const MethodOption = [
-        { value: "Card", label: "Card" },
-        { value: "Mobile Banking", label: "Mobile Banking" },
-        { value: "Apple Pay", label: "Apple Pay" },
-        { value: "Pay Pal", label: "Pay Pal" },
-        { value: "Google Pay", label: "Google Pay" },
-    ]
+        { value: 'Card', label: 'Card' },
+        { value: 'Mobile Banking', label: 'Mobile Banking' },
+        { value: 'Apple Pay', label: 'Apple Pay' },
+        { value: 'Pay Pal', label: 'Pay Pal' },
+        { value: 'Google Pay', label: 'Google Pay' },
+    ];
 
     const getSelectedDeleteRows = (rows: any) => {
-        setSelectedDelteRows(rows)
-    }
+        setSelectedDelteRows(rows);
+    };
 
     const handleDeleteOpenConfirmation = () => {
         setDeleteOpenConfirmation(true);
@@ -72,7 +66,7 @@ export default function OrderPage() {
 
     const handleDeleteCloseConfirmation = () => {
         setDeleteOpenConfirmation(false);
-        setSelected([])
+        setSelected([]);
     };
 
     const headCells: any[] = [
@@ -146,7 +140,6 @@ export default function OrderPage() {
 
     useEffect(() => {
         const OrderDatas = OrdersData?.result?.data;
-        setOrderData(OrderDatas)
         const rowise = OrderDatas?.map((item: any) => {
             return createData(
                 item._id,
@@ -159,27 +152,27 @@ export default function OrderPage() {
                 item.products
             );
         });
-        setRows(rowise)
-    }, [OrdersData])
+        setRows(rowise);
+    }, [OrdersData]);
 
 
 
     const handleDelete = async () => {
-        const response: any = await DeleteOredr({ ids: selectedDeleteRows })
+        const response: any = await DeleteOredr({ ids: selectedDeleteRows });
         const { message, statusCode } = response?.data;
         if (statusCode === 200) {
-            toast.success(message)
-            setSelected([])
+            toast.success(message);
+            setSelected([]);
 
         } else {
-            toast.error(message)
+            toast.error(message);
         }
-        response && handleDeleteCloseConfirmation()
-    }
+        response && handleDeleteCloseConfirmation();
+    };
 
     //delete single category
 
-    const [selectedIdSingle, setSelectedIdSingle] = useState<number[]>([])
+    const [selectedIdSingle, setSelectedIdSingle] = useState<number[]>([]);
 
     const [openDeleteConfirmationSingle, setDeleteOpenConfirmationSingle] = useState(false);
 
@@ -191,20 +184,20 @@ export default function OrderPage() {
 
     const handleDeleteSingleCloseConfirmations = () => {
         setDeleteOpenConfirmationSingle(false);
-        setSelectedIdSingle([])
+        setSelectedIdSingle([]);
     };
 
     const handleDeleteSingle = async () => {
-        const response: any = await DeleteOredr({ ids: selectedIdSingle })
+        const response: any = await DeleteOredr({ ids: selectedIdSingle });
         const { message, statusCode } = response?.data;
         if (statusCode === 200) {
-            toast.success(message)
+            toast.success(message);
 
         } else {
-            toast.error(message)
+            toast.error(message);
         }
-        response && handleDeleteSingleCloseConfirmations()
-    }
+        response && handleDeleteSingleCloseConfirmations();
+    };
 
     const handleCvsExport = () => {
         const exportColumns = [
@@ -216,40 +209,40 @@ export default function OrderPage() {
             { id: 'status', label: 'Status' },
         ];
         exportToCsv(rows, exportColumns, 'order_data');
-    }
+    };
 
     //edit status 
-    const [UpdateselectedId, setUpdateSelectedId] = useState<any>("");
-    const [selectStatus, setSelectStatus] = useState<any>("");
+    const [UpdateselectedId, setUpdateSelectedId] = useState<any>('');
+    const [selectStatus, setSelectStatus] = useState<any>('');
     const [openUpdateConfirmationSingle, setUpdateOpenConfirmationSingle] = useState(false);
-    const [optionValue, setOptionValue] = useState<any>("")
+    const [optionValue, setOptionValue] = useState<any>('');
 
     const handleUpdateOpenConfirmation = (row: any) => {
         setUpdateOpenConfirmationSingle(true);
         setUpdateSelectedId(row?.id);
-        setSelectStatus({ label: row?.status, value: row?.status })
-        setOptionValue({ label: row?.status, value: row?.status })
+        setSelectStatus({ label: row?.status, value: row?.status });
+        setOptionValue({ label: row?.status, value: row?.status });
     };
     const handleUpdateCloseConfirmations = () => {
         setUpdateOpenConfirmationSingle(false);
-        setSelectedIdSingle([])
-        setSelectStatus("")
+        setSelectedIdSingle([]);
+        setSelectStatus('');
     };
 
     const handleUpdateOrderStatus = async () => {
 
         const body = {
             id: UpdateselectedId,
-            shipped: selectStatus.value === "Shipped",
-            outForDelivery: selectStatus.value === "Out of Delivery",
-            delivered: selectStatus.value === "Delivered",
-            pending: selectStatus.value === "Pending",
-            cancelled: selectStatus.value === "Cancelled",
-            completed: selectStatus.value === "Completed",
+            shipped: selectStatus.value === 'Shipped',
+            outForDelivery: selectStatus.value === 'Out of Delivery',
+            delivered: selectStatus.value === 'Delivered',
+            pending: selectStatus.value === 'Pending',
+            cancelled: selectStatus.value === 'Cancelled',
+            completed: selectStatus.value === 'Completed',
 
-        }
+        };
 
-        const response: any = await UpdateOrderStatus(body)
+        const response: any = await UpdateOrderStatus(body);
         const { message, statusCode } = response?.data;
         if (statusCode === 200) {
             toast.success(message);
@@ -257,8 +250,8 @@ export default function OrderPage() {
             toast.error(message);
         }
 
-        response && handleUpdateCloseConfirmations()
-    }
+        response && handleUpdateCloseConfirmations();
+    };
 
 
     return (
@@ -266,17 +259,17 @@ export default function OrderPage() {
             <Paper className='paperboxshadow h-[83px] flex justify-between items-center p-[1rem] mt-[0.5rem]'>
                 <div className='productbtns flex justify-between'>
                     <div className='flex gap-[10px]'>
-                        <Buttons onClick={handleCvsExport} startIcon={<IosShareIcon />} text={STRING.EXPORT_BUTTON} variant={"outlined"} className={"productheaderbtn1"} />
+                        <Buttons onClick={handleCvsExport} startIcon={<IosShareIcon />} text={STRING.EXPORT_BUTTON} variant={'outlined'} className={'productheaderbtn1'} />
                         {/* <Buttons startIcon={<SystemUpdateAltIcon />} variant={"outlined"} text={"Import"} className={"productheaderbtn1"} /> */}
                     </div>
                 </div>
                 <div className='flex gap-[10px]'>
-                    {(selected.length > 0 && rows?.length > 0) && <Buttons onClick={handleDeleteOpenConfirmation} startIcon={<DeleteOutlineIcon />} variant={"contained"} text={
+                    {(selected.length > 0 && rows?.length > 0) && <Buttons onClick={handleDeleteOpenConfirmation} startIcon={<DeleteOutlineIcon />} variant={'contained'} text={
                         selectedDeleteRows.length === 0
                             ? `${STRING.DELETE_BUTTON}`
                             : `${STRING.DELETE_BUTTON} ( ${selectedDeleteRows.length} )`
                     } className={`productheaderbtn2 ${selectedDeleteRows.length > 0 ? '!w-[135px]' : ''
-                        }`} />}
+                    }`} />}
                 </div>
             </Paper>
 
@@ -284,20 +277,20 @@ export default function OrderPage() {
                 <Search setinput={setinput}
                     input={input}
                     setsearch={setsearch} placeholder={STRING.ORDER__SEARCH_PLACHOLDER} />
-                <Selects selectedValues={method} setSelectedValues={setMethod} width={"250px"} height={"45px"} options={MethodOption} placeholder={"Method"} />
-                <Selects selectedValues={status} setSelectedValues={setStatus} width={"250px"} height={"45px"} options={statusOption} placeholder={"Status"} />
+                <Selects selectedValues={method} setSelectedValues={setMethod} width={'250px'} height={'45px'} options={MethodOption} placeholder={'Method'} />
+                <Selects selectedValues={status} setSelectedValues={setStatus} width={'250px'} height={'45px'} options={statusOption} placeholder={'Status'} />
             </Paper>
 
             <div className='mt-[1rem]'>
-                <Tables handleUpdateOpenConfirmation={handleUpdateOpenConfirmation} handleDeleteOpen={handleDeleteSingleOpenConfirmation} selected={selected} setSelected={setSelected} Orders={"Orders"} getSelectedDeleteRows={getSelectedDeleteRows} headCells={headCells} rows={rows} isFetching={isFetching} />
+                <Tables handleUpdateOpenConfirmation={handleUpdateOpenConfirmation} handleDeleteOpen={handleDeleteSingleOpenConfirmation} selected={selected} setSelected={setSelected} Orders={'Orders'} getSelectedDeleteRows={getSelectedDeleteRows} headCells={headCells} rows={rows} isFetching={isFetching} />
             </div>
-            <Dialogs loading={deleteOrderLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={"product_delete_yes"} closeClass={"product_delete_cancel"} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmation} onClose={handleDeleteCloseConfirmation} tital={STRING.DELETE_SURE} desc={STRING.ORDER_DELETE_DESC} Action={handleDelete} />
+            <Dialogs loading={deleteOrderLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={'product_delete_yes'} closeClass={'product_delete_cancel'} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmation} onClose={handleDeleteCloseConfirmation} tital={STRING.DELETE_SURE} desc={STRING.ORDER_DELETE_DESC} Action={handleDelete} />
 
             {/* single delete */}
-            <Dialogs loading={deleteOrderLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={"product_delete_yes"} closeClass={"product_delete_cancel"} tital={STRING.DELETE_SURE} desc={STRING.ORDER_DELETE_DESC} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmationSingle} onClose={handleDeleteSingleCloseConfirmations} Action={handleDeleteSingle} />
+            <Dialogs loading={deleteOrderLoading} textClose={STRING.DELETE_CLOSE_BUTTON} textYes={STRING.DELETE_YES_BUTTON} yesClass={'product_delete_yes'} closeClass={'product_delete_cancel'} tital={STRING.DELETE_SURE} desc={STRING.ORDER_DELETE_DESC} icon={<DeleteIcon className='text-red !text-[4rem] !mb-[-15px]' />} open={openDeleteConfirmationSingle} onClose={handleDeleteSingleCloseConfirmations} Action={handleDeleteSingle} />
 
             {/* update status */}
-            <UpdateOrderStatusDialog loading={UpdateStatusLoading} selectedValues={selectStatus} setSelectedValues={setSelectStatus} tital={"Update Order Status"} textClose={"Cancel"} textYes={"Edit"} yesClass={"dialog_yes"} closeClass={"dialog_cancel"} open={openUpdateConfirmationSingle} Action={handleUpdateOrderStatus} onClose={handleUpdateCloseConfirmations} optionValue={optionValue} />
+            <UpdateOrderStatusDialog loading={UpdateStatusLoading} selectedValues={selectStatus} setSelectedValues={setSelectStatus} tital={'Update Order Status'} textClose={'Cancel'} textYes={'Edit'} yesClass={'dialog_yes'} closeClass={'dialog_cancel'} open={openUpdateConfirmationSingle} Action={handleUpdateOrderStatus} onClose={handleUpdateCloseConfirmations} optionValue={optionValue} />
         </div>
-    )
+    );
 }

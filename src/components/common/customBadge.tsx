@@ -1,17 +1,17 @@
-import { Colors } from "../../constants/Colors"
+import { Colors } from '../../constants/Colors';
 
 const { dark, light } = Colors;
 
 const commonStyle: any = {
-    borderRadius: "5px",
-    padding: "3px 3px",
-    textAlign: "center",
-    width: "110px",
-    whiteSpace: "nowrap",
-    textTransform: "capitalize",
-    fontWeight: "500",
-    display: "inline-block",
-    fontSize: "14px"
+    borderRadius: '5px',
+    padding: '3px 3px',
+    textAlign: 'center',
+    width: '110px',
+    whiteSpace: 'nowrap',
+    textTransform: 'capitalize',
+    fontWeight: '500',
+    display: 'inline-block',
+    fontSize: '14px'
 };
 const Delivered: any = {
     backgroundColor: light.green,
@@ -51,21 +51,21 @@ const Completed: any = {
 export const handleStatusesBadge = (status: any) => {
     if (status) {
         switch (status) {
-            case "Pending":
-                return { ...commonStyle, ...Pending };
-            case "Delivered":
-                return { ...commonStyle, ...Delivered };
-            case "Out of Delivery":
-                return { ...commonStyle, ...OutofDeliverycessing };
-            case "Cancelled":
-                return { ...commonStyle, ...Cancelled };
-            case "Shipped":
-                return { ...commonStyle, ...Shipped };
-            case "Completed":
-                return { ...commonStyle, ...Completed };
+        case 'Pending':
+            return { ...commonStyle, ...Pending };
+        case 'Delivered':
+            return { ...commonStyle, ...Delivered };
+        case 'Out of Delivery':
+            return { ...commonStyle, ...OutofDeliverycessing };
+        case 'Cancelled':
+            return { ...commonStyle, ...Cancelled };
+        case 'Shipped':
+            return { ...commonStyle, ...Shipped };
+        case 'Completed':
+            return { ...commonStyle, ...Completed };
 
-            default:
-                return commonStyle;
+        default:
+            return commonStyle;
         }
     }
 };

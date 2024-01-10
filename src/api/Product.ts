@@ -1,7 +1,7 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { prepareHeaders } from "./Utils";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { prepareHeaders } from './Utils';
 import queryString from 'query-string';
-import { productFromDatApi } from "./FormData";
+import { productFromDatApi } from './FormData';
 
 export const ProductApi = createApi({
     reducerPath: 'ProductApi',
@@ -12,35 +12,35 @@ export const ProductApi = createApi({
             return queryString.stringify(params, { arrayFormat: 'index' });
         },
     }),
-    tagTypes: ["Product"],
+    tagTypes: ['Product'],
     endpoints: (builder) => ({
         GetAllProduct: builder.query({
             query: (params) => {
                 return {
                     url: '/product/get-all-product',
                     params
-                }
+                };
             },
-            providesTags: ["Product"],
+            providesTags: ['Product'],
         }),
         DeleteProduct: builder.mutation({
             query: (params) => ({
-                url: `/product/delete-product`,
+                url: '/product/delete-product',
                 method: 'DELETE',
                 params
             }),
-            invalidatesTags: ["Product"],
+            invalidatesTags: ['Product'],
         }),
         AddProduct: builder.mutation({
             query: (body) => {
                 const formData = productFromDatApi.createProduct(body);
                 return {
-                    url: "/product/create-product",
-                    method: "POST",
+                    url: '/product/create-product',
+                    method: 'POST',
                     body: formData
                 };
             },
-            invalidatesTags: ["Product"],
+            invalidatesTags: ['Product'],
         }),
         EditProduct: builder.mutation({
             query: (body) => {
@@ -52,7 +52,7 @@ export const ProductApi = createApi({
 
                 };
             },
-            invalidatesTags: ["Product"],
+            invalidatesTags: ['Product'],
         }),
     }),
 });

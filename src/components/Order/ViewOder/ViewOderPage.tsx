@@ -1,4 +1,4 @@
-import { IconButton, Typography, Paper, Avatar, Select } from '@mui/material';
+import { IconButton, Typography, Paper, Avatar} from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import '../style.scss';
 import TextFields from '../../common/TextFields';
@@ -12,19 +12,19 @@ export default function ViewOrderPage() {
     const location = useLocation();
     const navigate = useNavigate();
     const { state } = location;
-    const [OrderData, setOrderData] = useState<any>("");
-    const [FullAddress, setFullAddress] = useState("")
-    const [CreateOnDate, setCreateOnDate] = useState("")
-    const [ProductAmount, setProductAmount] = useState("")
+    const [OrderData, setOrderData] = useState<any>('');
+    const [FullAddress, setFullAddress] = useState('');
+    const [CreateOnDate, setCreateOnDate] = useState('');
+    const [ProductAmount, setProductAmount] = useState('');
     const Category = () => {
-        navigate("/order")
-    }
+        navigate('/order');
+    };
     useEffect(() => {
-        setOrderData(state)
-        setFullAddress(`${OrderData?.shippingAddress?.address} , ${OrderData?.shippingAddress?.city} - ${OrderData?.shippingAddress?.pincode}`)
-        setCreateOnDate(dayjs(OrderData?.createdAt).format('MMM DD, YYYY [at] hh:mm A'))
-        setProductAmount(`${OrderData?.products?.productId?.price?.toLocaleString('en-IN')} ₹`)
-    }, [state, OrderData])
+        setOrderData(state);
+        setFullAddress(`${OrderData?.shippingAddress?.address} , ${OrderData?.shippingAddress?.city} - ${OrderData?.shippingAddress?.pincode}`);
+        setCreateOnDate(dayjs(OrderData?.createdAt).format('MMM DD, YYYY [at] hh:mm A'));
+        setProductAmount(`${OrderData?.products?.productId?.price?.toLocaleString('en-IN')} ₹`);
+    }, [state, OrderData]);
 
     return (
         <>

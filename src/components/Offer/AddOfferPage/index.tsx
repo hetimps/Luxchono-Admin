@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
-import ReactDateRangePicker from '../../common/DateRangePicker'
+import React, { useEffect, useRef, useState } from 'react';
+import ReactDateRangePicker from '../../common/DateRangePicker';
 import { Avatar, IconButton, Paper, Typography } from '@mui/material';
 import Buttons from '../../common/Buttons';
 import { STRING } from '../../../constants/String';
@@ -20,8 +20,8 @@ import Loader from '../../common/Loader';
 import { Discount } from '../../../constants/Array';
 
 export default function AddOfferPage() {
-    const { data: BrandData, isFetching: BrandFetching } = useGetAllBrandApiQuery({});
-    const { data: ProductData, isFetching: ProductFetching, refetch } = useGetAllProductQuery({});
+    const { data: BrandData} = useGetAllBrandApiQuery({});
+    const { data: ProductData} = useGetAllProductQuery({});
     const [AddOffers, { isLoading }] = useAddOfferMutation();
     const navigate = useNavigate();
     const [filteredBrand, setFilteredBrand] = useState<any[]>([]);
@@ -31,42 +31,42 @@ export default function AddOfferPage() {
     const [selectedDiscountTypeValues, setSelectedDiscountTypeValues] = useState<any>();
     const [imagePreview, setImagePreview] = useState<any>(null);
     const offer = () => {
-        navigate("/offer")
-    }
+        navigate('/offer');
+    };
 
     //product api
     useEffect(() => {
         const filterProducts = ProductData?.result?.data && (ProductData?.result?.data as any[]).map((product: any) => ({
             label: product.productName,
             value: product._id
-        }))
-        setFilteredProduct(filterProducts)
+        }));
+        setFilteredProduct(filterProducts);
         const ProductValues = selectedProductValues?.map(product => product.value);
-        AddOffer.setFieldValue("products", ProductValues)
-    }, [ProductData, selectedProductValues])
+        AddOffer.setFieldValue('products', ProductValues);
+    }, [ProductData, selectedProductValues]);
 
     //brand api 
     useEffect(() => {
         const filterBrands = BrandData?.result?.data && (BrandData?.result?.data as any[]).map((brand: any) => ({
             label: brand.brandName,
             value: brand._id
-        }))
-        setFilteredBrand(filterBrands)
+        }));
+        setFilteredBrand(filterBrands);
         const BrandValues = selectedBrandValues?.map(brand => brand.value);
-        AddOffer.setFieldValue("brands", BrandValues)
-    }, [BrandData, selectedBrandValues])
+        AddOffer.setFieldValue('brands', BrandValues);
+    }, [BrandData, selectedBrandValues]);
 
     //form data
     const AddOffer = useFormik({
         initialValues: {
-            image: "",
-            offerName: "",
-            offerCode: "",
-            description: "",
-            discount: "",
-            discountType: "",
-            dateFrom: "",
-            dateTo: "",
+            image: '',
+            offerName: '',
+            offerCode: '',
+            description: '',
+            discount: '',
+            discountType: '',
+            dateFrom: '',
+            dateTo: '',
             brands: [],
             products: []
         },
@@ -78,9 +78,9 @@ export default function AddOfferPage() {
             brands: Yup.array().min(1, STRING.OFFER_BRANDS_REQUIRED),
             products: Yup.array().min(1, STRING.OFFER_PRODUCTS_REQUIRED),
             image: Yup.mixed().required(STRING.OFFER_IMAGE_REQUIRED)
-                .test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
+                .test('fileFormat', STRING.IMAGE_FORMATES, (value: any) => {
                     if (value) {
-                        const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"].includes(value.type);
+                        const acceptedFormats = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/jpg'].includes(value.type);
                         return acceptedFormats;
                     }
                     return true;
@@ -92,18 +92,18 @@ export default function AddOfferPage() {
             const { message, statusCode } = response?.data;
             if (statusCode === 200) {
                 toast.success(message);
-                navigate("/offer")
+                navigate('/offer');
             } else {
                 toast.error(message);
             }
         },
-    })
+    });
 
     //image uplaod 
     const handleFileChange = (e: any) => {
         const file = e.target.files[0];
         if (file) {
-            AddOffer.setFieldValue("image", file)
+            AddOffer.setFieldValue('image', file);
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImagePreview(reader.result);
@@ -115,7 +115,7 @@ export default function AddOfferPage() {
     };
 
     const AddOfferImg = () => {
-        document.getElementById("fileInput")?.click()
+        document.getElementById('fileInput')?.click();
     };
 
     //date range
@@ -124,29 +124,29 @@ export default function AddOfferPage() {
         {
             startDate: new Date(),
             endDate: new Date(),
-            key: "selection",
+            key: 'selection',
         },
     ]);
     const [prevDate, setPrevDate] = useState(state);
-    const [fromDate, setFromDate] = useState("");
-    const [toDate, setToDate] = useState("");
+    const [fromDate, setFromDate] = useState('');
+    const [toDate, setToDate] = useState('');
     const [showDateRangePicker, setShowDateRangePicker] = useState(false);
 
     //date and discount type
     useEffect(() => {
-        AddOffer.setFieldValue("discountType", selectedDiscountTypeValues?.value)
-    }, [selectedDiscountTypeValues])
+        AddOffer.setFieldValue('discountType', selectedDiscountTypeValues?.value);
+    }, [selectedDiscountTypeValues]);
 
     useEffect(() => {
-        AddOffer.setFieldValue("dateFrom", fromDate)
-        AddOffer.setFieldValue("dateTo", toDate)
-    }, [fromDate, toDate])
+        AddOffer.setFieldValue('dateFrom', fromDate);
+        AddOffer.setFieldValue('dateTo', toDate);
+    }, [fromDate, toDate]);
 
 
     useEffect(() => {
-        AddOffer.setFieldValue("dateFrom", fromDate)
-        AddOffer.setFieldValue("dateTo", toDate)
-    }, [fromDate, toDate])
+        AddOffer.setFieldValue('dateFrom', fromDate);
+        AddOffer.setFieldValue('dateTo', toDate);
+    }, [fromDate, toDate]);
 
     return (
         <>
@@ -161,7 +161,7 @@ export default function AddOfferPage() {
             <form onSubmit={AddOffer.handleSubmit} className='add_offer'>
                 <Paper className='mt-[1.5rem] paperboxshadow p-[1rem] w-[100%]'>
                     <div className='flex justify-end'>
-                        {isLoading ? (<Loader />) : (<Buttons type={"submit"} className={'category_add_button'} startIcon={<BookmarkIcon />} variant={'contained'} text={STRING.SAVE} />)}
+                        {isLoading ? (<Loader />) : (<Buttons type={'submit'} className={'category_add_button'} startIcon={<BookmarkIcon />} variant={'contained'} text={STRING.SAVE} />)}
                     </div>
                     <div className='flex !flex-col mt-[1rem] pl-[3rem] pr-[3rem] '>
 
@@ -173,7 +173,7 @@ export default function AddOfferPage() {
                             </div>
 
                             <TextFields
-                                name={"image"}
+                                name={'image'}
                                 values={AddOffer.values.image}
                                 onChange={handleFileChange}
                                 id={'fileInput'}
@@ -207,7 +207,7 @@ export default function AddOfferPage() {
                             </div>
                             <TextFields
                                 helperText={AddOffer.touched.offerName && AddOffer.errors.offerName} onChange={AddOffer.handleChange} values={AddOffer.values.offerName} autoComplete={'off'} placeholder={STRING.OFFER_NAME_PLACHOLDER}
-                                name={"offerName"} className={'offerField'} />
+                                name={'offerName'} className={'offerField'} />
                         </div>
 
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
@@ -245,7 +245,7 @@ export default function AddOfferPage() {
                                 </Typography>
                             </div>
                             <div className='flex-col !w-[100%]'>
-                                <Selects options={filteredBrand} selectedValues={selectedBrandValues} setSelectedValues={setSelectedBrandValues} placeholder={STRING.OFFER_BRANDS_PLACHOLDER} height={"45px"} isMulti={true} />
+                                <Selects options={filteredBrand} selectedValues={selectedBrandValues} setSelectedValues={setSelectedBrandValues} placeholder={STRING.OFFER_BRANDS_PLACHOLDER} height={'45px'} isMulti={true} />
                                 {AddOffer.touched.brands && AddOffer.errors.brands && (
                                     <Typography variant='caption' className='!font-bold !ml-[1rem]' color='error'>
                                         {AddOffer.errors.brands.toString()}
@@ -261,7 +261,7 @@ export default function AddOfferPage() {
                                 </Typography>
                             </div>
                             <div className='flex-col w-[100%]'>
-                                <Selects options={filteredProduct} selectedValues={selectedProductValues} setSelectedValues={setSelectedProductValues} placeholder={STRING.OFFER_PRODUCTS_PLACHOLDER} height={"45px"} isMulti={true} />
+                                <Selects options={filteredProduct} selectedValues={selectedProductValues} setSelectedValues={setSelectedProductValues} placeholder={STRING.OFFER_PRODUCTS_PLACHOLDER} height={'45px'} isMulti={true} />
                                 {AddOffer.touched.products && AddOffer.errors.products && (
                                     <Typography variant='caption' className='!font-bold !ml-[1rem]' color='error'>
                                         {AddOffer.errors.products.toString()}
@@ -278,7 +278,7 @@ export default function AddOfferPage() {
                             </div>
                             <TextFields
                                 helperText={AddOffer.touched.offerCode && AddOffer.errors.offerCode} onChange={AddOffer.handleChange} values={AddOffer.values.offerCode} autoComplete={'off'} placeholder={STRING.OFFER_OFFERCODE_PLACHOLDER}
-                                name={"offerCode"} className={'offerField'} />
+                                name={'offerCode'} className={'offerField'} />
                         </div>
 
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
@@ -288,8 +288,8 @@ export default function AddOfferPage() {
                                 </Typography>
                             </div>
                             <TextFields
-                                helperText={AddOffer.touched.discount && AddOffer.errors.discount} onChange={AddOffer.handleChange} values={AddOffer.values.discount} type={"number"} autoComplete={'off'} placeholder={STRING.OFFER_DISCOUNT_PLACHOLDER}
-                                name={"discount"} className={'offerField'} />
+                                helperText={AddOffer.touched.discount && AddOffer.errors.discount} onChange={AddOffer.handleChange} values={AddOffer.values.discount} type={'number'} autoComplete={'off'} placeholder={STRING.OFFER_DISCOUNT_PLACHOLDER}
+                                name={'discount'} className={'offerField'} />
                         </div>
 
                         <div className='!flex !item-center !gap-[15px] mt-[1rem]'>
@@ -304,7 +304,7 @@ export default function AddOfferPage() {
                                     selectedValues={selectedDiscountTypeValues}
                                     setSelectedValues={setSelectedDiscountTypeValues}
                                     placeholder={STRING.OFFER_DISCOUNTTYPE_PLACHOLDER}
-                                    height={"45px"} />
+                                    height={'45px'} />
 
                                 {(AddOffer.submitCount > 0 && AddOffer.errors.discountType) && (
                                     <Typography variant='caption' className='!font-bold !ml-[1rem]' color='error'>
@@ -322,7 +322,7 @@ export default function AddOfferPage() {
                                 </Typography>
                             </div>
                             <Textareas
-                                helperText={AddOffer.touched.description && AddOffer.errors.description} onChange={AddOffer.handleChange} value={AddOffer.values.description} name={"description"} rows={3} placeholder={STRING.OFFER_DESCRIPTION_PLACHOLDER} />
+                                helperText={AddOffer.touched.description && AddOffer.errors.description} onChange={AddOffer.handleChange} value={AddOffer.values.description} name={'description'} rows={3} placeholder={STRING.OFFER_DESCRIPTION_PLACHOLDER} />
                         </div>
                         <div>
                         </div>
@@ -330,7 +330,7 @@ export default function AddOfferPage() {
                 </Paper>
             </form>
         </>
-    )
+    );
 }
 
 

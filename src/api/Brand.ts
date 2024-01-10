@@ -1,7 +1,7 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { prepareHeaders } from "./Utils";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { prepareHeaders } from './Utils';
 import queryString from 'query-string';
-import { brandFromDataApi } from "./FormData";
+import { brandFromDataApi } from './FormData';
 
 export const BrandApi = createApi({
     reducerPath: 'BrandApi',
@@ -12,7 +12,7 @@ export const BrandApi = createApi({
             return queryString.stringify(params, { arrayFormat: 'index' });
         },
     }),
-    tagTypes: ["Brand"],
+    tagTypes: ['Brand'],
     endpoints: (builder) => ({
         GetAllBrandApi: builder.query({
             query: (params) => {
@@ -21,26 +21,26 @@ export const BrandApi = createApi({
                     params
                 };
             },
-            providesTags: ["Brand"],
+            providesTags: ['Brand'],
         }),
         DeleteBrand: builder.mutation({
             query: (params) => ({
-                url: `/brand/delete-brand`,
+                url: '/brand/delete-brand',
                 method: 'DELETE',
                 params
             }),
-            invalidatesTags: ["Brand"],
+            invalidatesTags: ['Brand'],
         }),
         AddBrand: builder.mutation({
             query: (body) => {
                 const formData = brandFromDataApi.createBrand(body);
                 return {
-                    url: "/brand/create-brand",
-                    method: "POST",
+                    url: '/brand/create-brand',
+                    method: 'POST',
                     body: formData
                 };
             },
-            invalidatesTags: ["Brand"],
+            invalidatesTags: ['Brand'],
         }),
         EditBrand: builder.mutation({
             query: (body) => {
@@ -52,7 +52,7 @@ export const BrandApi = createApi({
 
                 };
             },
-            invalidatesTags: ["Brand"],
+            invalidatesTags: ['Brand'],
         }),
 
     }),

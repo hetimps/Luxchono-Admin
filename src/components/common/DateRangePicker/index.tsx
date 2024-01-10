@@ -1,31 +1,30 @@
-import React from "react";
-import CancelIcon from "@mui/icons-material/Cancel";
-import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-import BackspaceIcon from "@mui/icons-material/Backspace";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { addDays } from "date-fns";
-import moment from "moment";
-import "./style.scss";
-import { Colors } from "../../../constants/Colors";
-import { DateRangePicker } from "react-date-range";
+import React from 'react';
+import CancelIcon from '@mui/icons-material/Cancel';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import BackspaceIcon from '@mui/icons-material/Backspace';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { addDays } from 'date-fns';
+import moment from 'moment';
+import './style.scss';
+import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 
 
 export const useOutsideAlerter = (ref: any, setShowDateRangePicker: any) => {
     React.useEffect(() => {
-      function handleClickOutside(event: any) {
-        if (ref.current && !ref.current.contains(event.target)) {
-          setShowDateRangePicker(false);
+        function handleClickOutside(event: any) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                setShowDateRangePicker(false);
+            }
         }
-      }
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
     }, [ref, setShowDateRangePicker]);
-  };
+};
 
 function ReactDateRangePicker(props: any) {
     const {
@@ -49,7 +48,7 @@ function ReactDateRangePicker(props: any) {
                 {
                     startDate: new Date(),
                     endDate: new Date(),
-                    key: "selection",
+                    key: 'selection',
                 },
             ]);
         } else {
@@ -58,28 +57,28 @@ function ReactDateRangePicker(props: any) {
     };
     const handleTimeRangeSelection = async (clear: any) => {
         const firstSelectionOfStartDate = moment(state[0].startDate).format(
-            "yyyy-MM-DD"
+            'yyyy-MM-DD'
         );
         const firstSelectionOfToDate = moment(state[0].endDate).format(
-            "yyyy-MM-DD"
+            'yyyy-MM-DD'
         );
-        clear !== "CLEAR" && setFromDate(firstSelectionOfStartDate);
-        clear !== "CLEAR" && setToDate(firstSelectionOfToDate);
+        clear !== 'CLEAR' && setFromDate(firstSelectionOfStartDate);
+        clear !== 'CLEAR' && setToDate(firstSelectionOfToDate);
         setPrevDate(state);
         setShowDateRangePicker(false);
     };
 
     return (
         <>
-            <div ref={wrapperRef} style={{ position: "relative" }}>
+            <div ref={wrapperRef} style={{ position: 'relative' }}>
                 <div onClick={handleCustomRange} className="form__input">
                     <span>
                         {`${fromDate.length
-                            ? `${moment(fromDate).format("MM-DD-yyyy")} TO ${moment(
+                            ? `${moment(fromDate).format('MM-DD-yyyy')} TO ${moment(
                                 toDate
-                            ).format("MM-DD-yyyy")}`
-                            : "Select Custom Date Range"
-                            }`}
+                            ).format('MM-DD-yyyy')}`
+                            : 'Select Custom Date Range'
+                        }`}
                     </span>
                     <span className="pl-2">
                         {showDateRangePicker ? (
@@ -101,27 +100,27 @@ function ReactDateRangePicker(props: any) {
                             months={1}
                             ranges={state}
                             direction="horizontal"
-                            rangeColors={["#964315"]}/>
+                            rangeColors={['#964315']}/>
 
                         <div className="button-container">
                             <button
                                 onClick={() => {
-                                    setFromDate("");
-                                    setToDate("");
+                                    setFromDate('');
+                                    setToDate('');
                                     setShowDateRangePicker(false);
                                     setState([
                                         {
                                             startDate: new Date(),
                                             endDate: addDays(new Date(), 0),
-                                            key: "selection",
+                                            key: 'selection',
                                         },
                                     ]);
-                                    handleTimeRangeSelection("CLEAR");
+                                    handleTimeRangeSelection('CLEAR');
                                 }}
                                 className="okButton clearButton">
                                 <span>
                                     <BackspaceIcon /> &nbsp;
-                                    <strong>{"CLEAR"}</strong>
+                                    <strong>{'CLEAR'}</strong>
                                 </span>
                             </button>
                             <button
@@ -130,14 +129,14 @@ function ReactDateRangePicker(props: any) {
                                 }}
                                 className="cancelButton">
                                 <span>
-                                    <CancelIcon sx={{ width: "1.5rem", height: "1.5rem" }} />{" "}
-                                    <strong>{"Cancel"}</strong>
+                                    <CancelIcon sx={{ width: '1.5rem', height: '1.5rem' }} />{' '}
+                                    <strong>{'Cancel'}</strong>
                                 </span>
                             </button>
                             <button onClick={handleTimeRangeSelection} className="okButton">
                                 <span>
                                     <ThumbUpAltIcon /> &nbsp;
-                                    <strong>{"Done"}</strong>
+                                    <strong>{'Done'}</strong>
                                 </span>
                             </button>
                         </div>

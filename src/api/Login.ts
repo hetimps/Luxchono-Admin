@@ -1,9 +1,9 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const LoginApi = createApi({
     reducerPath: 'loginApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: "/api"
+        baseUrl: '/api'
     }),
     endpoints: (builder: any) => ({
         login: builder.mutation({
@@ -43,7 +43,7 @@ export const LoginApi = createApi({
         }),
         ResetPassword: builder.mutation({
             query: ({ id, password, confirmPassword }: any) => ({
-                url: `/admin/reset-password/${id ? id : ""}`,
+                url: `/admin/reset-password/${id ? id : ''}`,
                 method: 'post',
                 body: { password, confirmPassword },
             }),

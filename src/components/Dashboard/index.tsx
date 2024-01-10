@@ -1,10 +1,10 @@
-import { Grid, Typography } from '@mui/material'
-import { Box } from '@mui/system'
-import React, { useEffect, useState } from 'react'
+import { Grid} from '@mui/material';
+import { Box } from '@mui/system';
+import React, { useEffect, useState } from 'react';
 import { DashboardItem } from '../../constants/Array';
-import "./style.scss"
+import './style.scss';
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { Chart, ArcElement, registerables } from 'chart.js'
+import { Chart, ArcElement, registerables } from 'chart.js';
 import { Line, Pie } from 'react-chartjs-2';
 import { CategoryScale } from 'chart.js';
 import Tables from '../common/Table';
@@ -16,8 +16,8 @@ Chart.register(CategoryScale);
 export default function DashboardPage() {
     const [dashboardItem, setDashboardItem] = useState<any>([]);
     useEffect(() => {
-        setDashboardItem(DashboardItem())
-    }, [])
+        setDashboardItem(DashboardItem());
+    }, []);
 
     const pieChartData = {
         labels: ['Group A', 'Group B', 'Group C', 'Group D'],
@@ -141,10 +141,10 @@ export default function DashboardPage() {
         <>
             <div className='mt-[1rem]'>
                 <Grid container spacing={2}>
-                    {dashboardItem.map((item: any) => {
+                    {dashboardItem.map((item: any,index:number) => {
                         if (item?.data && item?.data > 0) {
                             return (
-                                <Grid item xs={12} lg={3} md={6} sm={6}  >
+                                <Grid key={index} item xs={12} lg={3} md={6} sm={6}  >
                                     <Box className="border !w-[18vw] !h-[9vh] flex items-center p-[1.5rem] paperboxshadow rounded-[12px] gap-[10px] dashboarditem">
                                         <div className='bg-main  p-[0.3rem] rounded-[12px]'>
                                             <item.Icon className='!text-[25px] text-white' />
@@ -249,11 +249,11 @@ export default function DashboardPage() {
                             <h1 className='!text-[20px]'>{STRING.LATEST_ORDERS}</h1>
                         </div>
                         <div className='mt-[0.3rem]'>
-                            <Tables DashboardProduct={"DashboardProduct"} headCells={headCells} rows={[]} />
+                            <Tables DashboardProduct={'DashboardProduct'} headCells={headCells} rows={[]} />
                         </div>
                     </Grid>
                 </Grid>
             </div>
         </>
-    )
+    );
 }

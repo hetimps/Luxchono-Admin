@@ -1,41 +1,40 @@
-import { Button, IconButton, InputBase } from '@mui/material'
-import SearchIcon from "@mui/icons-material/Search";
+import { Button, IconButton, InputBase } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
-import "./style.scss"
+import './style.scss';
 import React, { ChangeEvent } from 'react';
 
-
-export default function Searchs({ setpage, setsearch, setinput, input, isFetching, disabled, placeholder }: any) {
+export default function Searchs({setsearch, setinput, input, isFetching, disabled, placeholder }: any) {
     const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter") {
+        if (e.key === 'Enter') {
             setsearch(input);
         }
     };
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.value === "") {
-            setinput("");
-            setsearch("");
+        if (e.target.value === '') {
+            setinput('');
+            setsearch('');
         }
         setinput(e.target.value);
     };
     const handleClearSearch = () => {
-        setinput("")
-        setsearch("")
+        setinput('');
+        setsearch('');
 
-    }
+    };
     const HandleSearch = () => {
         setsearch(input);
 
-    }
+    };
     return (
         <InputBase
             placeholder={placeholder}
-            inputProps={{ "aria-label": "search" }}
+            inputProps={{ 'aria-label': 'search' }}
             className="appbar_search "
 
             endAdornment={
                 <div className="flex justify-end">
-                    {input !== "" && (
+                    {input !== '' && (
                         <IconButton onClick={handleClearSearch}>
                             <ClearIcon />
                         </IconButton>
@@ -49,7 +48,7 @@ export default function Searchs({ setpage, setsearch, setinput, input, isFetchin
             onChange={isFetching ? (() => { }) : handleChange}
             onKeyDown={onKeyDown}
             disabled={disabled} />
-    )
+    );
 }
 
 

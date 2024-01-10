@@ -23,7 +23,7 @@ export default function AddBrandPage() {
     const handleFileChange = (e: any) => {
         const file = e.target.files[0];
         if (file) {
-            AddBrand.setFieldValue("image", file)
+            AddBrand.setFieldValue('image', file);
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImagePreview(reader.result);
@@ -35,7 +35,7 @@ export default function AddBrandPage() {
     };
 
     const AddCategoryImg = () => {
-        document.getElementById("fileInput")?.click()
+        document.getElementById('fileInput')?.click();
     };
 
 
@@ -43,7 +43,7 @@ export default function AddBrandPage() {
     const handleIconFileChange = (e: any) => {
         const file = e.target.files[0];
         if (file) {
-            AddBrand.setFieldValue("icon", file)
+            AddBrand.setFieldValue('icon', file);
             const reader = new FileReader();
             reader.onloadend = () => {
                 setIconPrerview(reader.result);
@@ -55,28 +55,28 @@ export default function AddBrandPage() {
     };
 
     const AddIconImg = () => {
-        document.getElementById("fileIconInput")?.click()
+        document.getElementById('fileIconInput')?.click();
     };
 
     const AddBrand = useFormik({
         initialValues: {
             brandName: '',
             image: '',
-            icon: "",
+            icon: '',
         },
         validationSchema: Yup.object().shape({
             brandName: Yup.string().trim().required(STRING.BRAND_NAME_REQUIRED).min(3, STRING.BRAND_NAME_FORMAT),
             image: Yup.mixed().required(STRING.BRAND_NAME_IMAGE)
-                .test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
+                .test('fileFormat', STRING.IMAGE_FORMATES, (value: any) => {
                     if (value) {
-                        const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"].includes(value.type);
+                        const acceptedFormats = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/jpg'].includes(value.type);
                         return acceptedFormats;
                     }
                     return true;
                 }),
-            icon: Yup.mixed().required(STRING.BRAND_ICON_REQUIRED).test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
+            icon: Yup.mixed().required(STRING.BRAND_ICON_REQUIRED).test('fileFormat', STRING.IMAGE_FORMATES, (value: any) => {
                 if (value) {
-                    const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"].includes(value.type);
+                    const acceptedFormats = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/jpg'].includes(value.type);
                     return acceptedFormats;
                 }
                 return true;
@@ -88,7 +88,7 @@ export default function AddBrandPage() {
             const { message, statusCode } = response?.data;
             if (statusCode === 200) {
                 toast.success(message);
-                navigate("/brand")
+                navigate('/brand');
             } else {
                 toast.error(message);
             }
@@ -96,8 +96,8 @@ export default function AddBrandPage() {
     });
 
     const Brand = () => {
-        navigate("/brand")
-    }
+        navigate('/brand');
+    };
 
     return (
         <>
@@ -113,7 +113,7 @@ export default function AddBrandPage() {
             <form onSubmit={AddBrand.handleSubmit}>
                 <Paper className='mt-[1.5rem]  p-[1rem] pb-[2rem] paperboxshadow'>
                     <div className='flex justify-end'>
-                        {isLoading ? (<Loader />) : (<Buttons type={"submit"} className={'brand_add_button'} startIcon={<BookmarkIcon />} variant={'contained'} text={'Save'} />)}
+                        {isLoading ? (<Loader />) : (<Buttons type={'submit'} className={'brand_add_button'} startIcon={<BookmarkIcon />} variant={'contained'} text={'Save'} />)}
                     </div>
                     <div className='flex !flex-col mt-[1rem] pl-[3rem] pr-[3rem] '>
                         <div className='flex item-center !gap-[15px]'  >
@@ -123,7 +123,7 @@ export default function AddBrandPage() {
                                 </Typography>
                             </div>
                             <TextFields
-                                name={"image"}
+                                name={'image'}
                                 values={AddBrand.values.image}
                                 onChange={handleFileChange}
                                 id={'fileInput'}
@@ -157,7 +157,7 @@ export default function AddBrandPage() {
                             </div>
 
                             <TextFields
-                                name={"icon"}
+                                name={'icon'}
                                 values={AddBrand.values.icon}
                                 onChange={handleIconFileChange}
                                 id={'fileIconInput'}
@@ -190,7 +190,7 @@ export default function AddBrandPage() {
                             </div>
                             <TextFields autoComplete={'off'} placeholder={STRING.BRAND_NAME_PLACHOLDER} values={AddBrand.values.brandName}
                                 onChange={AddBrand.handleChange}
-                                helperText={AddBrand.touched.brandName && AddBrand.errors.brandName} name={"brandName"} className={'BrandField'} />
+                                helperText={AddBrand.touched.brandName && AddBrand.errors.brandName} name={'brandName'} className={'BrandField'} />
                         </div>
                     </div>
                 </Paper>

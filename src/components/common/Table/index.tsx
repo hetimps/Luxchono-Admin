@@ -11,10 +11,10 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import { visuallyHidden } from '@mui/utils';
-import './style.scss'
+import './style.scss';
 import Loader from '../Loader';
 import { STRING } from '../../../constants/String';
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 import { BrandRow, CategoryRow, CustomerRow, OfferRow, OrdersRow, ProductRow } from './TableRow';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -71,7 +71,7 @@ function stableSort<T>(array: readonly T[] | null | undefined, comparator: (a: T
 }
 
 function EnhancedTableHead(props: any) {
-    const { headCells } = props
+    const { headCells } = props;
     const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, Orders, Customer, DashboardProduct } =
         props;
     const createSortHandler =
@@ -99,7 +99,7 @@ function EnhancedTableHead(props: any) {
                         padding="none"
                         key={headCell.id}
                         // align={headCell.numeric ? 'right' : 'left'}
-                        align={"left"}
+                        align={'left'}
                         // padding={headCell.disablePadding ? 'none' : 'normal'}
                         sortDirection={orderBy === headCell.id ? order : false}>
                         <TableSortLabel
@@ -126,15 +126,15 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
     const [orderBy, setOrderBy] = React.useState<keyof any>('productname');
     // const [selected, setSelected] = React.useState<readonly number[]>([]);
     const [page, setPage] = React.useState(0);
-    const [dense, setDense] = React.useState(false);
+    const dense = false;
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     //set select row for delete
     useEffect(() => {
         if (!getSelectedDeleteRows) {
-            return
+            return;
         }
-        getSelectedDeleteRows(selected)
+        getSelectedDeleteRows(selected);
     }, [selected]);
 
     const handleRequestSort = (
@@ -249,7 +249,7 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
                                             tabIndex={-1}
                                             key={row.id}
                                             selected={isItemSelected}
-                                            sx={{ cursor: 'pointer', fontWeight: "800" }}>
+                                            sx={{ cursor: 'pointer', fontWeight: '800' }}>
                                             <TableCell padding="checkbox">
                                                 <Checkbox
                                                     disabled={Orders || Customer || DashboardProduct ? true : false}
@@ -285,10 +285,10 @@ export default function Tables({ headCells, rows, isFetching, search, getSelecte
                     </Table>
                 </TableContainer>
 
-                {rows  && !DashboardProduct &&   (
+                {rows && !DashboardProduct && (
                     <>
                         <TablePagination
-                            rowsPerPageOptions={[10, 25, { label: "All", value: rows?.length }]}
+                            rowsPerPageOptions={[10, 25, { label: 'All', value: rows?.length }]}
                             component="div"
                             count={rows?.length}
                             rowsPerPage={rowsPerPage}

@@ -1,18 +1,17 @@
-import { Paper, Grid, Typography, InputAdornment, IconButton } from '@mui/material'
-import LoginImg from "../../assets/imag/LoginImg2.svg";
-import Logo from "../../assets/imag/logo.svg"
+import { Paper, Grid, Typography} from '@mui/material';
+import LoginImg from '../../assets/imag/LoginImg2.svg';
 import TextFields from '../../components/common/TextFields';
-import "./style.scss"
+import './style.scss';
 import Buttons from '../../components/common/Buttons';
 import { useFormik } from 'formik';
-import * as Yup from "yup";
+import * as Yup from 'yup';
 import { STRING } from '../../constants/String';
-import { REGEX } from "../../constants/Regex";
-import { toast } from "react-toastify";
+import { REGEX } from '../../constants/Regex';
+import { toast } from 'react-toastify';
 import Loader from '../../components/common/Loader';
-import { useLoginMutation, useRegisterMutation } from '../../api/Login';
+import {useRegisterMutation } from '../../api/Login';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from "react";
+import { useState } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
@@ -31,9 +30,9 @@ export default function Register() {
     };
     const Registers = useFormik<RegisterFormValues>({
         initialValues: {
-            email: "",
-            password: "",
-            userName: ""
+            email: '',
+            password: '',
+            userName: ''
         },
         validationSchema: Yup.object().shape({
             email: Yup.string().required(STRING.LOGIN_EMAIL_REQUIRED).matches(REGEX.EMAIL, STRING.LOGIN_EMAIL_FORMAT),
@@ -45,18 +44,18 @@ export default function Register() {
                 const response: any = await Register(values);
                 const { statusCode, message, result } = response?.data;
                 if (statusCode === 200) {
-                    toast.success(message)
-                    navigate("/Otp", {
+                    toast.success(message);
+                    navigate('/Otp', {
                         state: {
                             email: result?.email,
                             verifyOtp: result?.verifyOtp,
                         }
-                    })
+                    });
                 } else {
-                    toast.error(message)
+                    toast.error(message);
                 }
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
         },
     });
@@ -97,7 +96,7 @@ export default function Register() {
                                             </Typography>
                                         </div>
                                         <div>
-                                            <TextFields className={"regsiterField"} name={"email"} values={Registers.values.email} onChange={Registers.handleChange}
+                                            <TextFields className={'regsiterField'} name={'email'} values={Registers.values.email} onChange={Registers.handleChange}
                                                 helperText={Registers.touched.email && Registers.errors.email} placeholder={STRING.LOGIN_EMAIL_PLACEHOLDER} autoComplete={'off'} />
                                         </div>
                                     </div>
@@ -111,7 +110,7 @@ export default function Register() {
                                             </Typography>
                                         </div>
                                         <div>
-                                            <TextFields className={"regsiterField"} name={"userName"} values={Registers.values.userName} onChange={Registers.handleChange}
+                                            <TextFields className={'regsiterField'} name={'userName'} values={Registers.values.userName} onChange={Registers.handleChange}
                                                 helperText={Registers.touched.userName && Registers.errors.userName} placeholder={STRING.REGISTER_USERNAME_PLACEHOLDER} autoComplete={'off'} />
                                         </div>
                                     </div>
@@ -126,8 +125,8 @@ export default function Register() {
                                         </div>
                                         <div>
                                             <TextFields
-                                                className={"regsiterField"}
-                                                name={"password"}
+                                                className={'regsiterField'}
+                                                name={'password'}
                                                 values={Registers.values.password}
                                                 onChange={Registers.handleChange}
                                                 helperText={Registers.touched.password && Registers.errors.password}
@@ -145,7 +144,7 @@ export default function Register() {
                                     <Loader />
                                 </div >) : (
                                     <>
-                                        <Buttons type={"submit"} text={STRING.SIGN_UP} variant={"contained"} className={"registerButton"} />
+                                        <Buttons type={'submit'} text={STRING.SIGN_UP} variant={'contained'} className={'registerButton'} />
                                         <span className='flex items-center justify-center mt-[0.2rem] gap-[2px]'>
                                             {STRING.LOGIN_LABEL}
                                             <Link to="/login" className="signin_link" >
@@ -160,5 +159,5 @@ export default function Register() {
                 </Grid>
             </Paper>
         </div>
-    )
+    );
 }

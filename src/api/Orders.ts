@@ -1,5 +1,5 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { prepareHeaders } from "./Utils";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { prepareHeaders } from './Utils';
 import queryString from 'query-string';
 
 export const OrdersApi = createApi({
@@ -11,36 +11,36 @@ export const OrdersApi = createApi({
             return queryString.stringify(params, { arrayFormat: 'index' });
         },
     }),
-    tagTypes: ["Orders"],
+    tagTypes: ['Orders'],
     endpoints: (builder) => ({
         GetAllOrders: builder.query({
             query: (params) => {
                 return {
                     url: '/order/get-all-order',
-                    method: "GET",
+                    method: 'GET',
                     params
 
                 };
             },
-            providesTags: ["Orders"],
+            providesTags: ['Orders'],
         }),
         DeleteOrder: builder.mutation({
             query: (params) => ({
-                url: `/order/admin-delete-multiple-orde`,
+                url: '/order/admin-delete-multiple-orde',
                 method: 'DELETE',
                 params
             }),
-            invalidatesTags: ["Orders"],
+            invalidatesTags: ['Orders'],
         }),
         UpdateOrderStatus: builder.mutation({
             query: (body) => {
                 return {
                     url: `/order/update-order-status?id=${body.id}&shipped=${body.shipped}&outForDelivery=${body.outForDelivery}&delivered=${body.delivered}
                     &pending=${body.pending}&cancelled=${body.cancelled}&completed=${body.completed}`,
-                    method: "PUT",
+                    method: 'PUT',
                 };
             },
-            invalidatesTags: ["Orders"],
+            invalidatesTags: ['Orders'],
         })
 
 

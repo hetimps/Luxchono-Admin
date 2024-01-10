@@ -1,6 +1,5 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { prepareHeaders } from "./Utils";
-import queryString from 'query-string';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { prepareHeaders } from './Utils';
 
 
 export const CustomerApi = createApi({
@@ -10,7 +9,7 @@ export const CustomerApi = createApi({
         prepareHeaders: prepareHeaders,
 
     }),
-    tagTypes: ["Customer"],
+    tagTypes: ['Customer'],
     endpoints: (builder) => ({
         GetAllCustomer: builder.query({
             query: (params) => {
@@ -19,7 +18,7 @@ export const CustomerApi = createApi({
                     params
                 };
             },
-            providesTags: ["Customer"],
+            providesTags: ['Customer'],
         }),
 
 

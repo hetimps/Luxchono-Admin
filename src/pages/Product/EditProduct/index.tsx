@@ -1,8 +1,8 @@
-import { Box, CssBaseline } from "@mui/material";
-import AppBars from "../../../components/common/AppBar/index";
-import { DrawerHeader, Main } from "../../../components/common/PageComonComponent/index";
-import Drawers from "../../../components/common/Drawer";
-import EditProductPage from "../../../components/Product/EditProductPage";
+import { Box, CssBaseline } from '@mui/material';
+import AppBars from '../../../components/common/AppBar/index';
+import { DrawerHeader, Main } from '../../../components/common/PageComonComponent/index';
+import Drawers from '../../../components/common/Drawer';
+import EditProductPage from '../../../components/Product/EditProductPage';
 
 export default function EditProduct() {
     return (
@@ -15,5 +15,5 @@ export default function EditProduct() {
                 <EditProductPage />
             </Main>
         </Box>
-    )
+    );
 }

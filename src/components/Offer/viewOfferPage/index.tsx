@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react'
-import ReactDateRangePicker from '../../common/DateRangePicker'
+import React, { useRef, useState } from 'react';
+import ReactDateRangePicker from '../../common/DateRangePicker';
 import { Avatar, IconButton, Paper, Typography } from '@mui/material';
 import { STRING } from '../../../constants/String';
 import TextFields from '../../common/TextFields';
@@ -15,16 +15,15 @@ export default function ViewOfferPage() {
     const navigate = useNavigate();
 
     const offer = () => {
-        navigate("/offer")
-    }
+        navigate('/offer');
+    };
 
     const wrapperRef = useRef(null);
-    const [showDateRangePicker, setShowDateRangePicker] = useState(false);
     const [states, setStates] = useState([
         {
             startDate: new Date(),
             endDate: new Date(),
-            key: "selection",
+            key: 'selection',
         },
     ]);
     return (
@@ -63,7 +62,7 @@ export default function ViewOfferPage() {
                                 </Typography>
                             </div>
                             <TextFields value={state?.offerName} placeholder={STRING.OFFER_NAME_PLACHOLDER}
-                                name={"offerName"} className={'productField'} />
+                                name={'offerName'} className={'productField'} />
                         </div>
 
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
@@ -78,7 +77,7 @@ export default function ViewOfferPage() {
                                     setState={setStates}
                                     wrapperRef={wrapperRef}
                                     showDateRangePicker={false}
-                                    setShowDateRangePicker={setShowDateRangePicker}
+                                    setShowDateRangePicker={()=>{}}
                                     fromDate={state?.dateFrom}
                                     toDate={state?.dateTo} />
                             </div>
@@ -93,7 +92,7 @@ export default function ViewOfferPage() {
                             <div className='flex-col'>
                                 <Selects isDisabled={true}
                                     selectedValues={state?.defaultBrands}
-                                    placeholder={STRING.OFFER_BRANDS_PLACHOLDER} width={"70rem"} height={"45px"} isMulti={true} />
+                                    placeholder={STRING.OFFER_BRANDS_PLACHOLDER} width={'70rem'} height={'45px'} isMulti={true} />
                             </div>
                         </div>
 
@@ -107,7 +106,7 @@ export default function ViewOfferPage() {
                             <div className='flex-col'>
                                 <Selects isDisabled={true}
                                     selectedValues={state?.defaultProducts}
-                                    placeholder={STRING.OFFER_PRODUCTS_PLACHOLDER} width={"70rem"} height={"45px"} isMulti={true} />
+                                    placeholder={STRING.OFFER_PRODUCTS_PLACHOLDER} width={'70rem'} height={'45px'} isMulti={true} />
                             </div>
                         </div>
 
@@ -120,7 +119,7 @@ export default function ViewOfferPage() {
                             <TextFields
                                 value={state?.offerCode}
                                 placeholder={STRING.OFFER_OFFERCODE_PLACHOLDER}
-                                name={"offerCode"} className={'productField'} />
+                                name={'offerCode'} className={'productField'} />
                         </div>
 
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
@@ -131,9 +130,9 @@ export default function ViewOfferPage() {
                             </div>
                             <TextFields
                                 value={state?.discount}
-                                type={"number"}
+                                type={'number'}
                                 autoComplete={'off'} placeholder={STRING.OFFER_DISCOUNT_PLACHOLDER}
-                                name={"discount"} className={'productField'} />
+                                name={'discount'} className={'productField'} />
                         </div>
 
                         <div className='!flex !item-center !gap-[15px] mt-[1rem]'>
@@ -146,8 +145,8 @@ export default function ViewOfferPage() {
                                 <Selects isDisabled={true}
                                     selectedValues={{ label: state?.discountType, value: state?.discountType }}
                                     placeholder={STRING.OFFER_DISCOUNTTYPE_PLACHOLDER}
-                                    width={"70rem"}
-                                    height={"45px"} />
+                                    width={'70rem'}
+                                    height={'45px'} />
                             </div>
                         </div>
 
@@ -159,7 +158,7 @@ export default function ViewOfferPage() {
                             </div>
                             <Textareas
                                 value={state?.description}
-                                name={"description"} width={"70rem"} rows={3} placeholder={STRING.OFFER_DESCRIPTION_PLACHOLDER} />
+                                name={'description'} width={'70rem'} rows={3} placeholder={STRING.OFFER_DESCRIPTION_PLACHOLDER} />
                         </div>
                         <div>
                         </div>
@@ -170,7 +169,7 @@ export default function ViewOfferPage() {
 
 
 
-    )
+    );
 }
 
 
