@@ -4,7 +4,6 @@ import { DrawerHeader, Main } from '../../../components/common/PageComonComponen
 import Drawers from '../../../components/common/Drawer';
 import AddproductPage from '../../../components/Product/AddProductPage';
 
-
 export default function AddProduct() {
     return (
         <Box sx={{ display: 'flex' }}>

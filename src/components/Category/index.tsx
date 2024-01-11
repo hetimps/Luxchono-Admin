@@ -17,7 +17,6 @@ import { useNavigate } from 'react-router-dom';
 import { exportToCsv } from '../../constants/Helper/Csv';
 
 export default function CategoryPage() {
-
     const [selected, setSelected] = React.useState<readonly number[]>([]);
     const [search, setsearch] = useState('');
     const [DeleteCategory, { isLoading: deleteCategoryLoading }] = useDeleteCategoryMutation();
@@ -71,7 +70,6 @@ export default function CategoryPage() {
             icon: icon
         };
     }
-
     useEffect(() => {
         const categoryData = CategoryData?.result?.data;
         const rowise = categoryData?.map((item: any) => {
@@ -108,15 +106,12 @@ export default function CategoryPage() {
 
     //delete single category
     const [selectedIdSingle, setSelectedIdSingle] = useState<number[]>([]);
-
     const [openDeleteConfirmationSingle, setDeleteOpenConfirmationSingle] = useState(false);
-
     const handleDeleteSingleOpenConfirmation = (row: any) => {
         setDeleteOpenConfirmationSingle(true);
         setSelectedIdSingle([row?.id]);
 
     };
-
     const handleDeleteSingleCloseConfirmations = () => {
         setDeleteOpenConfirmationSingle(false);
         setSelectedIdSingle([]);

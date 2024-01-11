@@ -3,15 +3,11 @@ import { styled } from '@mui/material/styles';
 import { Switch, SwitchProps } from '@mui/material';
 
 export default function Switchs() {
-
     // const [checked, setChecked] = React.useState(true);
-
     // const handleChange = () => {
     //     setChecked((prev) => !prev);
     // };
-
     const customSmallSize = 20;
-
     const IOSSwitch = styled((props: SwitchProps) => (
         <Switch focusVisibleClassName=".Mui-focusVisible"
             size="small"

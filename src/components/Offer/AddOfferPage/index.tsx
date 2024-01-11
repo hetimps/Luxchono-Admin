@@ -33,7 +33,6 @@ export default function AddOfferPage() {
     const offer = () => {
         navigate('/offer');
     };
-
     //product api
     useEffect(() => {
         const filterProducts = ProductData?.result?.data && (ProductData?.result?.data as any[]).map((product: any) => ({
@@ -113,11 +112,9 @@ export default function AddOfferPage() {
             setImagePreview(imagePreview);
         }
     };
-
     const AddOfferImg = () => {
         document.getElementById('fileInput')?.click();
     };
-
     //date range
     const wrapperRef = useRef(null);
     const [state, setState] = useState([

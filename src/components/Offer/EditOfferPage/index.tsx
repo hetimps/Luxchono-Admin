@@ -23,7 +23,6 @@ import { Discount } from '../../../constants/Array';
 export default function EditOfferPage() {
     const location = useLocation();
     const { state } = location;
-
     const { data: BrandData} = useGetAllBrandApiQuery({});
     const { data: ProductData} = useGetAllProductQuery({});
     const [EditProduct, { isLoading }] = useEditOfferMutation();
@@ -36,7 +35,6 @@ export default function EditOfferPage() {
     const [OfferId, setOfferId] = useState();
     const [fromDate, setFromDate] = useState('');
     const [toDate, setToDate] = useState('');
-
     const [imagePreview, setImagePreview] = useState<any>(null);
     const [OfferImage, setOfferImage] = useState();
 
@@ -112,7 +110,6 @@ export default function EditOfferPage() {
                 return true;
             }),
         }),
-
         onSubmit: async (values: any) => {
             values.id = OfferId;
             const response: any = await EditProduct(values);
@@ -155,7 +152,6 @@ export default function EditOfferPage() {
         },
     ]);
     const [prevDate, setPrevDate] = useState(states);
-
     const [showDateRangePicker, setShowDateRangePicker] = useState(false);
 
     //date and discount type
@@ -167,7 +163,6 @@ export default function EditOfferPage() {
         AddOffer.setFieldValue('dateFrom', fromDate);
         AddOffer.setFieldValue('dateTo', toDate);
     }, [fromDate, toDate]);
-
 
     useEffect(() => {
         AddOffer.setFieldValue('dateFrom', fromDate);
@@ -184,21 +179,18 @@ export default function EditOfferPage() {
                     {STRING.OFFER_EDIT}
                 </Typography>
             </div>
-
             <form onSubmit={AddOffer.handleSubmit} className='add_product'>
                 <Paper className='mt-[1.5rem] paperboxshadow p-[1rem]'>
                     <div className='flex justify-end'>
                         {isLoading ? (<Loader />) : (<Buttons type={'submit'} className={'category_add_button'} startIcon={<BookmarkIcon />} variant={'contained'} text={STRING.SAVE} />)}
                     </div>
                     <div className='flex !flex-col mt-[1rem] pl-[3rem] pr-[3rem] '>
-
                         <div className='flex item-center !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] !flex !justify-end mt-[0.5rem] '>
                                 <Typography component='span' className='!font-bold'>
                                     {STRING.OFFER_IMAGE}
                                 </Typography>
                             </div>
-
                             <TextFields
                                 name={'image'}
                                 values={AddOffer.values.image}
@@ -207,9 +199,7 @@ export default function EditOfferPage() {
                                 type={'file'}
                                 accept={'image/png'}
                                 style={{ display: 'none' }} />
-
                             <div className='flex-col'>
-
                                 <Avatar
                                     src={imagePreview === null ? `${BASE_URL}/${OfferImage}` : `${imagePreview}`}
                                     onClick={AddOfferImg}
@@ -226,7 +216,6 @@ export default function EditOfferPage() {
                                 )}
                             </div>
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -237,7 +226,6 @@ export default function EditOfferPage() {
                                 helperText={AddOffer.touched.offerName && AddOffer.errors.offerName} onChange={AddOffer.handleChange} value={AddOffer.values.offerName} autoComplete={'off'} placeholder={STRING.OFFER_NAME_PLACHOLDER}
                                 name={'offerName'} className={'productField'} />
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -265,7 +253,6 @@ export default function EditOfferPage() {
                                 )}
                             </div>
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -281,8 +268,6 @@ export default function EditOfferPage() {
                                 )}
                             </div>
                         </div>
-
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -298,7 +283,6 @@ export default function EditOfferPage() {
                                 )}
                             </div>
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -309,7 +293,6 @@ export default function EditOfferPage() {
                                 helperText={AddOffer.touched.offerCode && AddOffer.errors.offerCode} onChange={AddOffer.handleChange} value={AddOffer.values.offerCode} autoComplete={'off'} placeholder={STRING.OFFER_OFFERCODE_PLACHOLDER}
                                 name={'offerCode'} className={'productField'} />
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -320,7 +303,6 @@ export default function EditOfferPage() {
                                 helperText={AddOffer.touched.discount && AddOffer.errors.discount} onChange={AddOffer.handleChange} value={AddOffer.values.discount} type={'number'} autoComplete={'off'} placeholder={STRING.OFFER_DISCOUNT_PLACHOLDER}
                                 name={'discount'} className={'productField'} />
                         </div>
-
                         <div className='!flex !item-center !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -342,9 +324,7 @@ export default function EditOfferPage() {
                                     </Typography>
                                 )}
                             </div>
-
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -360,9 +340,6 @@ export default function EditOfferPage() {
                 </Paper>
             </form>
         </>
-
-
-
     );
 }
 

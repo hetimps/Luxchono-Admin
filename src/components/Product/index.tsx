@@ -21,7 +21,6 @@ import TuneIcon from '@mui/icons-material/Tune';
 import ProductDrawer from './ProductFilterDrawer';
 
 export default function ProductPage() {
-
     const [search, setsearch] = useState('');
     const [selected, setSelected] = React.useState<readonly number[]>([]);
     const { data: CategoryData} = useGetAllCategoryQuery({});
@@ -136,7 +135,6 @@ export default function ProductPage() {
             value: category._id
         }));
         setFilteredCategory(filteredCategories);
-
         // set serach api value 
         const values = selectedCategoryValues.map(category => category.value);
         setSearchCategoryValues(values);
@@ -229,7 +227,6 @@ export default function ProductPage() {
             // label: 'Action',
         },
     ];
-
     const handleCvsExport = () => {
         const exportColumns = [
             { id: 'productname', label: 'Product Name' },
@@ -243,7 +240,6 @@ export default function ProductPage() {
         ];
         exportToCsv(rows, exportColumns, 'Product_data');
     };
-
 
     //delete single Product
     const handleDeleteSingleOpenConfirmation = (row: any) => {

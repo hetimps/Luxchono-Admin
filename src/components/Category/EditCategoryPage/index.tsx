@@ -181,13 +181,11 @@ export default function EditCategoryPage() {
                         </div>
 
                         <div className='flex item-center !gap-[15px] mt-[1rem]'  >
-
                             <div className='w-[12rem] !flex !justify-end mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
                                     {STRING.ICON}
                                 </Typography>
                             </div>
-
                             {/* <TextFields name={"image"} values={AddCategory.values.image} onChange={handleFileChange} id={'fileInput'} type={'file'} style={{ display: 'none' }} /> */}
                             <TextFields
                                 name={'icon'}
@@ -201,7 +199,6 @@ export default function EditCategoryPage() {
                             <div className='flex-col'>
                                 <Avatar
                                     className='!w-[120px] !h-[120px] !cursor-pointer !rounded-[10px] !bg-white  border-[1px] !border-header'
-
                                     src={iconPreview === null ? `${BASE_URL}/${iconImg}` : `${iconPreview}`}
                                     onClick={AddIconImg}
                                     alt='Image Preview'>
@@ -216,7 +213,6 @@ export default function EditCategoryPage() {
                                 </label>
                             </div>
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>

@@ -19,7 +19,6 @@ export default function AddBrandPage() {
     const [iconPreview, setIconPrerview] = useState<any>(null);
     const [AddBrandData, { isLoading }] = useAddBrandMutation();
     const navigate = useNavigate();
-
     const handleFileChange = (e: any) => {
         const file = e.target.files[0];
         if (file) {
@@ -37,7 +36,6 @@ export default function AddBrandPage() {
     const AddCategoryImg = () => {
         document.getElementById('fileInput')?.click();
     };
-
 
     //icon uplaod
     const handleIconFileChange = (e: any) => {
@@ -82,7 +80,6 @@ export default function AddBrandPage() {
                 return true;
             }),
         }),
-
         onSubmit: async (values: any) => {
             const response: any = await AddBrandData(values);
             const { message, statusCode } = response?.data;
@@ -138,7 +135,6 @@ export default function AddBrandPage() {
                                     alt='Image Preview'>
                                     <CloudUploadIcon className='!text-[3rem] !text-header' />
                                 </Avatar>
-
                                 <label className='ml-[1rem] '>
                                     {AddBrand.touched.image && AddBrand.errors.image && (
                                         <Typography variant='caption' className='!font-bold ' color='error'>
@@ -148,14 +144,12 @@ export default function AddBrandPage() {
                                 </label>
                             </div>
                         </div>
-
                         <div className='flex item-center !gap-[15px] mt-[1rem]'  >
                             <div className='w-[12rem] !flex !justify-end mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
                                     {STRING.ICON}
                                 </Typography>
                             </div>
-
                             <TextFields
                                 name={'icon'}
                                 values={AddBrand.values.icon}
@@ -181,7 +175,6 @@ export default function AddBrandPage() {
                                 </label>
                             </div>
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>

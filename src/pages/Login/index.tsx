@@ -14,12 +14,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-
 interface LoginFormValues {
   email: string;
   password: string;
 }
-
 export default function Login() {
     const [Login, { isLoading }] = useLoginMutation();
     const navigate = useNavigate();

@@ -17,7 +17,6 @@ export default function UpdateOrderStatusDialog({ open, onClose, yesClass, close
         }
     }, [selectedValues, optionValue]);
 
-
     // const EditStatusOption = [
     //   { value: "Pending", label: "Pending" },
     //   { value: "Shipped", label: "Shipped" },
@@ -25,11 +24,9 @@ export default function UpdateOrderStatusDialog({ open, onClose, yesClass, close
     //   { value: "Delivered", label: "Delivered" },
     //   { value: "Cancelled", label: "Cancelled" },
     // ]
-
     const handleSelectChange = (selectedOptions: any) => {
         setSelectedValues(selectedOptions);
     };
-
     return (
         <Dialog className="UpdateDialog" open={open} >
             <Box className="flex flex-col items-center  w-full " >
@@ -38,7 +35,6 @@ export default function UpdateOrderStatusDialog({ open, onClose, yesClass, close
                         {tital}
                     </span>
                 </DialogTitle>
-
                 <div className='mb-[20px]' style={{ height: isMenuOpen ? '26vh' : 'auto' }}>
                     <Select
                         value={selectedValues}
@@ -50,20 +46,15 @@ export default function UpdateOrderStatusDialog({ open, onClose, yesClass, close
                         onMenuClose={() => setIsMenuOpen(false)}
                         onMenuOpen={() => setIsMenuOpen(true)}
                         menuIsOpen={isMenuOpen}
-                        placeholder={'Select Order Status'}
-                    />
-
+                        placeholder={'Select Order Status'}/>
                 </div>
-
                 <DialogActions >
-
                     {loading ? <Loader /> : (
                         <Box className="!flex !gap-[8px] mt-[0.5rem]">
                             <Buttons text={textClose} className={closeClass} variant={'outlined'} onClick={onClose} />
                             <Buttons disabled={disabledBtton} text={textYes} className={yesClass} variant={'contained'} onClick={Action} />
                         </Box>
                     )}
-
                 </DialogActions>
             </Box>
         </Dialog>

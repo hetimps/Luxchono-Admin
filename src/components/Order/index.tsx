@@ -22,16 +22,12 @@ export default function OrderPage() {
     const [search, setsearch] = useState('');
     const [status, setStatus] = useState<any>('');
     const [method, setMethod] = useState<any>('');
-
-
     const { data: OrdersData, isFetching, refetch } = useGetAllOrdersQuery({ search: search.trim(), status: status?.value, method: method?.value });
     const [DeleteOredr, { isLoading: deleteOrderLoading }] = useDeleteOrderMutation();
     const [rows, setRows] = useState<any[]>([]);
     const [selectedDeleteRows, setSelectedDelteRows] = useState([]);
-
     const [input, setinput] = useState('');
     const [openDeleteConfirmation, setDeleteOpenConfirmation] = useState(false);
-
     const [UpdateOrderStatus, { isLoading: UpdateStatusLoading }] = useUpdateOrderStatusMutation();
 
     useEffect(() => {
@@ -123,8 +119,6 @@ export default function OrderPage() {
         status: any,
         shippingAddress: any,
         products: any
-
-
     ): any {
         return {
             id: id,
@@ -155,8 +149,6 @@ export default function OrderPage() {
         setRows(rowise);
     }, [OrdersData]);
 
-
-
     const handleDelete = async () => {
         const response: any = await DeleteOredr({ ids: selectedDeleteRows });
         const { message, statusCode } = response?.data;
@@ -171,15 +163,11 @@ export default function OrderPage() {
     };
 
     //delete single category
-
     const [selectedIdSingle, setSelectedIdSingle] = useState<number[]>([]);
-
     const [openDeleteConfirmationSingle, setDeleteOpenConfirmationSingle] = useState(false);
-
     const handleDeleteSingleOpenConfirmation = (row: any) => {
         setDeleteOpenConfirmationSingle(true);
         setSelectedIdSingle([row?.id]);
-
     };
 
     const handleDeleteSingleCloseConfirmations = () => {
@@ -192,7 +180,6 @@ export default function OrderPage() {
         const { message, statusCode } = response?.data;
         if (statusCode === 200) {
             toast.success(message);
-
         } else {
             toast.error(message);
         }
@@ -230,7 +217,6 @@ export default function OrderPage() {
     };
 
     const handleUpdateOrderStatus = async () => {
-
         const body = {
             id: UpdateselectedId,
             shipped: selectStatus.value === 'Shipped',
@@ -239,7 +225,6 @@ export default function OrderPage() {
             pending: selectStatus.value === 'Pending',
             cancelled: selectStatus.value === 'Cancelled',
             completed: selectStatus.value === 'Completed',
-
         };
 
         const response: any = await UpdateOrderStatus(body);
@@ -249,7 +234,6 @@ export default function OrderPage() {
         } else {
             toast.error(message);
         }
-
         response && handleUpdateCloseConfirmations();
     };
 

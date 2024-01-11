@@ -1,4 +1,4 @@
-import { Paper, Grid, Typography} from '@mui/material';
+import { Paper, Grid, Typography } from '@mui/material';
 import LoginImg from '../../assets/imag/LoginImg2.svg';
 import Logo from '../../assets/imag/logo.svg';
 import './style.scss';
@@ -11,11 +11,10 @@ import { useResendOtpMutation, useVerifyOtpMutation } from '../../api/Login';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { MuiOtpInput } from 'mui-one-time-password-input';
 import OtpTimer from '../../components/common/OtpTimer';
-
+import { STRING } from '../../constants/String';
 interface OtpFormValues {
     verifyOtp: string;
 }
-
 export default function OtpVerify() {
     const [VerifyOtp, { isLoading }] = useVerifyOtpMutation();
     const navigate = useNavigate();
@@ -27,8 +26,8 @@ export default function OtpVerify() {
             verifyOtp: state?.verifyOtp,
         },
         validationSchema: Yup.object().shape({
-            verifyOtp: Yup.string().length(4, 'Enter valid OTP')
-                .required('OTP is a required '),
+            verifyOtp: Yup.string().length(4, STRING.OTP_FORMATE)
+                .required(STRING.OTP_REQUIRED),
 
         }),
         onSubmit: async (values) => {
@@ -37,7 +36,7 @@ export default function OtpVerify() {
                 verifyOtp: values?.verifyOtp
             };
             const response: any = await VerifyOtp(body);
-            const { statusCode, message} = response?.data;
+            const { statusCode, message } = response?.data;
             if (statusCode === 200) {
                 navigate('/login');
                 toast.success(message);
@@ -62,7 +61,7 @@ export default function OtpVerify() {
             email: state?.email,
         };
         const response: any = await Rsend(body);
-        const { statusCode, message} = response?.data;
+        const { statusCode, message } = response?.data;
         if (statusCode === 200) {
             toast.success(message);
         } else {
@@ -89,15 +88,14 @@ export default function OtpVerify() {
                                     className='!font-extrabold'
                                     variant='h5'
                                     component="h5">
-                                    {'Verify email'}
+                                    {STRING.VERIFY_EMAIL}
                                 </Typography>
                                 <Typography
                                     className='!font-bold text-light'
                                     component="span">
-                                    {`Otp is sent to ${state?.email} Please Check your mail.`}
+                                    {`${STRING.OTP_SENT} ${state?.email} ${STRING.PLEASE_CHECK}`}
                                 </Typography>
                                 <div className='!mt-[2rem] flex flex-col gap-[20px]' >
-
                                     <MuiOtpInput
                                         onChange={OtpVerifys.handleChange('verifyOtp')}
                                         value={OtpVerifys.values.verifyOtp}
@@ -111,7 +109,7 @@ export default function OtpVerify() {
                                     <Loader />
                                 </div >) : (
                                     <>
-                                        <Buttons type={'submit'} text={'Next'} variant={'contained'} className={'otpButton'} />
+                                        <Buttons type={'submit'} text={STRING.NEXT} variant={'contained'} className={'otpButton'} />
 
                                         <div className='flex items-center justify-center mt-[1rem] '>
                                             <OtpTimer expiryTimeInSeconds={60} onResend={handleResend} />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IconButton, Typography, Paper, Avatar} from '@mui/material';
+import { IconButton, Typography, Paper, Avatar } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Buttons from '../../common/Buttons';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
@@ -20,25 +20,22 @@ import { toast } from 'react-toastify';
 import Loader from '../../common/Loader';
 import { BASE_URL } from '../../../api/Utils';
 
-
 export default function EditProductPage() {
     const location = useLocation();
     const { state } = location;
     const [imagePreviews, setImagePreviews] = useState<any[]>([]);
     const [filteredCategory, setFilteredCategory] = useState<any[]>([]);
     const [filteredBrand, setFilteredBrand] = useState<any[]>([]);
-    const { data: CategoryData} = useGetAllCategoryQuery({});
+    const { data: CategoryData } = useGetAllCategoryQuery({});
     const navigate = useNavigate();
     const [selectedCategoryValues, setSelectedCategoryValues] = useState<any[]>([]);
     const [selectedBrandValues, setSelectedBrandValues] = useState<any>();
     const [thumbnailimagePreview, setThumbnailImagePreview] = useState<any>(null);
     const [thumbnailImage, setThumbnailImage] = useState();
-
     // const [AddProducts, { isLoading }] = useAddProductMutation();
     const [EditProduct, { isLoading }] = useEditProductMutation();
-
     const [ProductId, setProductId] = useState();
-    const { data: BrandData} = useGetAllBrandApiQuery({});
+    const { data: BrandData } = useGetAllBrandApiQuery({});
     const removeImage = (indexToRemove: number) => {
         setImagePreviews((prevPreviews) => prevPreviews.filter((_, index) => index !== indexToRemove));
         AddProduct.setFieldValue(
@@ -46,7 +43,6 @@ export default function EditProductPage() {
             AddProduct.values.image.filter((_: any, index: number) => index !== indexToRemove)
         );
     };
-
 
     useEffect(() => {
         AddProduct.setFieldValue('productName', state?.productname);
@@ -179,9 +175,9 @@ export default function EditProductPage() {
 
                     const accepteDefaltFormats = value.every((file: any) => {
                         const accepteDefaltFormats = typeof file === 'string' && file.endsWith('.png') ||
-                                typeof file === 'string' && file.endsWith('.jpeg') ||
-                                typeof file === 'string' && file.endsWith('.jpg') ||
-                                typeof file === 'string' && file.endsWith('.svg');
+                            typeof file === 'string' && file.endsWith('.jpeg') ||
+                            typeof file === 'string' && file.endsWith('.jpg') ||
+                            typeof file === 'string' && file.endsWith('.svg');
                         return acceptedFormats.includes(file.type) || accepteDefaltFormats;
                     });
                     return isValidFormat || accepteDefaltFormats;

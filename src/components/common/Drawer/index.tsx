@@ -23,16 +23,13 @@ export default function Drawers() {
     const Navigate = (path: string) => {
         navigate(path);
     };
-
     const [openConfirmation, setOpenConfirmation] = useState(false);
-
     const handleOpenConfirmation = () => {
         setOpenConfirmation(true);
     };
     const handleCloseConfirmation = () => {
         setOpenConfirmation(false);
     };
-
     const handleLogout = () => {
         localStorage.removeItem('lw-token');
         navigate('/login');

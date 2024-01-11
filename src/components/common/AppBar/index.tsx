@@ -6,11 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import Dialogs from '../Dialogs';
 import { STRING } from '../../../constants/String';
 
-
 export default function AppBars(props: any) {
     const [openConfirmation, setOpenConfirmation] = useState(false);
     const navigate = useNavigate();
-
     // const handleOpenConfirmation = () => {
     //     setOpenConfirmation(true);
     // };

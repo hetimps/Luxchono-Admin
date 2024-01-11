@@ -4,7 +4,6 @@ export const exportToCsv = (rows: any[] | null, columns: any[], fileName: string
     if (!rows) {
         return;
     }
-
     const formattedRows = rows.map(row => {
         const { discountType, ...updatedRow } = row;
         return {

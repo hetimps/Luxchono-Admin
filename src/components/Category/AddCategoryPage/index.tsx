@@ -18,7 +18,6 @@ export default function AddCategoryPage() {
 
     const [imagePreview, setImagePreview] = useState<any>(null);
     const [iconPreview, setIconPrerview] = useState<any>(null);
-
     const [AddCategoryData, { isLoading }] = useAddCategoryMutation();
     const navigate = useNavigate();
 
@@ -66,7 +65,6 @@ export default function AddCategoryPage() {
             image: '',
             icon: '',
         },
-
         validationSchema: Yup.object().shape({
             categoryName: Yup.string().trim().required(STRING.CATEGORY_NAME_REQUIRED).min(3, STRING.CATEGORY_NAME_FORMAT),
             image: Yup.mixed().required(STRING.CATEGORY_NAME_IMAGE)
@@ -77,8 +75,6 @@ export default function AddCategoryPage() {
                     }
                     return true;
                 }),
-
-
             icon: Yup.mixed().required(STRING.CATEGORY_ICON_REQUIRED).test('fileFormat', STRING.IMAGE_FORMATES, (value: any) => {
                 if (value) {
                     const acceptedFormats = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/jpg'].includes(value.type);
@@ -86,9 +82,7 @@ export default function AddCategoryPage() {
                 }
                 return true;
             }),
-
         }),
-
         onSubmit: async (values: any) => {
             const response: any = await AddCategoryData(values);
             const { message, statusCode } = response?.data;

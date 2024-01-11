@@ -175,7 +175,6 @@ export default function AddProductPage() {
                     {STRING.PRODUCT_ADD}
                 </Typography>
             </div>
-
             <form onSubmit={AddProduct.handleSubmit} className='add_product'>
                 <Paper className='mt-[1.5rem] paperboxshadow p-[1rem]'>
                     <div className='flex justify-end'>
@@ -183,13 +182,11 @@ export default function AddProductPage() {
                     </div>
                     <div className='flex !flex-col mt-[1rem] pl-[3rem] pr-[3rem] '>
                         <div className='flex item-center !gap-[15px]'>
-
                             <div className='w-[12rem] !flex !justify-end mt-[0.5rem] '>
                                 <Typography component='span' className='!font-bold'>
                                     {STRING.PRODUCT_IMAGE}
                                 </Typography>
                             </div>
-
                             {imagePreviews.map((preview, index) => (
                                 <div key={index} className="image-preview-container">
                                     <div className='flex'>
@@ -205,7 +202,6 @@ export default function AddProductPage() {
                                     </div>
                                 </div>
                             ))}
-
                             <TextFields
                                 type={'file'}
                                 name={'image'}
@@ -237,7 +233,6 @@ export default function AddProductPage() {
                                     {STRING.PRODUCT_THUMBNAIL}
                                 </Typography>
                             </div>
-
                             <TextFields
                                 name={'thumbnail'}
                                 values={AddProduct.values.thumbnail}

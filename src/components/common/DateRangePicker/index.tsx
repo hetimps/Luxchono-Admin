@@ -8,9 +8,9 @@ import { addDays } from 'date-fns';
 import moment from 'moment';
 import './style.scss';
 import { DateRangePicker } from 'react-date-range';
-import 'react-date-range/dist/styles.css'; // main style file
-import 'react-date-range/dist/theme/default.css'; // theme css file
-
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
+import { STRING } from '../../../constants/String';
 
 export const useOutsideAlerter = (ref: any, setShowDateRangePicker: any) => {
     React.useEffect(() => {
@@ -78,7 +78,7 @@ function ReactDateRangePicker(props: any) {
                                 toDate
                             ).format('MM-DD-yyyy')}`
                             : 'Select Custom Date Range'
-                        }`}
+                            }`}
                     </span>
                     <span className="pl-2">
                         {showDateRangePicker ? (
@@ -90,7 +90,6 @@ function ReactDateRangePicker(props: any) {
                 </div>
                 {showDateRangePicker && (
                     <div className="mainDateRangePicker">
-
                         <DateRangePicker
                             onChange={(item: any) => {
                                 setState([item.selection]);
@@ -100,7 +99,7 @@ function ReactDateRangePicker(props: any) {
                             months={1}
                             ranges={state}
                             direction="horizontal"
-                            rangeColors={['#964315']}/>
+                            rangeColors={['#964315']} />
 
                         <div className="button-container">
                             <button
@@ -120,7 +119,7 @@ function ReactDateRangePicker(props: any) {
                                 className="okButton clearButton">
                                 <span>
                                     <BackspaceIcon /> &nbsp;
-                                    <strong>{'CLEAR'}</strong>
+                                    <strong>{STRING.CLEAR}</strong>
                                 </span>
                             </button>
                             <button
@@ -130,13 +129,13 @@ function ReactDateRangePicker(props: any) {
                                 className="cancelButton">
                                 <span>
                                     <CancelIcon sx={{ width: '1.5rem', height: '1.5rem' }} />{' '}
-                                    <strong>{'Cancel'}</strong>
+                                    <strong>{STRING.DATE_CANCEL}</strong>
                                 </span>
                             </button>
                             <button onClick={handleTimeRangeSelection} className="okButton">
                                 <span>
                                     <ThumbUpAltIcon /> &nbsp;
-                                    <strong>{'Done'}</strong>
+                                    <strong>{STRING.DONE}</strong>
                                 </span>
                             </button>
                         </div>

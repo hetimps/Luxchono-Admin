@@ -88,7 +88,6 @@ export default function OfferPage() {
             defaultProducts: defaultProducts
         };
     }
-
     useEffect(() => {
         const OfferDatas = OfferData?.result?.data;
         const rowise = OfferDatas?.map((item: any) => {

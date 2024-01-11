@@ -22,7 +22,6 @@ export default function CustomerPage() {
     const getSelectedDeleteRows = (rows: any) => {
         setSelectedDelteRows(rows);
     };
-
     const headCells: any[] = [
         {
             id: 'userName',

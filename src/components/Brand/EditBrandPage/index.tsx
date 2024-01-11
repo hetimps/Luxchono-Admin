@@ -18,15 +18,10 @@ import { useEditBrandMutation } from '../../../api/Brand';
 export default function EditBrandPage() {
 
     const [EditBrand, { isLoading }] = useEditBrandMutation();
-
     const [imagePreview, setImagePreview] = useState<any>(null);
     const [BrandId, setBrandId] = useState();
-
-
     const [iconPreview, setIconPreview] = useState<any>(null);
     const [iconImg, setIconImag] = useState();
-
-
     const [BrandImg, setBrandImag] = useState();
     const location = useLocation();
     const { state } = location;
@@ -61,7 +56,6 @@ export default function EditBrandPage() {
         document.getElementById('fileInput')?.click();
     };
 
-
     //icon uplaod
     const handleIconFileChange = (e: any) => {
         const file = e.target.files[0];
@@ -87,7 +81,6 @@ export default function EditBrandPage() {
             image: '',
             icon: '',
         },
-
         validationSchema: Yup.object().shape({
             brandName: Yup.string().trim().required(STRING.BRAND_NAME_REQUIRED).min(3, STRING.BRAND_NAME_FORMAT),
             image: Yup.mixed().required(STRING.BRAND_NAME_IMAGE).test('fileFormat', STRING.IMAGE_FORMATES, (value: any) => {
@@ -109,7 +102,6 @@ export default function EditBrandPage() {
                 return true;
             }),
         }),
-
         onSubmit: async (values: any) => {
             values.id = BrandId;
             const response: any = await EditBrand(values);
@@ -178,9 +170,7 @@ export default function EditBrandPage() {
                             </div>
                         </div>
 
-
                         <div className='flex item-center !gap-[15px] mt-[1rem]'  >
-
                             <div className='w-[12rem] !flex !justify-end mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
                                     {STRING.ICON}
@@ -220,7 +210,6 @@ export default function EditBrandPage() {
                                     {STRING.BARND_NAME}
                                 </Typography>
                             </div>
-
                             <TextFields
                                 onChange={EditBrands.handleChange}
                                 autoComplete={'off'} placeholder={STRING.BRAND_NAME_PLACHOLDER} value={EditBrands.values.brandName}

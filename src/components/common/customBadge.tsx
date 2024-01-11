@@ -1,5 +1,4 @@
 import { Colors } from '../../constants/Colors';
-
 const { dark, light } = Colors;
 
 const commonStyle: any = {
@@ -51,21 +50,21 @@ const Completed: any = {
 export const handleStatusesBadge = (status: any) => {
     if (status) {
         switch (status) {
-        case 'Pending':
-            return { ...commonStyle, ...Pending };
-        case 'Delivered':
-            return { ...commonStyle, ...Delivered };
-        case 'Out of Delivery':
-            return { ...commonStyle, ...OutofDeliverycessing };
-        case 'Cancelled':
-            return { ...commonStyle, ...Cancelled };
-        case 'Shipped':
-            return { ...commonStyle, ...Shipped };
-        case 'Completed':
-            return { ...commonStyle, ...Completed };
+            case 'Pending':
+                return { ...commonStyle, ...Pending };
+            case 'Delivered':
+                return { ...commonStyle, ...Delivered };
+            case 'Out of Delivery':
+                return { ...commonStyle, ...OutofDeliverycessing };
+            case 'Cancelled':
+                return { ...commonStyle, ...Cancelled };
+            case 'Shipped':
+                return { ...commonStyle, ...Shipped };
+            case 'Completed':
+                return { ...commonStyle, ...Completed };
 
-        default:
-            return commonStyle;
+            default:
+                return commonStyle;
         }
     }
 };

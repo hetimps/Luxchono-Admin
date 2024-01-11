@@ -40,6 +40,19 @@ export const STRING = {
     TOP_PRODUCT : 'Top Product',
     DASHBOARD_ORDER_STATUS : 'Order Status',
     LATEST_ORDERS : 'Latest Orders',
+    RESEND_OPT :"Resend OTP",
+    TIME_REMAINING: "Time remaining: ",
+    CLEAR :"CLEAR",
+    DATE_CANCEL :"Cancel",
+    DONE : "Done",
+
+    //Otp
+    OTP_FORMATE : "Enter valid OTP",
+    OTP_REQUIRED : "OTP is a required",
+    VERIFY_EMAIL  : "Verify email",
+    NEXT : "Next",
+    PLEASE_CHECK: 'Please Check your mail.',
+    OTP_SENT :"Otp is sent to",
 
     //Dialog
     DIALOG_CANCEL_BUTTON: 'Cancel',

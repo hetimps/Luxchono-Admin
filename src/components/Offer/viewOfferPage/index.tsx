@@ -13,11 +13,9 @@ export default function ViewOfferPage() {
     const location = useLocation();
     const { state } = location;
     const navigate = useNavigate();
-
     const offer = () => {
         navigate('/offer');
     };
-
     const wrapperRef = useRef(null);
     const [states, setStates] = useState([
         {
@@ -36,7 +34,6 @@ export default function ViewOfferPage() {
                     {STRING.OFFER_VIEW}
                 </Typography>
             </div>
-
             <form className='add_product'>
                 <Paper className='mt-[1.5rem] paperboxshadow p-[1rem]'>
                     <div className='flex !flex-col mt-[1rem] pl-[3rem] pr-[3rem] '>
@@ -54,7 +51,6 @@ export default function ViewOfferPage() {
                                 </Avatar>
                             </div>
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -64,7 +60,6 @@ export default function ViewOfferPage() {
                             <TextFields value={state?.offerName} placeholder={STRING.OFFER_NAME_PLACHOLDER}
                                 name={'offerName'} className={'productField'} />
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -77,12 +72,11 @@ export default function ViewOfferPage() {
                                     setState={setStates}
                                     wrapperRef={wrapperRef}
                                     showDateRangePicker={false}
-                                    setShowDateRangePicker={()=>{}}
+                                    setShowDateRangePicker={() => { }}
                                     fromDate={state?.dateFrom}
                                     toDate={state?.dateTo} />
                             </div>
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -95,8 +89,6 @@ export default function ViewOfferPage() {
                                     placeholder={STRING.OFFER_BRANDS_PLACHOLDER} width={'70rem'} height={'45px'} isMulti={true} />
                             </div>
                         </div>
-
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -109,7 +101,6 @@ export default function ViewOfferPage() {
                                     placeholder={STRING.OFFER_PRODUCTS_PLACHOLDER} width={'70rem'} height={'45px'} isMulti={true} />
                             </div>
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -121,7 +112,6 @@ export default function ViewOfferPage() {
                                 placeholder={STRING.OFFER_OFFERCODE_PLACHOLDER}
                                 name={'offerCode'} className={'productField'} />
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -134,7 +124,6 @@ export default function ViewOfferPage() {
                                 autoComplete={'off'} placeholder={STRING.OFFER_DISCOUNT_PLACHOLDER}
                                 name={'discount'} className={'productField'} />
                         </div>
-
                         <div className='!flex !item-center !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -149,7 +138,6 @@ export default function ViewOfferPage() {
                                     height={'45px'} />
                             </div>
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>

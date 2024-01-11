@@ -21,10 +21,8 @@
 //     }, [token, pathname])
 // };
 // export default AuthHandler;
-
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-
 const AuthHandler = () => {
     const navigate = useNavigate();
     const token = localStorage.getItem('lw-token');
@@ -33,7 +31,6 @@ const AuthHandler = () => {
     const { state } = location;
     const email = state?.email;
     const resetPasswordPath = /^\/resetpassword\/.+/;
-
     useEffect(() => {
         if (token) {
             (['/login', '/register', '/Otp', '/forgotpassword']?.includes(pathname) || resetPasswordPath.test(pathname)) && navigate('/dashboard');
@@ -45,8 +42,6 @@ const AuthHandler = () => {
             }
         }
     }, [token, pathname]);
-
     return null;
 };
-
 export default AuthHandler;

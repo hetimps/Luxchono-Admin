@@ -24,7 +24,6 @@ export default function BrandPage() {
     const { data: BrandData, isFetching: BrandFetching, refetch } = useGetAllBrandApiQuery({
         search: search,
     });
-
     const [rows, setRows] = useState<any[]>([]);
     const navigate = useNavigate();
     const [selectedDeleteRows, setSelectedDelteRows] = useState([]);
@@ -32,9 +31,7 @@ export default function BrandPage() {
     const getSelectedDeleteRows = (rows: any) => {
         setSelectedDelteRows(rows);
     };
-
     const [openDeleteConfirmation, setDeleteOpenConfirmation] = useState(false);
-
     const handleDeleteOpenConfirmation = () => {
         setDeleteOpenConfirmation(true);
     };
@@ -42,7 +39,6 @@ export default function BrandPage() {
         setDeleteOpenConfirmation(false);
         setSelected([]);
     };
-
     const headCells: any[] = [
         {
             id: 'brandName',
@@ -89,7 +85,6 @@ export default function BrandPage() {
         refetch();
     }, [search, refetch]);
 
-
     const handleDelete = async () => {
         const response: any = await DeleteBrand({ ids: selectedDeleteRows });
         const { message, statusCode } = response?.data;
@@ -110,7 +105,6 @@ export default function BrandPage() {
     //delete single category
 
     const [selectedIdSingle, setSelectedIdSingle] = useState<number[]>([]);
-
     const [openDeleteConfirmationSingle, setDeleteOpenConfirmationSingle] = useState(false);
 
     const handleDeleteSingleOpenConfirmation = (row: any) => {
@@ -162,7 +156,6 @@ export default function BrandPage() {
                     <Buttons onClick={AddCategory} startIcon={<ControlPointIcon />} variant={'contained'} text={STRING.BRANDADD} className="productheaderbtn2 addbtn" />
                 </div>
             </Paper>
-
             <Paper className='paperboxshadow h-[83px] mt-[0.8rem] flex  items-center p-[1rem] gap-[10px]'>
                 <Search setinput={setinput}
                     input={input}

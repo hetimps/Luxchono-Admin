@@ -11,11 +11,9 @@ import { REGEX } from '../../constants/Regex';
 import { toast } from 'react-toastify';
 import Loader from '../../components/common/Loader';
 import { useForgotPasswordMutation} from '../../api/Login';
-
 interface ForgotFormValues {
     email: string;
 }
-
 export default function ForgotPassword() {
     const [ForgotPassword, { isLoading }] = useForgotPasswordMutation();
     const ForgotPasswords = useFormik<ForgotFormValues>({

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { STRING } from '../../../constants/String';
 
 const OtpTimer = ({ expiryTimeInSeconds, onResend }: any) => {
     const [seconds, setSeconds] = useState(expiryTimeInSeconds);
-
     useEffect(() => {
         let interval: any;
-
         if (seconds > 0) {
             interval = setInterval(() => {
                 setSeconds((prevSeconds: any) => prevSeconds - 1);
@@ -18,9 +17,7 @@ const OtpTimer = ({ expiryTimeInSeconds, onResend }: any) => {
     }, [seconds]);
 
     const handleResend = async () => {
-
         await onResend();
-
         setSeconds(expiryTimeInSeconds);
     };
 
@@ -29,15 +26,14 @@ const OtpTimer = ({ expiryTimeInSeconds, onResend }: any) => {
         const remainingSeconds = time % 60;
         return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
     };
-
     return (
         <div>
 
             {seconds === 0 ? (
                 <span onClick={handleResend} className='text-main cursor-pointer underline' >
-                    Resend OTP
+                    {STRING.RESEND_OPT}
                 </span>
-            ) : <p>Time remaining: <span className="text-main">{formatTime(seconds)}</span></p>
+            ) : <p>{STRING.TIME_REMAINING}<span className="text-main">{formatTime(seconds)}</span></p>
             }
         </div>
     );

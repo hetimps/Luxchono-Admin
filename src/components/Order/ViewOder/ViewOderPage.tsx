@@ -36,19 +36,15 @@ export default function ViewOrderPage() {
                     {STRING.ORDER_VIEW}
                 </Typography>
             </div>
-
             <form className='add_product'>
                 <Paper className='mt-[1rem] p-[1rem]  paperboxshadow'>
-
                     <div className='flex !flex-col  pl-[3rem] pr-[3rem] '>
-
                         <div className='flex item-center !gap-[15px] mt-[0.5rem]'>
                             <div className='w-[12rem] !flex !justify-end mt-[0.5rem] '>
                                 <Typography component='span' className='!font-bold'>
                                     {STRING.ORDER_IMAGE}
                                 </Typography>
                             </div>
-
                             <div className='flex-col'>
                                 <Avatar
                                     src={`${BASE_URL}/${OrderData?.products?.productId?.thumbnail}`}
@@ -57,7 +53,6 @@ export default function ViewOrderPage() {
                                 </Avatar>
                             </div>
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -67,7 +62,6 @@ export default function ViewOrderPage() {
                             <TextFields value={OrderData?.id}
                                 className={'productField'} />
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -77,7 +71,6 @@ export default function ViewOrderPage() {
                             <TextFields value={OrderData?.shippingAddress?.fullName}
                                 className={'productField'} />
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -87,7 +80,6 @@ export default function ViewOrderPage() {
                             <TextFields value={CreateOnDate}
                                 className={'productField'} />
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -98,7 +90,6 @@ export default function ViewOrderPage() {
                                 value={OrderData?.method}
                                 className={'productField'} />
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -109,7 +100,6 @@ export default function ViewOrderPage() {
                                 value={ProductAmount}
                                 className={'productField'} />
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -142,7 +132,6 @@ export default function ViewOrderPage() {
                                 value={OrderData?.products?.quantity}
                                 className={'productField'} />
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
@@ -153,7 +142,6 @@ export default function ViewOrderPage() {
                                 value={FullAddress}
                                 className={'productField'} />
                         </div>
-
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
                             <div className='w-[12rem] flex justify-end  mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>

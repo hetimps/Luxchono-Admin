@@ -14,13 +14,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-
 interface RegisterFormValues {
     email: string;
     password: string;
     userName: string
 }
-
 export default function Register() {
     const [Register, { isLoading }] = useRegisterMutation();
     const navigate = useNavigate();

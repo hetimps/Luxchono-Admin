@@ -1,4 +1,4 @@
-import { Paper, Grid, Typography} from '@mui/material';
+import { Paper, Grid, Typography } from '@mui/material';
 import LoginImg from '../../assets/imag/LoginImg2.svg';
 import TextFields from '../../components/common/TextFields';
 import './style.scss';
@@ -13,12 +13,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-
 interface ResetFormValues {
     password: string;
     confirmPassword: string;
 }
-
 export default function ResetPassword() {
     const [ResetPassword, { isLoading }] = useResetPasswordMutation();
     const navigate = useNavigate();
@@ -46,7 +44,7 @@ export default function ResetPassword() {
                     id: id
                 };
                 const response: any = await ResetPassword(body);
-                const { statusCode, message} = response?.data;
+                const { statusCode, message } = response?.data;
                 if (statusCode === 200) {
                     toast.success(message);
                     navigate('/login');
