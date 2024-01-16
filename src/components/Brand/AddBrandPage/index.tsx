@@ -114,7 +114,7 @@ export default function AddBrandPage() {
                     </div>
                     <div className='flex !flex-col mt-[1rem] pl-[3rem] pr-[3rem] '>
                         <div className='flex item-center !gap-[15px]'  >
-                            <div className='w-[12rem] !flex !justify-end mt-[0.5rem] '>
+                            <div className='w-[11rem] !flex !justify-end mt-[0.5rem] '>
                                 <Typography component='span' className='!font-bold'>
                                     {STRING.BARND_IMAGE}
                                 </Typography>
@@ -145,7 +145,7 @@ export default function AddBrandPage() {
                             </div>
                         </div>
                         <div className='flex item-center !gap-[15px] mt-[1rem]'  >
-                            <div className='w-[12rem] !flex !justify-end mt-[0.5rem]'>
+                            <div className='w-[11rem] !flex !justify-end mt-[0.5rem]'>
                                 <Typography component='span' className='!font-bold'>
                                     {STRING.ICON}
                                 </Typography>

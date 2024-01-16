@@ -1,4 +1,4 @@
-export const BASE_URL = ' http://192.168.29.78:5757';
+export const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export const prepareHeaders = (headers: any) => {
     const token = localStorage.getItem('lw-token');
@@ -7,8 +7,4 @@ export const prepareHeaders = (headers: any) => {
     }
     return headers;
 };
-
-
-
-
 

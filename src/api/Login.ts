@@ -51,7 +51,7 @@ export const LoginApi = createApi({
     }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useVerifyOtpMutation, useResendOtpMutation, useForgotPasswordMutation,useResetPasswordMutation } = LoginApi;
+export const { useLoginMutation, useRegisterMutation, useVerifyOtpMutation, useResendOtpMutation, useForgotPasswordMutation, useResetPasswordMutation } = LoginApi;
 
 
 

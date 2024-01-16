@@ -23,8 +23,8 @@ import ProductDrawer from './ProductFilterDrawer';
 export default function ProductPage() {
     const [search, setsearch] = useState('');
     const [selected, setSelected] = React.useState<readonly number[]>([]);
-    const { data: CategoryData} = useGetAllCategoryQuery({});
-    const { data: BrandData} = useGetAllBrandApiQuery({});
+    const { data: CategoryData } = useGetAllCategoryQuery({});
+    const { data: BrandData } = useGetAllBrandApiQuery({});
     const [DeleteProduct, { isLoading: deleteProductLoading }] = useDeleteProductMutation();
     // const [categoryData, setCategoryData] = useState([]);
     const [filteredCategory, setFilteredCategory] = useState<any[]>([]);
@@ -279,23 +279,28 @@ export default function ProductPage() {
                 <div className='productbtns flex justify-between'>
                     <div className='flex gap-[10px]'>
                         <Buttons onClick={handleCvsExport} startIcon={<IosShareIcon />} text={'Export'} variant={'outlined'} className={'productheaderbtn1'} />
-                        {/* <Buttons startIcon={<SystemUpdateAltIcon />} variant={"outlined"} text={"Import"} className={"productheaderbtn1"} /> */}
                     </div>
                 </div>
 
                 <div className='flex gap-[10px]'>
                     {(selected.length > 0 && rows?.length > 0) && <Buttons onClick={handleDeleteOpenConfirmation} startIcon={<DeleteOutlineIcon />} variant={'contained'} text={
-                        selectedDeleteRows?.length === 0
-                            ? `${STRING.DELETE_BUTTON}`
-                            : `${STRING.DELETE_BUTTON} ( ${selectedDeleteRows.length} )`
-                    } className={`productheaderbtn2 ${selectedDeleteRows?.length > 0 ? '!w-[144px]' : ''
-                    }`} />}
+                        `${STRING.DELETE_BUTTON} ( ${selectedDeleteRows.length.toString().padStart(2, '0')} )`
+                    } className={`productheaderbtn2`} />}
+                    <Search
+                        placeholder={STRING.PRODUCT_SEARCH_PLACHOLDER}
+                        setinput={setinput}
+                        input={input}
+                        setsearch={setsearch} />
+                    <Selects width={'240px'} height={'45px'} placeholder={'Category'} options={filteredCategory} selectedValues={selectedCategoryValues} setSelectedValues={setSelectedCategoryValues} isMulti={true} />
+                    <Selects width={'240px'} height={'45px'} placeholder={'Brand'} options={filteredBrand} selectedValues={selectedBrandValues} setSelectedValues={setSelectedBrandValues} isMulti={true} />
+                    <button className='filter_button' onClick={() => toggleProductDrawer()} >
+                        <TuneIcon />
+                    </button>
                     <Buttons onClick={AddProduct} startIcon={<ControlPointIcon />} variant={'contained'} text={'Add Product'} className="productheaderbtn2 addbtn" />
                 </div>
-
             </Paper>
 
-            <Paper className='paperboxshadow h-[83px] mt-[0.8rem] flex  items-center p-[1rem] gap-[10px]'>
+            {/* <Paper className='paperboxshadow h-[83px] mt-[0.8rem] flex  items-center p-[1rem] gap-[10px]'>
                 <Search
                     placeholder={STRING.PRODUCT_SEARCH_PLACHOLDER}
                     setinput={setinput}
@@ -304,22 +309,11 @@ export default function ProductPage() {
                 <Selects width={'250px'} height={'45px'} placeholder={'Category'} options={filteredCategory} selectedValues={selectedCategoryValues} setSelectedValues={setSelectedCategoryValues} isMulti={true} />
                 <Selects width={'250px'} height={'45px'} placeholder={'Brand'} options={filteredBrand} selectedValues={selectedBrandValues} setSelectedValues={setSelectedBrandValues} isMulti={true} />
 
-                {/* <Box className="prices">
-                    <TextFields action={() => setStartPrice('')} icons={startPrice ? <ClearIcon className='!text-[1.2rem]' /> : null} endAdornment={true} type={"number"} onChange={(e: any) => setStartPrice(e.target.value)} value={startPrice} className="price" placeholder={"Start Price"} autoComplete={'off'} />
-                    <SyncAltIcon className='text-black' />
-                    <TextFields action={() => setEndPrice('')} icons={endPrice ? <ClearIcon className='!text-[1.2rem]' /> : null} endAdornment={true} type={"number"} onChange={(e: any) => setEndPrice(e.target.value)} value={endPrice} className="price" placeholder={"End Price"} autoComplete={'off'} />
-                </Box>
-
-                <Box className="prices" >
-                    <TextFields action={() => setStartStock('')} icons={startStock ? <ClearIcon className='!text-[1.2rem]' /> : null} endAdornment={true} type={"number"} onChange={(e: any) => setStartStock(e.target.value)} value={startStock} className="price" placeholder={"Start Stock"} autoComplete={'off'} />
-                    <SyncAltIcon className='text-black' />
-                    <TextFields action={() => setEndStock('')} icons={endStock ? <ClearIcon className='!text-[1.2rem]' /> : null} endAdornment={true} type={"number"} onChange={(e: any) => setEndStock(e.target.value)} value={endStock} className="price" placeholder={"End Stock"} autoComplete={'off'} />
-                </Box> */}
-
+            
                 <button className='filter_button' onClick={() => toggleProductDrawer()} >
                     <TuneIcon />
                 </button>
-            </Paper>
+            </Paper> */}
 
             <div className='mt-[1rem]'>
                 <Tables handleDeleteOpen={handleDeleteSingleOpenConfirmation} selected={selected} setSelected={setSelected} Product={'Product'} getSelectedDeleteRows={getSelectedDeleteRows} search={search} headCells={headCells} rows={rows} isFetching={isFetching} />

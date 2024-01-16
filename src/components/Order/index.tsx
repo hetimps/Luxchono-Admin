@@ -249,21 +249,23 @@ export default function OrderPage() {
                 </div>
                 <div className='flex gap-[10px]'>
                     {(selected.length > 0 && rows?.length > 0) && <Buttons onClick={handleDeleteOpenConfirmation} startIcon={<DeleteOutlineIcon />} variant={'contained'} text={
-                        selectedDeleteRows.length === 0
-                            ? `${STRING.DELETE_BUTTON}`
-                            : `${STRING.DELETE_BUTTON} ( ${selectedDeleteRows.length} )`
-                    } className={`productheaderbtn2 ${selectedDeleteRows.length > 0 ? '!w-[135px]' : ''
-                    }`} />}
+                        `${STRING.DELETE_BUTTON} ( ${selectedDeleteRows.length.toString().padStart(2, '0')} )`
+                    } className={`productheaderbtn2`} />}
+                    <Search setinput={setinput}
+                        input={input}
+                        setsearch={setsearch} placeholder={STRING.ORDER__SEARCH_PLACHOLDER} />
+                    <Selects selectedValues={method} setSelectedValues={setMethod} width={'250px'} height={'45px'} options={MethodOption} placeholder={'Method'} />
+                    <Selects selectedValues={status} setSelectedValues={setStatus} width={'250px'} height={'45px'} options={statusOption} placeholder={'Status'} />
                 </div>
             </Paper>
 
-            <Paper className='paperboxshadow h-[83px] mt-[0.8rem] flex  items-center p-[1rem] gap-[10px]'>
+            {/* <Paper className='paperboxshadow h-[83px] mt-[0.8rem] flex  items-center p-[1rem] gap-[10px]'>
                 <Search setinput={setinput}
                     input={input}
                     setsearch={setsearch} placeholder={STRING.ORDER__SEARCH_PLACHOLDER} />
                 <Selects selectedValues={method} setSelectedValues={setMethod} width={'250px'} height={'45px'} options={MethodOption} placeholder={'Method'} />
                 <Selects selectedValues={status} setSelectedValues={setStatus} width={'250px'} height={'45px'} options={statusOption} placeholder={'Status'} />
-            </Paper>
+            </Paper> */}
 
             <div className='mt-[1rem]'>
                 <Tables handleUpdateOpenConfirmation={handleUpdateOpenConfirmation} handleDeleteOpen={handleDeleteSingleOpenConfirmation} selected={selected} setSelected={setSelected} Orders={'Orders'} getSelectedDeleteRows={getSelectedDeleteRows} headCells={headCells} rows={rows} isFetching={isFetching} />

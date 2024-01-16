@@ -38,7 +38,7 @@ export default function ViewOfferPage() {
                 <Paper className='mt-[1.5rem] paperboxshadow p-[1rem]'>
                     <div className='flex !flex-col mt-[1rem] pl-[3rem] pr-[3rem] '>
                         <div className='flex item-center !gap-[15px] mt-[1rem]'>
-                            <div className='w-[12rem] !flex !justify-end mt-[0.5rem] '>
+                            <div className='w-[11rem] !flex !justify-end mt-[0.5rem] '>
                                 <Typography component='span' className='!font-bold'>
                                     {STRING.OFFER_IMAGE}
                                 </Typography>
@@ -66,7 +66,7 @@ export default function ViewOfferPage() {
                                     {STRING.OFFER_DATE}
                                 </Typography>
                             </div>
-                            <div className='flex-col' style={{ width: '70rem' }}>
+                            <div className='flex-col' style={{ width: '100%' }}>
                                 <ReactDateRangePicker
                                     state={states}
                                     setState={setStates}
@@ -83,10 +83,10 @@ export default function ViewOfferPage() {
                                     {STRING.OFFER_BRANDS}
                                 </Typography>
                             </div>
-                            <div className='flex-col'>
+                            <div className='flex-col w-[100%]'>
                                 <Selects isDisabled={true}
                                     selectedValues={state?.defaultBrands}
-                                    placeholder={STRING.OFFER_BRANDS_PLACHOLDER} width={'70rem'} height={'45px'} isMulti={true} />
+                                    placeholder={STRING.OFFER_BRANDS_PLACHOLDER} height={'45px'} isMulti={true} />
                             </div>
                         </div>
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
@@ -95,10 +95,10 @@ export default function ViewOfferPage() {
                                     {STRING.OFFER_PRODUCT}
                                 </Typography>
                             </div>
-                            <div className='flex-col'>
+                            <div className='flex-col w-[100%]'>
                                 <Selects isDisabled={true}
                                     selectedValues={state?.defaultProducts}
-                                    placeholder={STRING.OFFER_PRODUCTS_PLACHOLDER} width={'70rem'} height={'45px'} isMulti={true} />
+                                    placeholder={STRING.OFFER_PRODUCTS_PLACHOLDER} height={'45px'} isMulti={true} />
                             </div>
                         </div>
                         <div className='!flex !item-center  !gap-[15px] mt-[1rem]'>
@@ -130,11 +130,10 @@ export default function ViewOfferPage() {
                                     {STRING.OFFER_DISCOUNT_TYPE}
                                 </Typography>
                             </div>
-                            <div className='flex-col'>
+                            <div className='flex-col w-[100%]'>
                                 <Selects isDisabled={true}
                                     selectedValues={{ label: state?.discountType, value: state?.discountType }}
                                     placeholder={STRING.OFFER_DISCOUNTTYPE_PLACHOLDER}
-                                    width={'70rem'}
                                     height={'45px'} />
                             </div>
                         </div>
@@ -146,7 +145,7 @@ export default function ViewOfferPage() {
                             </div>
                             <Textareas
                                 value={state?.description}
-                                name={'description'} width={'70rem'} rows={3} placeholder={STRING.OFFER_DESCRIPTION_PLACHOLDER} />
+                                name={'description'}  rows={3} placeholder={STRING.OFFER_DESCRIPTION_PLACHOLDER} />
                         </div>
                         <div>
                         </div>

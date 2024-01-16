@@ -1,4 +1,4 @@
-import { Paper, Grid, Typography} from '@mui/material';
+import { Paper, Grid, Typography } from '@mui/material';
 import LoginImg from '../../assets/imag/LoginImg2.svg';
 import TextFields from '../../components/common/TextFields';
 import './style.scss';
@@ -15,8 +15,8 @@ import { useState } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 interface LoginFormValues {
-  email: string;
-  password: string;
+    email: string;
+    password: string;
 }
 export default function Login() {
     const [Login, { isLoading }] = useLoginMutation();

@@ -40,7 +40,7 @@ export default function ViewOrderPage() {
                 <Paper className='mt-[1rem] p-[1rem]  paperboxshadow'>
                     <div className='flex !flex-col  pl-[3rem] pr-[3rem] '>
                         <div className='flex item-center !gap-[15px] mt-[0.5rem]'>
-                            <div className='w-[12rem] !flex !justify-end mt-[0.5rem] '>
+                            <div className='w-[11rem] !flex !justify-end mt-[0.5rem] '>
                                 <Typography component='span' className='!font-bold'>
                                     {STRING.ORDER_IMAGE}
                                 </Typography>

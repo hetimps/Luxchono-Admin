@@ -27,7 +27,7 @@ export const ProductRow = ({ row, index, handleDeleteOpen }: any) => {
             </TableCell>
             <TableCell width={'11%'} align="left" padding="none">{`${row.category}`}</TableCell>
             <TableCell width={'11%'} align="left" padding="none">{row?.brand}</TableCell>
-            <TableCell width={'10%'} align="left" padding="none">{`${row?.price?.toLocaleString('en-IN')} ₹` || '-'}</TableCell>
+            <TableCell width={'10%'} align="left" padding="none">{`₹ ${row?.price?.toLocaleString('en-IN')}` || '-'}</TableCell>
             <TableCell width={'10%'} align="left" padding="none">{row?.stock}</TableCell>
             {/* <TableCell align="left" padding="none">
                 <Rating className='!text-main' name="read-only" precision={0.5} value={Number(row?.review) || 0} readOnly />
@@ -35,7 +35,7 @@ export const ProductRow = ({ row, index, handleDeleteOpen }: any) => {
             <TableCell width={'10%'} align="left" padding="none">{row?.productModel}</TableCell>
             <TableCell width={'10%'} align="left" padding="none">{row?.warranty}</TableCell>
             <TableCell width={'10%'} align="left" padding="none">
-                {row?.dummyPrice ? `${row.dummyPrice.toLocaleString('en-IN')} ₹` : '-'}
+                {row?.dummyPrice ? `₹ ${row.dummyPrice.toLocaleString('en-IN')}` : '-'}
             </TableCell>
             <TableCell align="left" padding="none">
                 <div className='flex gap-[5px]'>
@@ -140,7 +140,7 @@ export const OrdersRow = ({ row, index, handleUpdateOpenConfirmation }: any) => 
             <TableCell width={'20%'} align="left" padding="none">{row.userName}</TableCell>
             <TableCell width={'20%'} align="left" padding="none">{formattedDate}</TableCell>
             <TableCell width={'10%'} align="left" padding="none">{row?.method}</TableCell>
-            <TableCell width={'12%'} align="left" padding="none">{`${row?.totalAmt?.toLocaleString('en-IN')} ₹`}</TableCell>
+            <TableCell width={'12%'} align="left" padding="none">{`₹ ${row?.totalAmt?.toLocaleString('en-IN')}`}</TableCell>
             <TableCell width={'13%'} align="left" padding="none">
                 {/* <span style={handleStatusesBadge(row?.status)} onClick={() => handleUpdateOpenConfirmation(row)}>
                     {handleStatusesText(row?.status)}
@@ -179,7 +179,7 @@ export const CustomerRow = ({ row, index }: any) => {
     return (
         <>
             <TableCell
-                width={'33%'}
+                width={'44%'}
                 align="left"
                 component="th"
                 id={labelId}
@@ -190,8 +190,8 @@ export const CustomerRow = ({ row, index }: any) => {
                     {row?.userName || '-'}
                 </div>
             </TableCell>
-            <TableCell width={'33%'} align="left" padding="none">{row.email || '-'}</TableCell>
-            <TableCell width={'33%'} align="left" padding="none">{row.phone || '-'}</TableCell>
+            <TableCell width={'44%'} align="left" padding="none">{row.email || '-'}</TableCell>
+            <TableCell width={'30%'} align="left" padding="none">{row.phone || '-'}</TableCell>
 
             {/* <TableCell className='w-[5rem]' align="left" padding="none">
                 <div className='flex gap-[5px]'>
@@ -220,7 +220,7 @@ export const OfferRow = ({ row, index, handleDeleteOpen }: any) => {
                 </div>
             </TableCell>
             <TableCell width={'40%'} align="left" padding="none">
-                {row.discountType === 'percentage' ? `${row.discount} %` : row.discountType === 'cash' ? `${row.discount} ₹` : '-'}
+                {row.discountType === 'percentage' ? `${row.discount} %` : row.discountType === 'cash' ? `₹ ${row.discount}` : '-'}
             </TableCell>
             <TableCell width={'6%'} align="left" padding="none">
                 <div className='flex gap-[5px]'>

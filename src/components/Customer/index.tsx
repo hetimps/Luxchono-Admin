@@ -104,20 +104,20 @@ export default function CustomerPage() {
                 </div>
                 <div className='flex gap-[10px]'>
                     {(selected.length > 0 && rows?.length > 0) && <Buttons startIcon={<DeleteOutlineIcon />} variant={'contained'} text={
-                        selectedDeleteRows.length === 0
-                            ? `${STRING.DELETE_BUTTON}`
-                            : `${STRING.DELETE_BUTTON} ( ${selectedDeleteRows.length} )`
-                    } className={`productheaderbtn2 ${selectedDeleteRows.length > 0 ? '!w-[135px]' : ''
-                    }`} />}
+                        `${STRING.DELETE_BUTTON} ( ${selectedDeleteRows.length} )`
+                    } className={`productheaderbtn2`} />}
+                    <Search setinput={setinput}
+                    input={input}
+                    setsearch={setsearch} placeholder={'Search Customer'} />
                     {/* <Buttons onClick={AddCategory} startIcon={<ControlPointIcon />} variant={"contained"} text={"Add Customer"} className="productheaderbtn2 addcustomerbtn" /> */}
                 </div>
             </Paper>
 
-            <Paper className='paperboxshadow h-[83px] mt-[0.8rem] flex  items-center p-[1rem] gap-[10px]'>
+            {/* <Paper className='paperboxshadow h-[83px] mt-[0.8rem] flex  items-center p-[1rem] gap-[10px]'>
                 <Search setinput={setinput}
                     input={input}
                     setsearch={setsearch} placeholder={'Search Customer'} />
-            </Paper>
+            </Paper> */}
             
 
             <div className='mt-[1rem]'>

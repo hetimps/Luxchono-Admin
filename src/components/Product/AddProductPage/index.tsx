@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IconButton, Typography, Paper, Avatar} from '@mui/material';
+import { IconButton, Typography, Paper, Avatar } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Buttons from '../../common/Buttons';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
@@ -24,13 +24,13 @@ export default function AddProductPage() {
     const [ProductImages, setProductImages] = useState<any[]>([]);
     const [filteredCategory, setFilteredCategory] = useState<any[]>([]);
     const [filteredBrand, setFilteredBrand] = useState<any[]>([]);
-    const { data: CategoryData} = useGetAllCategoryQuery({});
+    const { data: CategoryData } = useGetAllCategoryQuery({});
     const navigate = useNavigate();
     const [selectedCategoryValues, setSelectedCategoryValues] = useState<any[]>([]);
     const [selectedBrandValues, setSelectedBrandValues] = useState<any>();
     const [thumbnailimagePreview, setThumbnailImagePreview] = useState<any>(null);
     const [AddProducts, { isLoading }] = useAddProductMutation();
-    const { data: BrandData} = useGetAllBrandApiQuery({});
+    const { data: BrandData } = useGetAllBrandApiQuery({});
     const removeImage = (indexToRemove: number) => {
         setImagePreviews((prevPreviews) => prevPreviews.filter((_, index) => index !== indexToRemove));
         setProductImages((prevImages) => prevImages.filter((_, index) => index !== indexToRemove));
@@ -130,7 +130,8 @@ export default function AddProductPage() {
             productModel: Yup.string().trim().required(STRING.PRODUCT_MODEL_REQUIRED),
             warranty: Yup.string().trim().required(STRING.PRODUCT_WARRANTY__REQUIRED),
             // dummyPrice: Yup.string().required(STRING.PRODUCT_DUMMYPRICE__REQUIRED),
-            thumbnail: Yup.mixed().required(STRING.PRODUCT_THUMNAIL_REQUIRED).test('fileFormat', STRING.PRODUCT_THUMNAIL_FORMAT, (value: any) => {
+            thumbnail: Yup.mixed().required(STRING.PRODUCT_THUMNAIL_REQUIRED)
+            .test('fileFormat', STRING.PRODUCT_THUMNAIL_FORMAT, (value: any) => {
                 if (value) {
                     const acceptedFormats = ['image/png'];
                     return acceptedFormats.includes(value.type);
@@ -182,11 +183,13 @@ export default function AddProductPage() {
                     </div>
                     <div className='flex !flex-col mt-[1rem] pl-[3rem] pr-[3rem] '>
                         <div className='flex item-center !gap-[15px]'>
-                            <div className='w-[12rem] !flex !justify-end mt-[0.5rem] '>
+                            <div className='w-[11rem] !flex !justify-end mt-[0.5rem] '>
                                 <Typography component='span' className='!font-bold'>
                                     {STRING.PRODUCT_IMAGE}
                                 </Typography>
                             </div>
+
+                           
                             {imagePreviews.map((preview, index) => (
                                 <div key={index} className="image-preview-container">
                                     <div className='flex'>
@@ -228,7 +231,7 @@ export default function AddProductPage() {
                             </div>
                         </div>
                         <div className='flex item-center !gap-[15px] mt-[1rem]'>
-                            <div className='w-[12rem] !flex !justify-end mt-[0.5rem] '>
+                            <div className='w-[11rem] !flex !justify-end mt-[0.5rem] '>
                                 <Typography component='span' className='!font-bold'>
                                     {STRING.PRODUCT_THUMBNAIL}
                                 </Typography>

@@ -20,9 +20,7 @@ export const brandFromDataApi = {
 
 export const productFromDatApi = {
     createProduct: (body: any) => {
-
         const formData = new FormData();
-
         if (Array.isArray(body.category)) {
             body.category.forEach((categoryItem: any, index: any) => {
                 formData.append(`category[${index}]`, categoryItem);
@@ -30,7 +28,6 @@ export const productFromDatApi = {
         } else {
             formData.append('category', body.category);
         }
-
         if (Array.isArray(body.image)) {
             body.image.forEach((image: any) => {
                 formData.append('images', image);
@@ -38,7 +35,6 @@ export const productFromDatApi = {
         } else {
             formData.append('images', body.image);
         }
-
         body.dummyPrice && formData.append('dummyPrice', body.dummyPrice);
         formData.append('productName', body.productName);
         formData.append('description', body.description);
@@ -51,11 +47,9 @@ export const productFromDatApi = {
         return formData;
     }
 };
-
 export const OfferFromDataApi = {
     createOffer: (body: any) => {
         const formData = new FormData();
-
         if (Array.isArray(body.brands)) {
             body.brands.forEach((BrandItem: any, index: any) => {
                 formData.append(`brands[${index}]`, BrandItem);
@@ -63,7 +57,6 @@ export const OfferFromDataApi = {
         } else {
             formData.append('brands', body.brands);
         }
-
         if (Array.isArray(body.products)) {
             body.products.forEach((ProductItem: any, index: any) => {
                 formData.append(`products[${index}]`, ProductItem);
@@ -71,7 +64,6 @@ export const OfferFromDataApi = {
         } else {
             formData.append('products', body.products);
         }
-
         formData.append('image', body.image);
         formData.append('offerName', body.offerName);
         formData.append('offerCode', body.offerCode);
@@ -80,7 +72,6 @@ export const OfferFromDataApi = {
         formData.append('dateFrom', body.dateFrom);
         formData.append('dateTo', body.dateTo);
         formData.append('discountType', body.discountType);
-
         return formData;
     },
 };

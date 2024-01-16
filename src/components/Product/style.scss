@@ -28,7 +28,6 @@
         text-transform: capitalize;
         font-weight: 600;
         font-size: 14px;
-        width: 105px;
         height: 43px;
     }
 
@@ -94,7 +93,11 @@
         margin: 0;
     }
 
-    .css-zgmdl2-MuiFormControl-root-MuiTextField-root {
+    // .css-zgmdl2-MuiFormControl-root-MuiTextField-root {
+    //     width: 100% !important;
+    // }
+
+    .MuiFormControl-root{
         width: 100% !important;
     }
 }

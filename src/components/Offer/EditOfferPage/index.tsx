@@ -23,8 +23,8 @@ import { Discount } from '../../../constants/Array';
 export default function EditOfferPage() {
     const location = useLocation();
     const { state } = location;
-    const { data: BrandData} = useGetAllBrandApiQuery({});
-    const { data: ProductData} = useGetAllProductQuery({});
+    const { data: BrandData } = useGetAllBrandApiQuery({});
+    const { data: ProductData } = useGetAllProductQuery({});
     const [EditProduct, { isLoading }] = useEditOfferMutation();
     const navigate = useNavigate();
     const [filteredBrand, setFilteredBrand] = useState<any[]>([]);
@@ -186,7 +186,7 @@ export default function EditOfferPage() {
                     </div>
                     <div className='flex !flex-col mt-[1rem] pl-[3rem] pr-[3rem] '>
                         <div className='flex item-center !gap-[15px] mt-[1rem]'>
-                            <div className='w-[12rem] !flex !justify-end mt-[0.5rem] '>
+                            <div className='w-[11rem] !flex !justify-end mt-[0.5rem] '>
                                 <Typography component='span' className='!font-bold'>
                                     {STRING.OFFER_IMAGE}
                                 </Typography>
@@ -232,7 +232,7 @@ export default function EditOfferPage() {
                                     {STRING.OFFER_DATE}
                                 </Typography>
                             </div>
-                            <div className='flex-col' style={{ width: '70rem' }}>
+                            <div className='flex-col' style={{ width: '100%' }}>
                                 <ReactDateRangePicker
                                     wrapperRef={wrapperRef}
                                     state={states}
@@ -259,8 +259,8 @@ export default function EditOfferPage() {
                                     {STRING.OFFER_BRANDS}
                                 </Typography>
                             </div>
-                            <div className='flex-col'>
-                                <Selects options={filteredBrand} selectedValues={selectedBrandValues} setSelectedValues={setSelectedBrandValues} placeholder={STRING.OFFER_BRANDS_PLACHOLDER} width={'70rem'} height={'45px'} isMulti={true} />
+                            <div className='flex-col w-[100%]'>
+                                <Selects options={filteredBrand} selectedValues={selectedBrandValues} setSelectedValues={setSelectedBrandValues} placeholder={STRING.OFFER_BRANDS_PLACHOLDER} height={'45px'} isMulti={true} />
                                 {AddOffer.touched.brands && AddOffer.errors.brands && (
                                     <Typography variant='caption' className='!font-bold !ml-[1rem]' color='error'>
                                         {AddOffer.errors.brands.toString()}
@@ -274,8 +274,8 @@ export default function EditOfferPage() {
                                     {STRING.OFFER_PRODUCT}
                                 </Typography>
                             </div>
-                            <div className='flex-col'>
-                                <Selects options={filteredProduct} selectedValues={selectedProductValues} setSelectedValues={setSelectedProductValues} placeholder={STRING.OFFER_PRODUCTS_PLACHOLDER} width={'70rem'} height={'45px'} isMulti={true} />
+                            <div className='flex-col w-[100%]'>
+                                <Selects options={filteredProduct} selectedValues={selectedProductValues} setSelectedValues={setSelectedProductValues} placeholder={STRING.OFFER_PRODUCTS_PLACHOLDER} height={'45px'} isMulti={true} />
                                 {AddOffer.touched.products && AddOffer.errors.products && (
                                     <Typography variant='caption' className='!font-bold !ml-[1rem]' color='error'>
                                         {AddOffer.errors.products.toString()}
@@ -309,13 +309,12 @@ export default function EditOfferPage() {
                                     {STRING.OFFER_DISCOUNT_TYPE}
                                 </Typography>
                             </div>
-                            <div className='flex-col'>
+                            <div className='flex-col w-[100%]'>
                                 <Selects
                                     options={Discount}
                                     selectedValues={selectedDiscountTypeValues}
                                     setSelectedValues={setSelectedDiscountTypeValues}
                                     placeholder={STRING.OFFER_DISCOUNTTYPE_PLACHOLDER}
-                                    width={'70rem'}
                                     height={'45px'} />
 
                                 {(AddOffer.submitCount > 0 && AddOffer.errors.discountType) && (
@@ -332,7 +331,7 @@ export default function EditOfferPage() {
                                 </Typography>
                             </div>
                             <Textareas
-                                helperText={AddOffer.touched.description && AddOffer.errors.description} onChange={AddOffer.handleChange} value={AddOffer.values.description} name={'description'} width={'70rem'} rows={3} placeholder={STRING.OFFER_DESCRIPTION_PLACHOLDER} />
+                                helperText={AddOffer.touched.description && AddOffer.errors.description} onChange={AddOffer.handleChange} value={AddOffer.values.description} name={'description'} rows={3} placeholder={STRING.OFFER_DESCRIPTION_PLACHOLDER} />
                         </div>
                         <div>
                         </div>
